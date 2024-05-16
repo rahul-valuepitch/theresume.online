@@ -1,4 +1,53 @@
-/* Tailwind Config */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Imports */
+@import url("./variables.css");
+
+/* Authentication Section */
+.authentication {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+}
+.authentication .image {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.authentication .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.authentication .form {
+  width: 50%;
+}
+.authentication .form h6 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 140%;
+  color: var(--dark-alt);
+}
+.authentication .form p {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--dark-alt);
+}
+.authentication .form p a {
+  color: var(--primary);
+}
+.authentication .form .content {
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
+  padding: 30px;
+  height: 100vh;
+  overflow-y: auto;
+}
+.authentication .form .logo {
+  display: inline-block;
+  width: 200px;
+  margin-bottom: 50px;
+}

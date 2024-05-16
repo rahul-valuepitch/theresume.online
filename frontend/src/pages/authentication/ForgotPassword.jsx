@@ -2,7 +2,7 @@ import { Logo } from "../../static/images/logos";
 import AbstractImages from "../../static/images/abstract";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const ForgotPassword = () => {
   // Random Number generator
   const randomIndex = Math.floor(Math.random() * AbstractImages.length);
   const randomImage = AbstractImages[randomIndex];
@@ -15,10 +15,10 @@ const Login = () => {
             <img src={Logo} alt="The Resumes Online" />
           </Link>
           <form>
-            <h1 className="heading text-dark mt-5 mb-3">Welcome Back</h1>
+            <h1 className="heading text-dark mt-5 mb-3">Trouble Logging In?</h1>
             <h6 className="mb-10">
-              Carefully read and fill all the inputs with your original
-              information
+              Enter your email and we'll send you a link to get back to your
+              account.
             </h6>
             <div className="form-group">
               <label className="form-label" htmlFor="email">
@@ -32,30 +32,10 @@ const Login = () => {
                 required
               />
             </div>
-            <div className="form-group">
-              <label className="form-label" htmlFor="password">
-                Password <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                name="password"
-                required
-              />
-              <p className="text-end mt-2">
-                <Link className="text-sm" to="/forgot-password">
-                  Forgot Password?
-                </Link>
-              </p>
-            </div>
             <button type="button" className="button">
-              Login
+              Send Passsword Reset Link
             </button>
           </form>
-          <p className="mt-5">
-            Not a member? <Link to="/register">Register</Link>
-          </p>
         </div>
       </div>
       <div className="image">
@@ -65,4 +45,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
