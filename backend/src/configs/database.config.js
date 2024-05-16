@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const connectDB = async () => {
   try {
     const mongoUrl = process.env.MONGO_URL;
-    const databaseName = "backend-pms";
+    const databaseName = "theresumes";
     const connectionUrl = `${mongoUrl}/${databaseName}`;
 
     const instance = await mongoose.connect(connectionUrl);
