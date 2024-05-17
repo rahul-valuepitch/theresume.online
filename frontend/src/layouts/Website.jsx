@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
+import { Footer, Header } from "../components";
 
 const Website = () => {
   return (
     <>
-      <h1>Website</h1>
+      <Header />
       <Outlet />
+      <Footer />
     </>
   );
 };

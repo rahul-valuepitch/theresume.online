@@ -4,11 +4,11 @@
 /* Variables */
 :root {
   /* Colors */
-  --primary: #2f3e99;
-  --secondary: #00aeb2;
+  --primary: #78ba97;
+  --secondary: #cef2c6;
   --light: #fffef9;
   --light-alt: #f3f3f3;
-  --dark: #133141;
+  --dark: #191919;
   --dark-alt: #727d83;
   --white: #ffffff;
   --black: #000000;
@@ -119,12 +119,34 @@
 .form-group .form-control:active {
   border: 1px solid var(--primary);
 }
+
+/* Button */
 .button {
+  display: inline-block;
   padding: 10px 20px;
   background: var(--primary);
   color: var(--light);
+  border: 1px solid var(--primary);
   border-radius: 5px;
   font-size: 16px;
   font-weight: 600;
   transition: 0.5s ease all;
+}
+.button:hover {
+  background: var(--dark);
+  border-color: var(--dark);
+}
+.button-alt {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--light-alt);
+  color: var(--dark);
+  border: 1px solid var(--light-alt);
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.5s ease all;
+}
+.button-alt:hover {
+  border-color: var(--primary);
 }
