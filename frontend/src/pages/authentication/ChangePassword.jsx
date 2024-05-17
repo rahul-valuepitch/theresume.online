@@ -8,14 +8,16 @@ import { FormInput } from "../../components/index";
 const randomIndex = Math.floor(Math.random() * AbstractImages.length);
 const randomImage = AbstractImages[randomIndex];
 
-const ForgotPassword = () => {
+const ChangePassword = () => {
   // State
   const [formData, setFormData] = useState({
-    email: "",
+    password: "",
+    password2: "",
   });
 
   const [errors, setErrors] = useState({
-    email: "",
+    password: "",
+    password2: "",
   });
 
   const handleChange = (e) => {
@@ -25,12 +27,19 @@ const ForgotPassword = () => {
     });
 
     // Validate individual fields
-    if (e.target.name === "email") {
+    if (e.target.name === "password") {
       setErrors({
         ...errors,
-        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value)
-          ? ""
-          : "Invalid email address",
+        password:
+          e.target.value.length >= 6
+            ? ""
+            : "Password must be at least 6 characters",
+      });
+    } else if (e.target.name === "password2") {
+      setErrors({
+        ...errors,
+        password2:
+          e.target.value === formData.password ? "" : "Passwords do not match",
       });
     }
   };
@@ -54,29 +63,36 @@ const ForgotPassword = () => {
             <img src={Logo} alt="The Resumes Online" />
           </Link>
           <form onSubmit={handleSubmit}>
-            <h1 className="heading text-dark mt-5 mb-3">Trouble Logging In?</h1>
+            <h1 className="heading text-dark mt-5 mb-3">
+              Change Your Password
+            </h1>
             <h6 className="mb-10">
-              Enter your email and we'll send you a link to get back to your
-              account.
+              Enter your new password to regain access to your account.
             </h6>
 
             <FormInput
-              label="Email"
-              type="email"
-              name="email"
-              value={formData.email}
+              label="Password"
+              type="password"
+              name="password"
+              value={formData.password}
               onChange={handleChange}
               required
-              error={errors.email}
+              error={errors.password}
+            />
+            <FormInput
+              label="Confirm Password"
+              type="password"
+              name="password2"
+              value={formData.password2}
+              onChange={handleChange}
+              required
+              error={errors.password2}
             />
 
             <button type="button" className="button">
-              Send Passsword Reset Link
+              Change Passsword
             </button>
           </form>
-          <p className="mt-5">
-            Already a member? <Link to="/login">Login</Link>
-          </p>
         </div>
       </div>
       <div className="image">
@@ -86,4 +102,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ChangePassword;
