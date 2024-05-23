@@ -22,6 +22,7 @@ const Register = () => {
     email: "",
     password: "",
     password2: "",
+    apiError: "",
   });
 
   const handleChange = (e) => {
@@ -29,45 +30,88 @@ const Register = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-
-    // Validate individual fields
-    if (e.target.name === "fullName") {
-      setErrors({
-        ...errors,
-        fullName: e.target.value ? "" : "Full name is required",
-      });
-    } else if (e.target.name === "email") {
-      setErrors({
-        ...errors,
-        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value)
-          ? ""
-          : "Invalid email address",
-      });
-    } else if (e.target.name === "password") {
-      setErrors({
-        ...errors,
-        password:
-          e.target.value.length >= 6
-            ? ""
-            : "Password must be at least 6 characters",
-      });
-    } else if (e.target.name === "password2") {
-      setErrors({
-        ...errors,
-        password2:
-          e.target.value === formData.password ? "" : "Passwords do not match",
-      });
-    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Valid Form
+    let isValid = true;
+
+    // Validate individual fields
+    if (!formData.fullName || formData.fullName.trim() === "") {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        fullName: "Please enter your full name",
+      }));
+      isValid = false;
+    }
+    if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Invalid email address",
+      }));
+      isValid = false;
+    }
+    if (!formData.password || formData.password.length < 6) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password must be at least 6 characters",
+      }));
+      isValid = false;
+    }
+    if (!formData.password !== formData.password2) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password2: "Password does not match",
+      }));
+      isValid = false;
+    }
+
     // Validate the entire form
-    const formValid = Object.values(errors).every((error) => error === "");
-    if (formValid) {
-      console.log("Form submitted successfully:", formData);
+    if (isValid) {
+      setErrors({
+        fullName: "",
+        email: "",
+        password: "",
+        password2: "",
+        apiError: "",
+      });
+
+      // Registering User
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/user/register`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+        const result = await response.json();
+
+        if (response.status == 200) {
+          console.log(response.status);
+        } else {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            apiError:
+              result.message || "Registration failed. Please try again.",
+          }));
+        }
+      } catch (error) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          apiError: "An error occurred. Please try again later.",
+        }));
+      }
     } else {
-      console.log("Form contains errors. Please fix them.");
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        apiError: "Form contains errors. Please fix them.",
+      }));
     }
   };
 

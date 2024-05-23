@@ -41,15 +41,6 @@
   background: var(--dark);
   padding: 100px 0;
 }
-.footer::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 77%;
-  height: 100%;
-  background: var(--primary);
-}
 .footer .container {
   position: relative;
   z-index: 1;
@@ -87,10 +78,10 @@
 .footer h6 {
   font-size: 18px;
   font-weight: 600;
-  color: var(--dark);
+  color: var(--primary);
   text-transform: capitalize;
   margin-bottom: 20px;
-  border-left: 5px solid var(--light);
+  border-left: 4px solid var(--light);
   padding-left: 10px;
   line-height: 100%;
 }
@@ -104,7 +95,7 @@
   font-size: 16px;
   font-weight: 400;
   text-transform: capitalize;
-  color: var(--dark);
+  color: var(--light-alt);
   transition: 0.5s ease all;
 }
 .footer ul li a:hover {

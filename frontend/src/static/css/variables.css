@@ -17,6 +17,10 @@
   /* Fonts */
   --sans-serif: "Mukta", sans-serif;
 }
+* {
+  box-sizing: border-box;
+  outline: none;
+}
 *::selection {
   background: var(--dark);
   color: var(--light);

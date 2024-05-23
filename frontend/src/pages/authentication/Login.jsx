@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 import { Logo } from "../../static/images/logos";
 import AbstractImages from "../../static/images/abstract";
-import { Link } from "react-router-dom";
 import { FormInput } from "../../components/index";
 
 // Random Number generator
@@ -18,6 +19,7 @@ const Login = () => {
   const [errors, setErrors] = useState({
     email: "",
     password: "",
+    apiError: "",
   });
 
   const handleChange = (e) => {
@@ -25,34 +27,66 @@ const Login = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-
-    // Validate individual fields
-    if (e.target.name === "email") {
-      setErrors({
-        ...errors,
-        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value)
-          ? ""
-          : "Invalid email address",
-      });
-    } else if (e.target.name === "password") {
-      setErrors({
-        ...errors,
-        password:
-          e.target.value.length >= 6
-            ? ""
-            : "Password must be at least 6 characters",
-      });
-    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Valid Form
+    let isValid = true;
+
+    // Validate individual fields
+    if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Invalid email address",
+      }));
+      isValid = false;
+    }
+    if (!formData.password || formData.password.length < 6) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password must be at least 6 characters",
+      }));
+      isValid = false;
+    }
+
     // Validate the entire form
-    const formValid = Object.values(errors).every((error) => error === "");
-    if (formValid) {
-      console.log("Form submitted successfully:", formData);
-    } else {
-      console.log("Form contains errors. Please fix them.");
+    if (isValid) {
+      setErrors({
+        email: "",
+        password: "",
+        apiError: "",
+      });
+
+      // Loging User In
+      try {
+        const response = fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/user/login`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+        const result = response.json();
+
+        if (response.status == 200) {
+          console.log(response.status);
+        } else {
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            apiError: result.message || "Login failed. Please try again.",
+          }));
+        }
+      } catch (error) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          apiError: "An error occurred. Please try again later.",
+        }));
+      }
     }
   };
 
@@ -92,7 +126,12 @@ const Login = () => {
                 Forgot Password?
               </Link>
             </p>
-            <button type="button" className="button">
+            {errors.apiError && (
+              <span className="block text-sm text-red-500 mb-4">
+                {errors.apiError}
+              </span>
+            )}
+            <button type="submit" className="button">
               Login
             </button>
           </form>
