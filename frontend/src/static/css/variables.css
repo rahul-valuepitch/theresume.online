@@ -154,3 +154,8 @@
 .button-alt:hover {
   border-color: var(--primary);
 }
+.button:disabled,
+.button-alt:disabled {
+  opacity: 0.5;
+  cursor: none;
+}

@@ -1,94 +1,79 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 
+import { login, setAuthError } from "../../store/slices/authSlice";
 import { Logo } from "../../static/images/logos";
 import AbstractImages from "../../static/images/abstract";
 import { FormInput } from "../../components/index";
+import { loginSchema } from "../../schemas/index";
 
 // Random Number generator
 const randomIndex = Math.floor(Math.random() * AbstractImages.length);
 const randomImage = AbstractImages[randomIndex];
 
 const Login = () => {
-  // State
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const dispatch = useDispatch();
 
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-    apiError: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Valid Form
-    let isValid = true;
-
-    // Validate individual fields
-    if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: "Invalid email address",
-      }));
-      isValid = false;
-    }
-    if (!formData.password || formData.password.length < 6) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        password: "Password must be at least 6 characters",
-      }));
-      isValid = false;
-    }
-
-    // Validate the entire form
-    if (isValid) {
-      setErrors({
-        email: "",
-        password: "",
-        apiError: "",
-      });
-
-      // Loging User In
-      try {
-        const response = fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/user/login`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          }
-        );
-        const result = response.json();
-
-        if (response.status == 200) {
-          console.log(response.status);
-        } else {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            apiError: result.message || "Login failed. Please try again.",
-          }));
+  // Submitting Form
+  const onSubmit = async (values, { setErrors, setSubmitting }) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/user/login`,
+        values,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
         }
-      } catch (error) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          apiError: "An error occurred. Please try again later.",
-        }));
+      );
+      console.log(response.data);
+
+      dispatch(
+        login({
+          error: null,
+          user: response.data.data.user,
+          token: response.data.data.accessToken,
+          tokenExpiration: response.data.tokenExpiration,
+        })
+      );
+    } catch (error) {
+      setSubmitting(false);
+      if (error.response) {
+        const apiError = error.response.data.message || "An error occurred";
+        setErrors({ apiError });
+        dispatch(setAuthError(apiError));
+      } else if (error.request) {
+        const apiError = "No response from server";
+        setErrors({ apiError });
+        dispatch(setAuthError(apiError));
+      } else {
+        const apiError = "An error occurred while making the request";
+        setErrors({ apiError });
+        dispatch(setAuthError(apiError));
       }
     }
   };
+
+  // Formik
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    isSubmitting,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: loginSchema,
+    onSubmit,
+  });
 
   return (
     <div className="authentication">
@@ -107,19 +92,19 @@ const Login = () => {
               label="Email"
               type="email"
               name="email"
-              value={formData.email}
+              value={values.email}
               onChange={handleChange}
-              required
-              error={errors.email}
+              onBlur={handleBlur}
+              error={touched.email && errors.email}
             />
             <FormInput
               label="Password"
               type="password"
               name="password"
-              value={formData.password}
+              value={values.password}
               onChange={handleChange}
-              required
-              error={errors.password}
+              onBlur={handleBlur}
+              error={touched.password && errors.password}
             />
             <p className="text-end">
               <Link className="text-sm" to="/forgot-password">
@@ -131,8 +116,8 @@ const Login = () => {
                 {errors.apiError}
               </span>
             )}
-            <button type="submit" className="button">
-              Login
+            <button type="submit" className="button" disabled={isSubmitting}>
+              {isSubmitting ? "Submitting" : "Login"}
             </button>
           </form>
           <p className="mt-5">

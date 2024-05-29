@@ -8,8 +8,14 @@ import resumeRouter from "../routes/resume.routes.js";
 
 const app = express();
 
+// CORS Options
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
+
 // Middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(cookieParser());

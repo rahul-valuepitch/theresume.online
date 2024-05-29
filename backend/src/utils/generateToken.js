@@ -4,7 +4,9 @@ import ApiError from "./apiError.js";
 // Options
 export const options = {
   httpOnly: true,
-  secure: true,
+  secure: process.env.OPTIONS === "production",
+  sameSite: "Lax",
+  maxAge: 1000 * 60 * 60 * 24 * 7,
 };
 
 // Generate access and refresh token
