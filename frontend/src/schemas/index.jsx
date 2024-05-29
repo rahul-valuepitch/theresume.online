@@ -18,7 +18,7 @@ export const loginSchema = yup.object().shape({
 
 // Register Schema Validation
 export const registerSchema = yup.object().shape({
-  fullName: yup.string().required("Please enter Full Name"),
+  name: yup.string().required("Please enter Full Name"),
   email: yup
     .string()
     .email("Please enter a valid email")

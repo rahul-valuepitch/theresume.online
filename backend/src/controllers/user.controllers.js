@@ -18,6 +18,25 @@ import {
 } from "../utils/generateToken.js";
 import { sendPasswordResetEmail } from "../configs/email.config.js";
 
+// Get User Controller
+export const getUserProfileController = asyncHandler(async (req, res) => {
+  /**
+   * TODO: Get User from request
+   * TODO: Send Response
+   * **/
+
+  // * Get User from request
+  const requestUser = req.user;
+  const user = await User.findById(requestUser._id).select(
+    "-password -refreshToken"
+  );
+
+  // * Send Response
+  return res
+    .status(200)
+    .json(new ApiResponse(200, user, "Fetched user profile successfully!"));
+});
+
 // Register Controller
 export const registerController = asyncHandler(async (req, res) => {
   /**

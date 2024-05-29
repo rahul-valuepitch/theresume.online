@@ -29,7 +29,6 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log(response.data);
 
       dispatch(
         login({

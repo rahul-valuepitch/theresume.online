@@ -6,7 +6,9 @@ export const options = {
   httpOnly: true,
   secure: process.env.OPTIONS === "production",
   sameSite: "Lax",
-  maxAge: 1000 * 60 * 60 * 24 * 7,
+  maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+  domain: "localhost",
+  path: "/",
 };
 
 // Generate access and refresh token

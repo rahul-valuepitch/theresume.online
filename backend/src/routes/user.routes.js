@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   forgotPasswordController,
   forgotPasswordRequestController,
+  getUserProfileController,
   loginController,
   logoutController,
   refreshAccessTokenController,
@@ -25,6 +26,7 @@ router.route("/register").post(registerController);
 router.route("/login").post(loginController);
 router.route("/logout").post(verifyUser, logoutController);
 
+router.route("/profile").get(verifyUser, getUserProfileController);
 router.route("/refresh-access-token").post(refreshAccessTokenController);
 
 router.route("/forgot-password").post(forgotPasswordController);
