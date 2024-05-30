@@ -8,6 +8,7 @@ import { Logo } from "../../static/images/logos";
 import AbstractImages from "../../static/images/abstract";
 import { FormInput } from "../../components/index";
 import { registerSchema } from "../../schemas/index";
+import { Google } from "../../static/images/icons/index";
 
 // Random Number generator
 const randomIndex = Math.floor(Math.random() * AbstractImages.length);
@@ -138,9 +139,13 @@ const Register = () => {
               {isSubmitting ? "Submitting" : "Register"}
             </button>
           </form>
-          <p className="mt-5">
+          <p className="mt-5 mb-5">
             Already a member? <Link to="/login">Login</Link>
           </p>
+          <Link class="social-btn">
+            <img src={Google} alt="Google" />
+            <span>Sign Up with Google</span>
+          </Link>
         </div>
       </div>
       <div className="image">
