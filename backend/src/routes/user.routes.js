@@ -3,6 +3,7 @@ import {
   forgotPasswordController,
   forgotPasswordRequestController,
   getUserProfileController,
+  googleAuthentication,
   loginController,
   logoutController,
   refreshAccessTokenController,
@@ -22,6 +23,8 @@ const router = new Router();
 const avatarUpload = uploadMiddleware("avatar");
 
 // Routes
+router.route("/google").post(googleAuthentication);
+
 router.route("/register").post(registerController);
 router.route("/login").post(loginController);
 router.route("/logout").post(verifyUser, logoutController);

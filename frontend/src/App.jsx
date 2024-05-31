@@ -70,6 +70,10 @@ const App = () => {
               path="login"
               element={isAuthenticated ? <Navigate to="/" /> : <Login />}
             />
+            <Route
+              path="login"
+              element={isAuthenticated ? <Navigate to="/" /> : <Login />}
+            />
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route
               path="change-password"
