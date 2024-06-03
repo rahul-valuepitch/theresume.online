@@ -9,7 +9,12 @@ import {
 
 import { fetchUserData } from "./utils/fetchUserData";
 import { login, setLoading } from "./store/slices/authSlice";
-import { Website, Dashboard, Resume, Authentication } from "./layouts/index";
+import {
+  Website,
+  Dashboard as DashboardLayout,
+  Resume,
+  Authentication,
+} from "./layouts/index";
 import { Home } from "./pages/website/index";
 import {
   Register,
@@ -17,6 +22,12 @@ import {
   ForgotPassword,
   ChangePassword,
 } from "./pages/authentication/index";
+import {
+  Dashboard,
+  Profile,
+  UpdateAvatar,
+  UpdateDetails,
+} from "./pages/dashboard/index";
 import ProtectedRoute from "./utils/ProtectedRoute";
 
 const App = () => {
@@ -88,12 +99,32 @@ const App = () => {
             path="/dashboard"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <DashboardLayout />
               </ProtectedRoute>
             }
-          ></Route>
+          >
+            <Route
+              path=""
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="update-avatar" element={<UpdateAvatar />} />
+              <Route path="update-details" element={<UpdateDetails />} />
+            </Route>
+          </Route>
           <Route
-            path="/resume"
+            path="/resumes"
             element={
               <ProtectedRoute>
                 <Resume />

@@ -1,9 +1,10 @@
-const FormInput = ({
+const FormSelect = ({
   label,
-  type,
   name,
   required,
   error,
+  options,
+  value,
   className,
   ...props
 }) => {
@@ -13,18 +14,24 @@ const FormInput = ({
         <label className="form-label" htmlFor={name}>
           {label} {required && <span className="text-red-500">*</span>}
         </label>
-        <input
-          type={type}
+        <select
           className="form-select"
           id={name}
           name={name}
           required={required}
+          value={value}
           {...props}
-        />
+        >
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
         {error && <span className="text-sm text-red-500">{error}</span>}
       </div>
     </>
   );
 };
 
-export default FormInput;
+export default FormSelect;

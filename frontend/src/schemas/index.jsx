@@ -32,3 +32,12 @@ export const registerSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref("password"), null, "Password must match"]),
 });
+
+// Profile Schema Validation
+export const profileSchema = yup.object().shape({
+  fullName: yup.string().required("Please enter Full Name"),
+  email: yup
+    .string()
+    .email("Please enter a valid email")
+    .required("Please enter Email Address"),
+});

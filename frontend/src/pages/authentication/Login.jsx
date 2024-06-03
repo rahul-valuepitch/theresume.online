@@ -123,7 +123,7 @@ const Login = () => {
           <p className="mt-5 mb-5">
             Not a member? <Link to="/register">Register</Link>
           </p>
-          <Link to="/user/google" class="social-btn">
+          <Link to="/user/google" className="social-btn">
             <img src={Google} alt="Google" />
             <span>Sign in with Google</span>
           </Link>

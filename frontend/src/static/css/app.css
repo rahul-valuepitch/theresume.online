@@ -175,3 +175,191 @@
   color: var(--light);
   text-transform: capitalize;
 }
+
+/* Breadcrumb */
+.breadcrumb {
+  position: relative;
+  padding: 10px 0;
+  background: var(--light-alt);
+  border-top: 1px solid #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
+}
+.breadcrumb .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.breadcrumb .breadcrumb-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark);
+  text-transform: capitalize;
+}
+.breadcrumb .breadcrumb-list {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.breadcrumb .breadcrumb-list .breadcrumb-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-right: 10px;
+}
+.breadcrumb .breadcrumb-list .breadcrumb-item::after {
+  content: "/";
+  color: var(--primary);
+  opacity: 0.5;
+  font-size: 14px;
+  font-weight: 400;
+}
+.breadcrumb .breadcrumb-list .breadcrumb-item:last-child::after {
+  display: none;
+}
+.breadcrumb .breadcrumb-list .breadcrumb-item:first-child {
+  color: var(--dark);
+}
+.breadcrumb .breadcrumb-list .breadcrumb-item a {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: capitalize;
+  color: var(--dark-alt);
+}
+
+/* DB Section */
+.db-section {
+  padding: 50px 0;
+  min-height: 40vh;
+  position: relative;
+  background: var(--light);
+}
+
+/* DB Sidebar */
+.db-sidebar {
+  position: relative;
+  width: 100%;
+}
+.db-sidebar .db-sidebar-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  background: var(--light-alt);
+  transition: 0.3s ease all;
+}
+.db-sidebar .db-sidebar-link.active {
+  background: var(--primary);
+}
+.db-sidebar .db-sidebar-link span {
+  font-size: 16px;
+  font-weight: 400;
+  color: vatr(--dark-alt);
+  transition: 0.3s ease all;
+}
+.db-sidebar .db-sidebar-link svg {
+  color: var(--dark-alt);
+  transition: 0.3s ease all;
+}
+.db-sidebar .db-sidebar-link.active span,
+.db-sidebar .db-sidebar-link.active svg {
+  color: var(--light);
+}
+
+/* Profile Page */
+.profile-card .card-body {
+  padding: 30px;
+}
+.profile-card .image {
+  position: relative;
+}
+.profile-card .image img {
+  width: 170px;
+  height: 170px;
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+  margin: auto;
+}
+.profile-card .image .upload-avatar-btn {
+  position: absolute;
+  z-index: 1;
+  bottom: 10px;
+  right: 60px;
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--light);
+  background: var(--primary);
+  color: var(--light);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: 0.5s ease all;
+}
+.profile-card .image .upload-avatar-btn:hover {
+  background: var(--dark);
+}
+.profile-card .text {
+  text-align: center;
+}
+.profile-card .text h5 {
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 15px 0 10px;
+  line-height: 100%;
+}
+.profile-card .text h6 {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--primary);
+  line-height: 100%;
+}
+
+.profile-detail .card-head h5 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--light);
+  line-height: 100%;
+}
+.profile-detail .card-head .upload-profile-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: var(--light);
+}
+.profile-detail .card-head .upload-profile-btn span {
+  font-size: 14px;
+  font-weight: 400;
+}
+.profile-detail .card-head .upload-profile-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.profile-detail table {
+  text-align: left;
+  width: 100%;
+  border-collapse: collapse;
+}
+.profile-detail table tr {
+  border-bottom: 1px solid var(--light-alt);
+}
+.profile-detail table td {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--dark-alt);
+  padding: 10px 0;
+}
+.profile-detail table th {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark-alt);
+  padding: 10px 0;
+}

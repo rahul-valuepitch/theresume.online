@@ -33,7 +33,7 @@ const Header = () => {
           </Link>
           <ul>
             <li className="nav-item">
-              <Link to="/resume" className="nav-link">
+              <Link to="/resumes" className="nav-link">
                 Resumes
               </Link>
             </li>
@@ -53,8 +53,8 @@ const Header = () => {
             ) : (
               <>
                 <li>
-                  <Link to="/profile" className="button-alt">
-                    Profile
+                  <Link to="/dashboard" className="button-alt">
+                    Dashboard
                   </Link>
                 </li>
                 <li>

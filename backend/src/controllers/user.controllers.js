@@ -363,33 +363,57 @@ export const updateProfileController = asyncHandler(async (req, res) => {
    * **/
 
   // * Get data from frontend
-  const { phone, gender, birthDate, pronounce } = req.body;
+  const { fullName, email, phone, gender, birthDate, pronounce } = req.body;
 
   // * Validate data
-  notEmptyValidation([phone, gender, birthDate]);
+  notEmptyValidation([fullName, email, phone, gender, birthDate]);
+  emailValidation(email);
   phoneValidation(phone);
 
-  // * Check if phone already exists
-  const existingUser = await User.findOne({ phone });
-  if (existingUser && existingUser._id.toString() !== req.user._id.toString()) {
+  try {
+    // * Find the user by ID
+    const user = await User.findById(req.user._id);
+
+    // Check if the email has changed
+    if (email !== req.user.email) {
+      // * Check if the new email already exists in the database
+      const existingEmailUser = await User.findOne({ email });
+
+      if (existingEmailUser) {
+        return res
+          .status(400)
+          .json(new ApiResponse(400, null, "Email already exists"));
+      }
+    }
+
+    // Check if the phone has changed
+    if (phone !== req.user.phone) {
+      // * Check if the new phone number already exists in the database
+      const existingPhoneUser = await User.findOne({ phone });
+
+      if (existingPhoneUser) {
+        return res
+          .status(400)
+          .json(new ApiResponse(400, null, "Phone number already exists"));
+      }
+    }
+
+    // * Update user profile
+    user.fullName = fullName;
+    user.email = email;
+    user.phone = phone;
+    user.gender = gender;
+    user.birthDate = birthDate;
+    user.pronounce = pronounce;
+    await user.save();
+
+    // * Sending Response
     return res
-      .status(400)
-      .json(new ApiResponse(400, null, "Phone number already exists"));
+      .status(200)
+      .json(new ApiResponse(200, user, "User updated successfully!"));
+  } catch (error) {
+    throw new ApiError(500, `Server Error : ${error.message}`);
   }
-
-  // * Update user profile
-  const user = req.user;
-
-  user.phone = phone;
-  user.gender = gender;
-  user.birthDate = birthDate;
-  user.pronounce = pronounce;
-  await user.save();
-
-  // * Sending Response
-  return res
-    .status(200)
-    .json(new ApiResponse(200, user, "User updated successfully!"));
 });
 
 // Update User Avatar Controller
