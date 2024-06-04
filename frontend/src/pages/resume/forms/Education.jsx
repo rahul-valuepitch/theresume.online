@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaPlus } from "react-icons/fa6";
+import { GoTrash } from "react-icons/go";
 
 import { FormInput, FormText } from "../../../components/index";
 
@@ -44,6 +45,11 @@ const Education = () => {
     setEducation(updatedEducation);
   };
 
+  const handleDeleteEducation = (index) => {
+    const updatedEducation = education.filter((_, i) => i !== index);
+    setEducation(updatedEducation);
+  };
+
   return (
     <div className="item">
       <h4 className="sub-heading mb-5">Education History</h4>
@@ -57,9 +63,14 @@ const Education = () => {
                 {item.startDate} - {item.endDate}
               </h6>
             </div>
-            <button onClick={() => toggleEducationVisibility(index)}>
-              <IoIosArrowDown />
-            </button>
+            <div className="action">
+              <button onClick={() => toggleEducationVisibility(index)}>
+                <IoIosArrowDown />
+              </button>
+              <button onClick={() => handleDeleteEducation(index)}>
+                <GoTrash />
+              </button>
+            </div>
           </div>
 
           {item.isOpen && (

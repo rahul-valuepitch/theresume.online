@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaPlus } from "react-icons/fa6";
+import { GoTrash } from "react-icons/go";
 
 import { FormInput, FormText } from "../../../components/index";
 
@@ -44,6 +45,11 @@ const Professional = () => {
     setExperiences(updatedExperiences);
   };
 
+  const handleDeleteExperience = (index) => {
+    const updatedExperiences = experiences.filter((_, i) => i !== index);
+    setExperiences(updatedExperiences);
+  };
+
   return (
     <div className="item">
       <h4 className="sub-heading mb-5">Employment History</h4>
@@ -57,9 +63,14 @@ const Professional = () => {
                 {experience.startDate} - {experience.endDate}
               </h6>
             </div>
-            <button onClick={() => toggleExperienceVisibility(index)}>
-              <IoIosArrowDown />
-            </button>
+            <div className="action">
+              <button onClick={() => toggleExperienceVisibility(index)}>
+                <IoIosArrowDown />
+              </button>
+              <button onClick={() => handleDeleteExperience(index)}>
+                <GoTrash />
+              </button>
+            </div>
           </div>
           {experience.isOpen && (
             <div className="body">
