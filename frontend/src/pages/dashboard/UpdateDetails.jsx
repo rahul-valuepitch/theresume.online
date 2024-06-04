@@ -131,6 +131,7 @@ const UpdateDetails = () => {
               onBlur={handleBlur}
               required
               options={[
+                { label: "---", value: "" },
                 { label: "Male", value: "Male" },
                 { label: "Female", value: "Female" },
                 { label: "Others", value: "Others" },

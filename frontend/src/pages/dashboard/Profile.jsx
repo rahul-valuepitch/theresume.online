@@ -1,19 +1,22 @@
+import axios from "axios";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { GoPencil } from "react-icons/go";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { Uploader } from "Uploader";
+import { UploadButton } from "react-uploader";
 
 import { Modal } from "../../components";
 import { DummyUser } from "../../static/images/users";
+import { updateUserDetails } from "../../store/slices/authSlice";
 
 const Profile = () => {
+  const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.user);
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isAvatarModalOpen = location.pathname.includes(
-    "/dashboard/profile/update-avatar"
-  );
   const isDetailsModalOpen = location.pathname.includes(
     "/dashboard/profile/update-details"
   );
@@ -21,6 +24,35 @@ const Profile = () => {
   const handleCloseModal = () => {
     navigate("/dashboard/profile");
   };
+
+  const handleUploadComplete = async (files) => {
+    try {
+      const fileUrl = files[0].filePath;
+      console.log(fileUrl);
+      const response = await axios.patch(
+        `${import.meta.env.VITE_API_BASE_URL}/user/update-avatar`,
+        { avatar: fileUrl },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      dispatch(updateUserDetails(response.data.data));
+    } catch (error) {
+      console.error("Error uploading avatar:", error);
+    }
+  };
+
+  // Initialize once (at the start of your app).
+  const uploader = Uploader({
+    apiKey: "free",
+  });
+
+  // Configuration options
+  const options = { multi: false };
 
   return (
     <>
@@ -31,12 +63,17 @@ const Profile = () => {
               <div className="image">
                 {auth.avatar && <img src={auth.avatar} alt={auth.fullName} />}
                 {!auth.avatar && <img src={DummyUser} alt={auth.fullName} />}
-                <Link
-                  to="/dashboard/profile/update-avatar"
-                  className="upload-avatar-btn"
+                <UploadButton
+                  uploader={uploader}
+                  options={options}
+                  onComplete={handleUploadComplete}
                 >
-                  <GoPencil />
-                </Link>
+                  {({ onClick }) => (
+                    <button onClick={onClick} className="upload-avatar-btn">
+                      <GoPencil />
+                    </button>
+                  )}
+                </UploadButton>
               </div>
               <div className="text">
                 <h5>{auth.fullName}</h5>
@@ -99,10 +136,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <Modal
-        show={isAvatarModalOpen || isDetailsModalOpen}
-        onClose={handleCloseModal}
-      >
+      <Modal show={isDetailsModalOpen} onClose={handleCloseModal}>
         <Outlet />
       </Modal>
     </>

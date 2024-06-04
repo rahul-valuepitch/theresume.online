@@ -92,6 +92,12 @@
 .heading {
   font-size: 35px;
   font-weight: 700;
+  color: var(--dark-alt);
+}
+.sub-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark-alt);
 }
 
 /* Form Control */
@@ -120,6 +126,7 @@
   background-color: var(--light-alt);
   border: 1px solid var(--light-alt);
   outline: 0;
+  width: 100%;
 }
 .form-group .form-control:focus,
 .form-group .form-control:active,

@@ -1,8 +1,8 @@
 const UpdateAvatar = () => {
   return (
-    <div>
-      <h1>Update Avatar</h1>
-    </div>
+    <>
+      <h4 className="modal-title">Update User Avatar</h4>
+    </>
   );
 };
 

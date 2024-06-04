@@ -12,7 +12,7 @@ import { login, setLoading } from "./store/slices/authSlice";
 import {
   Website,
   Dashboard as DashboardLayout,
-  Resume,
+  Resume as ResumeLayout,
   Authentication,
 } from "./layouts/index";
 import { Home } from "./pages/website/index";
@@ -25,10 +25,11 @@ import {
 import {
   Dashboard,
   Profile,
-  UpdateAvatar,
   UpdateDetails,
+  Resume as DBResume,
 } from "./pages/dashboard/index";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import { Resume as ResumePage } from "./pages/resume/index";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -68,6 +69,16 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <Home />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+          <Route path="/resumes" element={<ResumeLayout />}>
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <ResumePage />
                 </ProtectedRoute>
               }
             />
@@ -119,18 +130,17 @@ const App = () => {
                 </ProtectedRoute>
               }
             >
-              <Route path="update-avatar" element={<UpdateAvatar />} />
               <Route path="update-details" element={<UpdateDetails />} />
             </Route>
+            <Route
+              path="resumes"
+              element={
+                <ProtectedRoute>
+                  <DBResume />
+                </ProtectedRoute>
+              }
+            ></Route>
           </Route>
-          <Route
-            path="/resumes"
-            element={
-              <ProtectedRoute>
-                <Resume />
-              </ProtectedRoute>
-            }
-          ></Route>
           <Route
             path="*"
             element={<Navigate to={isAuthenticated ? "/" : "/login"} />}

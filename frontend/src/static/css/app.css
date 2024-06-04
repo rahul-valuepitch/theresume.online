@@ -363,3 +363,105 @@
   color: var(--dark-alt);
   padding: 10px 0;
 }
+
+/* Resume */
+.resume-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+}
+.resume-container .go-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px 15px;
+  border-radius: 3px;
+  background: var(--dark);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--light);
+}
+.resume-container .resume-form {
+  width: 50%;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 30px 50px;
+}
+.resume-container .resume-form hr {
+  margin: 50px 0;
+}
+.resume-container .resume-overview {
+  width: 50%;
+  min-height: 100vh;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--light-alt);
+}
+
+/* Resume Form */
+.resume-form .image {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+}
+.resume-form .image img {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+}
+.resume-form .image button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary);
+}
+.resume-form button.toggle-info-btn {
+  margin: 15px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3px;
+}
+.resume-form button.toggle-info-btn span {
+  line-height: 100%;
+}
+
+.resume-form .item .content {
+  border: 1px solid var(--light-alt);
+  margin-bottom: 20px;
+}
+.resume-form .item .content:last-child {
+  margin-bottom: 0;
+}
+.resume-form .item .content .head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 15px;
+}
+.resume-form .item .content .head h5 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 5px;
+  line-height: 100%;
+}
+.resume-form .item .content .body {
+  padding: 15px;
+  border-top: 1px solid var(--light-alt);
+}
