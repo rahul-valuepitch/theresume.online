@@ -13,7 +13,7 @@ const Professional = () => {
       endDate: "",
       city: "",
       description: "",
-      isOpen: true,
+      isOpen: false,
     },
   ]);
 
@@ -27,7 +27,7 @@ const Professional = () => {
         endDate: "",
         city: "",
         description: "",
-        isOpen: true,
+        isOpen: false,
       },
     ]);
   };
