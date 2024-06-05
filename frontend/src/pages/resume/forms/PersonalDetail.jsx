@@ -4,15 +4,23 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
+import { useDispatch } from "react-redux";
 
 import { FormInput, FormSelect, FormText } from "../../../components/index";
 import { DummyUser } from "../../../static/images/users/index";
+import { showAlert } from "../../../store/slices/alertSlice";
 
 const PersonalDetail = () => {
+  const dispatch = useDispatch();
+
   const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
 
   const toggleAdditionalInfo = () => {
     setShowAdditionalInfo((prev) => !prev);
+  };
+
+  const handleClick = () => {
+    dispatch(showAlert({ message: "Details Updated", type: "success" }));
   };
 
   return (
@@ -78,7 +86,7 @@ const PersonalDetail = () => {
           <FormInput
             label="Phone"
             name="phone"
-            type="text"
+            type="number"
             className="mb-0"
             required
           />
@@ -204,6 +212,8 @@ const PersonalDetail = () => {
           </div>
         </div>
       )}
+
+      <button onClick={handleClick}>Show Alert</button>
     </div>
   );
 };

@@ -268,3 +268,47 @@
   border-bottom: 1px solid var(--light-alt);
   padding-bottom: 30px;
 }
+
+/* Alert */
+.alert {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  z-index: 100;
+  background: var(--dark);
+  border-radius: 5px;
+  padding: 15px 20px;
+  transition: 0.5s ease all;
+  animation: slideAlert 0.5s ease;
+}
+@keyframes slideAlert {
+  from {
+    right: -100px;
+    opacity: 0;
+  }
+  to {
+    right: 10px;
+    opacity: 1;
+  }
+}
+.alert.alert-success {
+  background: var(--primary);
+}
+.alert.alert-danger {
+  background: var(--danger);
+}
+.alert .close-alert-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: var(--light);
+}
+.alert p {
+  width: 80%;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--light);
+}

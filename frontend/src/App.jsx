@@ -30,10 +30,17 @@ import {
 } from "./pages/dashboard/index";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { Resume as ResumePage } from "./pages/resume/index";
+import { Alert } from "./components/index";
+import { hideAlert } from "./store/slices/alertSlice";
 
 const App = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
+  const alert = useSelector((state) => state.alert);
+
+  const handleCloseAlert = () => {
+    dispatch(hideAlert());
+  };
 
   useEffect(() => {
     const initializeUser = async () => {
@@ -61,6 +68,14 @@ const App = () => {
 
   return (
     <>
+      {alert.visible && (
+        <Alert
+          className={`alert-${alert.type}`}
+          message={alert.message}
+          onClose={handleCloseAlert}
+        />
+      )}
+
       <Router>
         <Routes>
           <Route path="/" element={<Website />}>
