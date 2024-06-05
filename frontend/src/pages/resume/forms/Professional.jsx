@@ -58,16 +58,24 @@ const Professional = () => {
         <div key={index} className="content">
           <div className="head">
             <div className="text">
-              <h5>Job Title</h5>
+              <h5>{experience.title || `Job Name`}</h5>
               <h6>
-                {experience.startDate} - {experience.endDate}
+                <span>{experience.startDate || `Start Date`}</span>
+                <span>-</span>
+                <span>{experience.endDate || `End Date`}</span>
               </h6>
             </div>
             <div className="action">
-              <button onClick={() => toggleExperienceVisibility(index)}>
+              <button
+                className="collapse-btn"
+                onClick={() => toggleExperienceVisibility(index)}
+              >
                 <IoIosArrowDown />
               </button>
-              <button onClick={() => handleDeleteExperience(index)}>
+              <button
+                className="remove-btn"
+                onClick={() => handleDeleteExperience(index)}
+              >
                 <GoTrash />
               </button>
             </div>

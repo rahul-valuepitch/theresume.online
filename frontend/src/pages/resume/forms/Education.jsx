@@ -58,16 +58,24 @@ const Education = () => {
         <div key={index} className="content">
           <div className="head">
             <div className="text">
-              <h5>School Name</h5>
+              <h5>{item.school || `Institute Name`}</h5>
               <h6>
-                {item.startDate} - {item.endDate}
+                <span>{item.startDate || `Start Date`}</span>
+                <span>-</span>
+                <span>{item.endDate || `End Date`}</span>
               </h6>
             </div>
             <div className="action">
-              <button onClick={() => toggleEducationVisibility(index)}>
+              <button
+                className="collapse-btn"
+                onClick={() => toggleEducationVisibility(index)}
+              >
                 <IoIosArrowDown />
               </button>
-              <button onClick={() => handleDeleteEducation(index)}>
+              <button
+                className="remove-btn"
+                onClick={() => handleDeleteEducation(index)}
+              >
                 <GoTrash />
               </button>
             </div>

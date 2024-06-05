@@ -457,9 +457,33 @@
 .resume-form .item .content .head h5 {
   font-size: 16px;
   font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 5px;
+  color: var(--dark);
+  margin-bottom: 7px;
   line-height: 100%;
+}
+.resume-form .item .content .head h6 {
+  display: flex;
+  align-content: center;
+  justify-content: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dark-alt);
+  line-height: 100%;
+}
+.resume-form .item .content .head .action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+}
+.resume-form .item .content .head .action .collapse-btn {
+  font-size: 16px;
+  color: var(--primary);
+}
+.resume-form .item .content .head .action .remove-btn {
+  font-size: 16px;
+  color: var(--danger);
 }
 .resume-form .item .content .body {
   padding: 15px;

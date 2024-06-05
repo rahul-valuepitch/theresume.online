@@ -6,10 +6,12 @@
   /* Colors */
   --primary: #78ba97;
   --secondary: #cef2c6;
+  --danger: #e44b4f;
+
   --light: #fffef9;
   --light-alt: #f3f3f3;
   --dark: #191919;
-  --dark-alt: #282828;
+  --dark-alt: #828ba2;
   --white: #ffffff;
   --black: #000000;
   --gray: #5a666c;
@@ -39,6 +41,9 @@
 .text-secondary {
   color: var(--secondary) !important;
 }
+.text-danger {
+  color: var(--danger) !important;
+}
 .text-light {
   color: var(--light) !important;
 }
@@ -66,6 +71,9 @@
 .bg-secondary {
   background: var(--secondary) !important;
 }
+.bg-danger {
+  background: var(--danger) !important;
+}
 .bg-light {
   background: var(--light) !important;
 }
@@ -92,12 +100,12 @@
 .heading {
   font-size: 35px;
   font-weight: 700;
-  color: var(--dark-alt);
+  color: var(--dark);
 }
 .sub-heading {
   font-size: 20px;
   font-weight: 700;
-  color: var(--dark-alt);
+  color: var(--dark);
 }
 
 /* Form Control */
