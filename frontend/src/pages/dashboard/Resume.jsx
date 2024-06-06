@@ -24,8 +24,8 @@ const Resume = () => {
       );
 
       const templateId = String(response.data.data.template);
-      console.log(templateId);
-      dispatch(updateDetail({ templateId }));
+      const resumeId = String(response.data.data._id);
+      dispatch(updateDetail({ templateId, resumeId }));
       navigate("/resumes/create");
     } catch (error) {
       console.error("Error creating resume:", error);

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   detail: {
     templateId: "",
+    resumeId: "",
   },
   personalDetail: {
     jobTitle: "",

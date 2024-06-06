@@ -1,26 +1,131 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { FaPlus } from "react-icons/fa6";
+import axios from "axios";
 import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useFormik } from "formik";
 
 import { FormInput, FormSelect, FormText } from "../../../components/index";
 import { DummyUser } from "../../../static/images/users/index";
 import { showAlert } from "../../../store/slices/alertSlice";
+import { updatePersonalDetail } from "../../../store/slices/resumeSlice";
+import { debounce } from "../../../utils/debounce";
 
 const PersonalDetail = () => {
   const dispatch = useDispatch();
-
   const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
+  const resumeId = useSelector((state) => state.resume.detail.resumeId);
+
+  const initialValues = {
+    jobTitle: "",
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+    drivingLicense: "",
+    nationality: "",
+    placeOfBirth: "",
+    dateOfBirth: "",
+    gender: "",
+    maritalStatus: "",
+    summary: "",
+  };
+
+  const debouncedUpdate = useCallback(
+    debounce(async (field, value) => {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        dispatch(
+          showAlert({ message: "Unauthorized: No token found", type: "error" })
+        );
+        return;
+      }
+
+      try {
+        const response = await axios.patch(
+          `${
+            import.meta.env.VITE_API_BASE_URL
+          }/resume/${resumeId}?action=update-resume-profile`,
+          { [field]: value },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response);
+        dispatch(updatePersonalDetail({ [field]: value }));
+        dispatch(showAlert({ message: "Details Updated", type: "success" }));
+      } catch (error) {
+        console.log("Error updating personal details:", error);
+        dispatch(
+          showAlert({
+            message: error.response?.data?.message || "Error updating details",
+            type: "error",
+          })
+        );
+      }
+    }, 500),
+    [dispatch, resumeId]
+  );
+
+  const handleChangeWithDebounce = (e) => {
+    const { name, value } = e.target;
+    debouncedUpdate(name, value);
+    formik.handleChange(e);
+  };
+
+  // Formik
+  const formik = useFormik({
+    initialValues,
+    onSubmit: async (values, { setSubmitting }) => {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        dispatch(
+          showAlert({ message: "Unauthorized: No token found", type: "error" })
+        );
+        setSubmitting(false);
+        return;
+      }
+
+      try {
+        const response = await axios.patch(
+          `${
+            import.meta.env.VITE_API_BASE_URL
+          }/resume/${resumeId}?action=update-resume-profile`,
+          values,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response);
+        dispatch(updatePersonalDetail(values));
+        dispatch(showAlert({ message: "Details Updated", type: "success" }));
+      } catch (error) {
+        console.log("Error updating personal details:", error);
+        dispatch(
+          showAlert({ message: error.response.data.message, type: "error" })
+        );
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
 
   const toggleAdditionalInfo = () => {
     setShowAdditionalInfo((prev) => !prev);
-  };
-
-  const handleClick = () => {
-    dispatch(showAlert({ message: "Details Updated", type: "success" }));
   };
 
   return (
@@ -44,6 +149,10 @@ const PersonalDetail = () => {
             type="text"
             className="mb-0"
             required
+            value={formik.values.jobTitle}
+            onChange={handleChangeWithDebounce}
+            onBlur={formik.handleBlur}
+            error={formik.touched.jobTitle && formik.errors.jobTitle}
           />
         </div>
         <div>
@@ -53,6 +162,10 @@ const PersonalDetail = () => {
             type="text"
             className="mb-0"
             required
+            value={formik.values.firstName}
+            onChange={handleChangeWithDebounce}
+            onBlur={formik.handleBlur}
+            error={formik.touched.firstName && formik.errors.firstName}
           />
         </div>
         <div>
@@ -62,6 +175,10 @@ const PersonalDetail = () => {
             type="text"
             className="mb-0"
             required
+            value={formik.values.middleName}
+            onChange={handleChangeWithDebounce}
+            onBlur={formik.handleBlur}
+            error={formik.touched.middleName && formik.errors.middleName}
           />
         </div>
         <div>
@@ -71,6 +188,10 @@ const PersonalDetail = () => {
             type="text"
             className="mb-0"
             required
+            value={formik.values.lastName}
+            onChange={handleChangeWithDebounce}
+            onBlur={formik.handleBlur}
+            error={formik.touched.lastName && formik.errors.lastName}
           />
         </div>
         <div>
@@ -80,6 +201,10 @@ const PersonalDetail = () => {
             type="email"
             className="mb-0"
             required
+            value={formik.values.email}
+            onChange={handleChangeWithDebounce}
+            onBlur={formik.handleBlur}
+            error={formik.touched.email && formik.errors.email}
           />
         </div>
         <div>
@@ -89,10 +214,23 @@ const PersonalDetail = () => {
             type="number"
             className="mb-0"
             required
+            value={formik.values.phone}
+            onChange={handleChangeWithDebounce}
+            onBlur={formik.handleBlur}
+            error={formik.touched.phone && formik.errors.phone}
           />
         </div>
         <div className="col-span-2">
-          <FormText label="Summary" name="summary" required className="mb-0" />
+          <FormText
+            label="Summary"
+            name="summary"
+            required
+            className="mb-0"
+            value={formik.values.summary}
+            onChange={handleChangeWithDebounce}
+            onBlur={formik.handleBlur}
+            error={formik.touched.summary && formik.errors.summary}
+          />
         </div>
       </div>
 
@@ -117,6 +255,10 @@ const PersonalDetail = () => {
               type="text"
               className="mb-0"
               required
+              value={formik.values.address}
+              onChange={handleChangeWithDebounce}
+              onBlur={formik.handleBlur}
+              error={formik.touched.address && formik.errors.address}
             />
           </div>
           <div>
@@ -126,6 +268,10 @@ const PersonalDetail = () => {
               type="text"
               className="mb-0"
               required
+              value={formik.values.city}
+              onChange={handleChangeWithDebounce}
+              onBlur={formik.handleBlur}
+              error={formik.touched.city && formik.errors.city}
             />
           </div>
           <div>
@@ -135,6 +281,10 @@ const PersonalDetail = () => {
               type="text"
               className="mb-0"
               required
+              value={formik.values.state}
+              onChange={handleChangeWithDebounce}
+              onBlur={formik.handleBlur}
+              error={formik.touched.state && formik.errors.state}
             />
           </div>
           <div>
@@ -144,6 +294,10 @@ const PersonalDetail = () => {
               type="text"
               className="mb-0"
               required
+              value={formik.values.zip}
+              onChange={handleChangeWithDebounce}
+              onBlur={formik.handleBlur}
+              error={formik.touched.zip && formik.errors.zip}
             />
           </div>
           <div>
@@ -153,6 +307,12 @@ const PersonalDetail = () => {
               type="text"
               className="mb-0"
               required
+              value={formik.values.drivingLicense}
+              onChange={handleChangeWithDebounce}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.drivingLicense && formik.errors.drivingLicense
+              }
             />
           </div>
           <div>
@@ -162,6 +322,10 @@ const PersonalDetail = () => {
               type="text"
               className="mb-0"
               required
+              value={formik.values.nationality}
+              onChange={handleChangeWithDebounce}
+              onBlur={formik.handleBlur}
+              error={formik.touched.nationality && formik.errors.nationality}
             />
           </div>
           <div>
@@ -171,6 +335,10 @@ const PersonalDetail = () => {
               type="text"
               className="mb-0"
               required
+              value={formik.values.placeOfBirth}
+              onChange={handleChangeWithDebounce}
+              onBlur={formik.handleBlur}
+              error={formik.touched.placeOfBirth && formik.errors.placeOfBirth}
             />
           </div>
           <div>
@@ -180,6 +348,10 @@ const PersonalDetail = () => {
               type="date"
               className="mb-0"
               required
+              value={formik.values.dateOfBirth}
+              onChange={handleChangeWithDebounce}
+              onBlur={formik.handleBlur}
+              error={formik.touched.dateOfBirth && formik.errors.dateOfBirth}
             />
           </div>
           <div>
@@ -188,6 +360,10 @@ const PersonalDetail = () => {
               name="gender"
               className="mb-0"
               required
+              value={formik.values.gender}
+              onChange={handleChangeWithDebounce}
+              onBlur={formik.handleBlur}
+              error={formik.touched.gender && formik.errors.gender}
               options={[
                 { label: "---", value: "" },
                 { label: "Male", value: "Male" },
@@ -202,6 +378,12 @@ const PersonalDetail = () => {
               name="maritialStatus"
               className="mb-0"
               required
+              value={formik.values.maritalStatus}
+              onChange={handleChangeWithDebounce}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.maritalStatus && formik.errors.maritalStatus
+              }
               options={[
                 { label: "---", value: "" },
                 { label: "Unmarried", value: "Unmarried" },
@@ -212,8 +394,6 @@ const PersonalDetail = () => {
           </div>
         </div>
       )}
-
-      <button onClick={handleClick}>Show Alert</button>
     </div>
   );
 };

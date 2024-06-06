@@ -31,14 +31,17 @@ const Login = () => {
         }
       );
 
+      const token = response.data.data.accessToken;
       dispatch(
         login({
           error: null,
           user: response.data.data.user,
-          token: response.data.data.accessToken,
+          token: token,
           tokenExpiration: response.data.tokenExpiration,
         })
       );
+      localStorage.setItem("authToken", token);
+      return token;
     } catch (error) {
       setSubmitting(false);
       if (error.response) {
