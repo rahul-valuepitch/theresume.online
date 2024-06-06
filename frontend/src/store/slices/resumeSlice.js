@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  detail: {
+    templateId: "",
+  },
   personalDetail: {
     jobTitle: "",
     firstName: "",
@@ -117,6 +120,9 @@ const resumeSlice = createSlice({
   name: "resume",
   initialState,
   reducers: {
+    updateDetail: (state, action) => {
+      state.detail = { ...state.detail, ...action.payload };
+    },
     updatePersonalDetail: (state, action) => {
       state.personalDetail = { ...state.personalDetail, ...action.payload };
     },
@@ -168,6 +174,7 @@ const resumeSlice = createSlice({
 });
 
 export const {
+  updateDetail,
   updatePersonalDetail,
   updateProfession,
   updateEducation,

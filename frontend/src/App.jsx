@@ -88,6 +88,26 @@ const App = () => {
               }
             />
           </Route>
+
+          <Route path="/templates" element={<Website />}>
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <ResumePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="create"
+              element={
+                <ProtectedRoute>
+                  <ResumePage />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+
           <Route path="/resumes" element={<ResumeLayout />}>
             <Route
               index
@@ -97,7 +117,16 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="create"
+              element={
+                <ProtectedRoute>
+                  <ResumePage />
+                </ProtectedRoute>
+              }
+            />
           </Route>
+
           <Route path="/" element={<Authentication />}>
             <Route
               path="register"
@@ -121,6 +150,7 @@ const App = () => {
               }
             />
           </Route>
+
           <Route
             path="/dashboard"
             element={
@@ -130,13 +160,13 @@ const App = () => {
             }
           >
             <Route
-              path=""
+              index
               element={
                 <ProtectedRoute>
                   <Dashboard />
                 </ProtectedRoute>
               }
-            ></Route>
+            />
             <Route
               path="profile"
               element={
@@ -154,8 +184,9 @@ const App = () => {
                   <DBResume />
                 </ProtectedRoute>
               }
-            ></Route>
+            />
           </Route>
+
           <Route
             path="*"
             element={<Navigate to={isAuthenticated ? "/" : "/login"} />}
