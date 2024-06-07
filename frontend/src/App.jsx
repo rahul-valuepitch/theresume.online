@@ -118,7 +118,7 @@ const App = () => {
               }
             />
             <Route
-              path="create"
+              path="create/:_id"
               element={
                 <ProtectedRoute>
                   <ResumePage />
@@ -130,15 +130,15 @@ const App = () => {
           <Route path="/" element={<Authentication />}>
             <Route
               path="register"
-              element={isAuthenticated ? <Navigate to="/" /> : <Register />}
+              element={
+                isAuthenticated ? <Navigate to="/dashboard" /> : <Register />
+              }
             />
             <Route
               path="login"
-              element={isAuthenticated ? <Navigate to="/" /> : <Login />}
-            />
-            <Route
-              path="login"
-              element={isAuthenticated ? <Navigate to="/" /> : <Login />}
+              element={
+                isAuthenticated ? <Navigate to="/dashboard" /> : <Login />
+              }
             />
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route

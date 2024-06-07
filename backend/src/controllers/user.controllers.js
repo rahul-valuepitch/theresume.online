@@ -87,7 +87,17 @@ export const registerController = asyncHandler(async (req, res) => {
     .status(201)
     .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options)
-    .json(new ApiResponse(201, user, "User created successfully!"));
+    .json(
+      new ApiResponse(
+        201,
+        {
+          user,
+          accessToken,
+          refreshToken,
+        },
+        "User created successfully!"
+      )
+    );
 });
 
 // Login Controller

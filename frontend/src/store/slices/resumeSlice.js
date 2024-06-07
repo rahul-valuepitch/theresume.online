@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  resumes: [],
   detail: {
     templateId: "",
     resumeId: "",
@@ -121,6 +122,15 @@ const resumeSlice = createSlice({
   name: "resume",
   initialState,
   reducers: {
+    setResumes(state, action) {
+      state.resumes = action.payload;
+    },
+    setCurrentResume(state, action) {
+      state.detail = action.payload;
+    },
+    addResume(state, action) {
+      state.resumes.push(action.payload);
+    },
     updateDetail: (state, action) => {
       state.detail = { ...state.detail, ...action.payload };
     },
@@ -171,10 +181,37 @@ const resumeSlice = createSlice({
       const { index, field, value } = action.payload;
       state.customSections[index][field] = value;
     },
+    removeResume(state, action) {
+      state.resumes = state.resumes.filter(
+        (resume) => resume._id !== action.payload
+      );
+    },
+    resetResumeState(state) {
+      return {
+        ...state,
+        detail: initialState.detail,
+        personalDetail: initialState.personalDetail,
+        professions: initialState.professions,
+        educations: initialState.educations,
+        links: initialState.links,
+        skills: initialState.skills,
+        languages: initialState.languages,
+        courses: initialState.courses,
+        internship: initialState.internship,
+        hobbies: initialState.hobbies,
+        references: initialState.references,
+        extraCurricular: initialState.extraCurricular,
+        customSections: initialState.customSections,
+        error: initialState.error,
+      };
+    },
   },
 });
 
 export const {
+  setResumes,
+  setCurrentResume,
+  addResume,
   updateDetail,
   updatePersonalDetail,
   updateProfession,
@@ -188,6 +225,8 @@ export const {
   updateReference,
   updateExtraCurricular,
   updateCustomSection,
+  removeResume,
+  resetResumeState,
 } = resumeSlice.actions;
 
 export default resumeSlice.reducer;

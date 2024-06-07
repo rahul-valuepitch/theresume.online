@@ -30,8 +30,10 @@ const Register = () => {
           withCredentials: true,
         }
       );
+
       console.log(response);
 
+      const token = response.data.data.accessToken;
       dispatch(
         login({
           error: null,
@@ -40,6 +42,8 @@ const Register = () => {
           tokenExpiration: response.data.tokenExpiration,
         })
       );
+      localStorage.setItem("authToken", token);
+      return token;
     } catch (error) {
       setSubmitting(false);
       if (error.response) {

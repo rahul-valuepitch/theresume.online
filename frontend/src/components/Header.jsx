@@ -37,11 +37,6 @@ const Header = () => {
                 Templates
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/resumes" className="nav-link">
-                Resumes
-              </Link>
-            </li>
             {!isAuthenticated ? (
               <>
                 <li>

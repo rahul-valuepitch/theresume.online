@@ -1,6 +1,6 @@
+import axios from "axios";
 import { useState, useCallback } from "react";
 import { FaPlus } from "react-icons/fa6";
-import axios from "axios";
 import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
@@ -17,7 +17,7 @@ import { debounce } from "../../../utils/debounce";
 const PersonalDetail = () => {
   const dispatch = useDispatch();
   const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
-  const resumeId = useSelector((state) => state.resume.detail.resumeId);
+  const resumeId = useSelector((state) => state.resume.detail._id);
 
   const initialValues = {
     jobTitle: "",
