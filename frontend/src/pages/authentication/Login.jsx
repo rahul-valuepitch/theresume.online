@@ -38,7 +38,7 @@ const Login = () => {
         login({
           error: null,
           user: response.data.data.user,
-          token: token,
+          token,
           tokenExpiration: response.data.tokenExpiration,
         })
       );

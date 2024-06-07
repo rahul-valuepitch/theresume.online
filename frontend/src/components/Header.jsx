@@ -3,25 +3,39 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Logo } from "../static/images/logos";
-import { logout } from "../store/slices/authSlice";
+import { logout, resetState } from "../store/slices/authSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   const handleLogout = async () => {
-    await axios.post(
-      `${import.meta.env.VITE_API_BASE_URL}/user/logout`,
-      {},
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      }
-    );
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/user/logout`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
 
-    dispatch(logout());
+      // Clear all storage
+      localStorage.clear();
+      document.cookie.split(";").forEach((c) => {
+        document.cookie = c
+          .replace(/^ +/, "")
+          .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+
+      // Reset the Redux store
+      dispatch(logout());
+      dispatch(resetState()); // Reset the state to its initial values
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   };
 
   return (

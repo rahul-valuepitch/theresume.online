@@ -37,8 +37,8 @@ const Register = () => {
       dispatch(
         login({
           error: null,
-          user: response.data.data,
-          token: response.data.data.accessToken,
+          user: response.data.data.user,
+          token,
           tokenExpiration: response.data.tokenExpiration,
         })
       );
@@ -146,7 +146,7 @@ const Register = () => {
           <p className="mt-5 mb-5">
             Already a member? <Link to="/login">Login</Link>
           </p>
-          <Link class="social-btn">
+          <Link className="social-btn">
             <img src={Google} alt="Google" />
             <span>Sign Up with Google</span>
           </Link>

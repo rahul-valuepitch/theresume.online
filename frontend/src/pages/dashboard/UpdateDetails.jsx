@@ -14,10 +14,6 @@ const UpdateDetails = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.user);
 
-  const formattedBirthDate = new Date(auth.birthDate)
-    .toISOString()
-    .split("T")[0];
-
   const onSubmit = async (values, { setErrors, setSubmitting, resetForm }) => {
     try {
       const response = await axios.patch(
@@ -31,12 +27,15 @@ const UpdateDetails = () => {
         }
       );
 
+      console.log(response);
+
       dispatch(updateUserDetails(response.data.data));
       resetForm();
       setIsUpdated(true);
       setTimeout(() => setIsUpdated(false), 3000);
       navigate("/dashboard/profile");
     } catch (error) {
+      console.log(error);
       setSubmitting(false);
       if (error.response) {
         const apiError = error.response.data.message || "An error occurred";
@@ -51,17 +50,22 @@ const UpdateDetails = () => {
     }
   };
 
-  // Initialize form values with a function
-  const initialValues = () => ({
-    fullName: auth.fullName,
-    email: auth.email,
-    phone: auth.phone,
-    gender: auth.gender,
-    birthDate: formattedBirthDate,
-    pronounce: auth.pronounce,
+  const formik = useFormik({
+    initialValues: {
+      fullName: auth.fullName || "",
+      email: auth.email || "",
+      phone: auth.phone || "",
+      gender: auth.gender || "",
+      birthDate: auth.birthDate
+        ? new Date(auth.birthDate).toISOString().split("T")[0]
+        : "",
+      pronounce: auth.pronounce || "",
+    },
+    validationSchema: profileSchema,
+    onSubmit,
+    enableReinitialize: true,
   });
 
-  // Formik
   const {
     values,
     errors,
@@ -70,11 +74,7 @@ const UpdateDetails = () => {
     handleBlur,
     handleSubmit,
     isSubmitting,
-  } = useFormik({
-    initialValues: initialValues(),
-    validationSchema: profileSchema,
-    onSubmit,
-  });
+  } = formik;
 
   return (
     <>
@@ -177,6 +177,9 @@ const UpdateDetails = () => {
           <div className="text-md text-green-500 mt-4">
             Profile updated successfully!
           </div>
+        )}
+        {errors.apiError && (
+          <div className="text-md text-red-500 mt-4">{errors.apiError}</div>
         )}
       </form>
     </>

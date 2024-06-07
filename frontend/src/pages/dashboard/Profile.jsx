@@ -13,6 +13,7 @@ import { updateUserDetails } from "../../store/slices/authSlice";
 const Profile = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.user);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -54,6 +55,10 @@ const Profile = () => {
   // Configuration options
   const options = { multi: false };
 
+  if (!isAuthenticated || !auth || !auth.email) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <div className="grid grid-cols-3 gap-5">
@@ -61,8 +66,11 @@ const Profile = () => {
           <div className="profile-card card">
             <div className="card-body">
               <div className="image">
-                {auth.avatar && <img src={auth.avatar} alt={auth.fullName} />}
-                {!auth.avatar && <img src={DummyUser} alt={auth.fullName} />}
+                {auth.avatar ? (
+                  <img src={auth.avatar} alt={auth.fullName} />
+                ) : (
+                  <img src={DummyUser} alt={auth.fullName} />
+                )}
                 <UploadButton
                   uploader={uploader}
                   options={options}
@@ -116,13 +124,15 @@ const Profile = () => {
                   <tr>
                     <th>Birth Date</th>
                     <td>
-                      {new Date(auth.birthDate)
-                        .toLocaleDateString("en-US", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        })
-                        .replace(/ /g, " ")}
+                      {auth.birthDate
+                        ? new Date(auth.birthDate)
+                            .toLocaleDateString("en-US", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            })
+                            .replace(/ /g, " ")
+                        : "N/A"}
                     </td>
                   </tr>
                   <tr>

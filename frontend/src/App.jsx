@@ -44,16 +44,21 @@ const App = () => {
 
   useEffect(() => {
     const initializeUser = async () => {
-      const userData = await fetchUserData();
-      if (userData) {
-        dispatch(
-          login({
-            isAuthenticated: true,
-            loading: false,
-            user: userData,
-            error: null,
-          })
-        );
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        const userData = await fetchUserData();
+        if (userData) {
+          dispatch(
+            login({
+              isAuthenticated: true,
+              loading: false,
+              user: userData,
+              error: null,
+            })
+          );
+        } else {
+          dispatch(setLoading(false));
+        }
       } else {
         dispatch(setLoading(false));
       }

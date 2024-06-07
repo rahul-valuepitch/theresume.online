@@ -27,12 +27,8 @@ const authSlice = createSlice({
       state.tokenExpiration = action.payload.tokenExpiration;
       state.error = null;
     },
-    logout: (state) => {
-      state.isAuthenticated = false;
-      state.user = null;
-      state.token = null;
-      state.tokenExpiration = null;
-      state.error = null;
+    logout: () => {
+      return initialState; // Reset state to initialState
     },
     setAuthError: (state, action) => {
       state.error = action.payload;
@@ -43,10 +39,17 @@ const authSlice = createSlice({
     updateUserDetails: (state, action) => {
       state.user = { ...state.user, ...action.payload };
     },
+    resetState: () => initialState, // Action to reset the state to initial values
   },
 });
 
-export const { login, logout, setAuthError, setLoading, updateUserDetails } =
-  authSlice.actions;
+export const {
+  login,
+  logout,
+  setAuthError,
+  setLoading,
+  updateUserDetails,
+  resetState,
+} = authSlice.actions;
 
 export default authSlice.reducer;
