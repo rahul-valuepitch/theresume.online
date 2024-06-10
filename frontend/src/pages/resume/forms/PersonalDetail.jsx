@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { FaPlus } from "react-icons/fa6";
 import {
   MdOutlineKeyboardArrowDown,
@@ -18,73 +18,28 @@ const PersonalDetail = () => {
   const dispatch = useDispatch();
   const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
   const resumeId = useSelector((state) => state.resume.detail._id);
+  const personalDetail = useSelector((state) => state.resume.personalDetail);
 
   const initialValues = {
-    jobTitle: "",
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
-    zip: "",
-    drivingLicense: "",
-    nationality: "",
-    placeOfBirth: "",
-    dateOfBirth: "",
-    gender: "",
-    maritalStatus: "",
-    summary: "",
+    jobTitle: personalDetail.jobTitle || "",
+    firstName: personalDetail.firstName || "",
+    middleName: personalDetail.middleName || "",
+    lastName: personalDetail.lastName || "",
+    email: personalDetail.email || "",
+    phone: personalDetail.phone || "",
+    address: personalDetail.address || "",
+    city: personalDetail.city || "",
+    state: personalDetail.state || "",
+    zip: personalDetail.zip || "",
+    drivingLicense: personalDetail.drivingLicense || "",
+    nationality: personalDetail.nationality || "",
+    placeOfBirth: personalDetail.placeOfBirth || "",
+    dateOfBirth: personalDetail.dateOfBirth || "",
+    gender: personalDetail.gender || "",
+    maritalStatus: personalDetail.maritalStatus || "",
+    summary: personalDetail.summary || "",
   };
 
-  const debouncedUpdate = useCallback(
-    debounce(async (field, value) => {
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        dispatch(
-          showAlert({ message: "Unauthorized: No token found", type: "error" })
-        );
-        return;
-      }
-
-      try {
-        const response = await axios.patch(
-          `${
-            import.meta.env.VITE_API_BASE_URL
-          }/resume/${resumeId}?action=update-resume-profile`,
-          { [field]: value },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log(response);
-        dispatch(updatePersonalDetail({ [field]: value }));
-        dispatch(showAlert({ message: "Details Updated", type: "success" }));
-      } catch (error) {
-        console.log("Error updating personal details:", error);
-        dispatch(
-          showAlert({
-            message: error.response?.data?.message || "Error updating details",
-            type: "error",
-          })
-        );
-      }
-    }, 500),
-    [dispatch, resumeId]
-  );
-
-  const handleChangeWithDebounce = (e) => {
-    const { name, value } = e.target;
-    debouncedUpdate(name, value);
-    formik.handleChange(e);
-  };
-
-  // Formik
   const formik = useFormik({
     initialValues,
     onSubmit: async (values, { setSubmitting }) => {
@@ -98,7 +53,7 @@ const PersonalDetail = () => {
       }
 
       try {
-        const response = await axios.patch(
+        await axios.patch(
           `${
             import.meta.env.VITE_API_BASE_URL
           }/resume/${resumeId}?action=update-resume-profile`,
@@ -110,19 +65,42 @@ const PersonalDetail = () => {
             },
           }
         );
-        console.log(response);
         dispatch(updatePersonalDetail(values));
         dispatch(showAlert({ message: "Details Updated", type: "success" }));
       } catch (error) {
-        console.log("Error updating personal details:", error);
         dispatch(
-          showAlert({ message: error.response.data.message, type: "error" })
+          showAlert({
+            message: error.response?.data?.message || "Error updating details",
+            type: "error",
+          })
         );
       } finally {
         setSubmitting(false);
       }
     },
+    enableReinitialize: true,
   });
+
+  // Debounced submission to handle form changes
+  const debouncedSubmit = useCallback(
+    debounce(() => {
+      formik.submitForm();
+    }, 5000), // Save after 5 seconds of inactivity
+    [formik]
+  );
+
+  // Watch for form value changes
+  useEffect(() => {
+    if (formik.dirty) {
+      debouncedSubmit();
+    }
+  }, [formik.values, debouncedSubmit]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    formik.handleChange(e);
+    dispatch(updatePersonalDetail({ [name]: value })); // Update Redux store
+  };
 
   const toggleAdditionalInfo = () => {
     setShowAdditionalInfo((prev) => !prev);
@@ -150,7 +128,7 @@ const PersonalDetail = () => {
             className="mb-0"
             required
             value={formik.values.jobTitle}
-            onChange={handleChangeWithDebounce}
+            onChange={handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.jobTitle && formik.errors.jobTitle}
           />
@@ -163,7 +141,7 @@ const PersonalDetail = () => {
             className="mb-0"
             required
             value={formik.values.firstName}
-            onChange={handleChangeWithDebounce}
+            onChange={handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.firstName && formik.errors.firstName}
           />
@@ -176,7 +154,7 @@ const PersonalDetail = () => {
             className="mb-0"
             required
             value={formik.values.middleName}
-            onChange={handleChangeWithDebounce}
+            onChange={handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.middleName && formik.errors.middleName}
           />
@@ -189,7 +167,7 @@ const PersonalDetail = () => {
             className="mb-0"
             required
             value={formik.values.lastName}
-            onChange={handleChangeWithDebounce}
+            onChange={handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.lastName && formik.errors.lastName}
           />
@@ -202,7 +180,7 @@ const PersonalDetail = () => {
             className="mb-0"
             required
             value={formik.values.email}
-            onChange={handleChangeWithDebounce}
+            onChange={handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.email && formik.errors.email}
           />
@@ -211,11 +189,11 @@ const PersonalDetail = () => {
           <FormInput
             label="Phone"
             name="phone"
-            type="number"
+            type="text"
             className="mb-0"
             required
             value={formik.values.phone}
-            onChange={handleChangeWithDebounce}
+            onChange={handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.phone && formik.errors.phone}
           />
@@ -227,7 +205,7 @@ const PersonalDetail = () => {
             required
             className="mb-0"
             value={formik.values.summary}
-            onChange={handleChangeWithDebounce}
+            onChange={handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.summary && formik.errors.summary}
           />
@@ -256,7 +234,7 @@ const PersonalDetail = () => {
               className="mb-0"
               required
               value={formik.values.address}
-              onChange={handleChangeWithDebounce}
+              onChange={handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.address && formik.errors.address}
             />
@@ -269,7 +247,7 @@ const PersonalDetail = () => {
               className="mb-0"
               required
               value={formik.values.city}
-              onChange={handleChangeWithDebounce}
+              onChange={handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.city && formik.errors.city}
             />
@@ -282,7 +260,7 @@ const PersonalDetail = () => {
               className="mb-0"
               required
               value={formik.values.state}
-              onChange={handleChangeWithDebounce}
+              onChange={handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.state && formik.errors.state}
             />
@@ -295,7 +273,7 @@ const PersonalDetail = () => {
               className="mb-0"
               required
               value={formik.values.zip}
-              onChange={handleChangeWithDebounce}
+              onChange={handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.zip && formik.errors.zip}
             />
@@ -308,7 +286,7 @@ const PersonalDetail = () => {
               className="mb-0"
               required
               value={formik.values.drivingLicense}
-              onChange={handleChangeWithDebounce}
+              onChange={handleChange}
               onBlur={formik.handleBlur}
               error={
                 formik.touched.drivingLicense && formik.errors.drivingLicense
@@ -323,7 +301,7 @@ const PersonalDetail = () => {
               className="mb-0"
               required
               value={formik.values.nationality}
-              onChange={handleChangeWithDebounce}
+              onChange={handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.nationality && formik.errors.nationality}
             />
@@ -336,7 +314,7 @@ const PersonalDetail = () => {
               className="mb-0"
               required
               value={formik.values.placeOfBirth}
-              onChange={handleChangeWithDebounce}
+              onChange={handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.placeOfBirth && formik.errors.placeOfBirth}
             />
@@ -349,7 +327,7 @@ const PersonalDetail = () => {
               className="mb-0"
               required
               value={formik.values.dateOfBirth}
-              onChange={handleChangeWithDebounce}
+              onChange={handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.dateOfBirth && formik.errors.dateOfBirth}
             />
@@ -361,7 +339,7 @@ const PersonalDetail = () => {
               className="mb-0"
               required
               value={formik.values.gender}
-              onChange={handleChangeWithDebounce}
+              onChange={handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.gender && formik.errors.gender}
               options={[
@@ -374,12 +352,12 @@ const PersonalDetail = () => {
           </div>
           <div>
             <FormSelect
-              label="Maritial Status"
-              name="maritialStatus"
+              label="Marital Status"
+              name="maritalStatus"
               className="mb-0"
               required
               value={formik.values.maritalStatus}
-              onChange={handleChangeWithDebounce}
+              onChange={handleChange}
               onBlur={formik.handleBlur}
               error={
                 formik.touched.maritalStatus && formik.errors.maritalStatus

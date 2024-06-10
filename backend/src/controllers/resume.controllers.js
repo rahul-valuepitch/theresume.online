@@ -150,7 +150,7 @@ export const updateResumeProfileController = asyncHandler(async (req, res) => {
   }
 
   // * Save data
-  Object.assign(resume, {
+  Object.assign(resume.personalDetail, {
     jobTitle,
     firstName,
     middleName,
