@@ -33,7 +33,8 @@ const Resume = () => {
             },
           }
         );
-        dispatch(setResumes(response.data));
+        console.log(response.data.data);
+        dispatch(setResumes(response.data.data));
       } catch (error) {
         console.error("Error fetching resume data:", error);
       }

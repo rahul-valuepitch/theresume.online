@@ -17,7 +17,7 @@ import { debounce } from "../../../utils/debounce";
 const PersonalDetail = () => {
   const dispatch = useDispatch();
   const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
-  const resumeId = useSelector((state) => state.resume.detail._id);
+  const resumeId = useSelector((state) => state.resume.detail.resumeId);
   const personalDetail = useSelector((state) => state.resume.personalDetail);
 
   const initialValues = {

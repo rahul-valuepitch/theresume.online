@@ -32,10 +32,12 @@ const Resume = () => {
             withCredentials: true,
           }
         );
-
         dispatch(setResumes(response.data.data));
       } catch (error) {
         console.error("Error fetching resumes:", error);
+        dispatch(
+          showAlert({ message: "Error fetching resumes", type: "error" })
+        );
       }
     };
 
@@ -47,7 +49,7 @@ const Resume = () => {
       const response = await axios.post(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/?templateId=6662c0a1a614a78695e42a95`,
+        }/resume/?templateId=6666c6894f54cada58060652`,
         {},
         {
           headers: {
@@ -68,11 +70,12 @@ const Resume = () => {
       navigate(`/resumes/create/${newResume._id}`);
     } catch (error) {
       console.error("Error creating resume:", error);
+      dispatch(showAlert({ message: "Error creating resume", type: "error" }));
     }
   };
 
   const handleEditResume = (resume) => {
-    dispatch(setCurrentResume(resume));
+    dispatch(setCurrentResume(resume._id));
     navigate(`/resumes/create/${resume._id}`);
   };
 
