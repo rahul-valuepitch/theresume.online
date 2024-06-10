@@ -14,6 +14,19 @@ const UpdateDetails = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.user);
 
+  const sanitizeInput = (value) => (typeof value === "string" ? value : "");
+
+  const initialValues = {
+    fullName: sanitizeInput(auth.fullName),
+    email: sanitizeInput(auth.email),
+    phone: sanitizeInput(auth.phone),
+    gender: sanitizeInput(auth.gender),
+    birthDate: auth.birthDate
+      ? new Date(auth.birthDate).toISOString().split("T")[0]
+      : "",
+    pronounce: sanitizeInput(auth.pronounce),
+  };
+
   const onSubmit = async (values, { setErrors, setSubmitting, resetForm }) => {
     try {
       const response = await axios.patch(
@@ -27,15 +40,12 @@ const UpdateDetails = () => {
         }
       );
 
-      console.log(response);
-
       dispatch(updateUserDetails(response.data.data));
       resetForm();
       setIsUpdated(true);
       setTimeout(() => setIsUpdated(false), 3000);
       navigate("/dashboard/profile");
     } catch (error) {
-      console.log(error);
       setSubmitting(false);
       if (error.response) {
         const apiError = error.response.data.message || "An error occurred";
@@ -51,16 +61,7 @@ const UpdateDetails = () => {
   };
 
   const formik = useFormik({
-    initialValues: {
-      fullName: auth.fullName || "",
-      email: auth.email || "",
-      phone: auth.phone || "",
-      gender: auth.gender || "",
-      birthDate: auth.birthDate
-        ? new Date(auth.birthDate).toISOString().split("T")[0]
-        : "",
-      pronounce: auth.pronounce || "",
-    },
+    initialValues,
     validationSchema: profileSchema,
     onSubmit,
     enableReinitialize: true,
@@ -112,7 +113,7 @@ const UpdateDetails = () => {
             <FormInput
               label="Phone No."
               name="phone"
-              type="number"
+              type="text"
               className="mb-0"
               value={values.phone}
               onChange={handleChange}
@@ -162,6 +163,7 @@ const UpdateDetails = () => {
               onBlur={handleBlur}
               required
               options={[
+                { label: "---", value: "" },
                 { label: "He/Him", value: "He/Him" },
                 { label: "She/Her", value: "She/Her" },
                 { label: "They/Them", value: "They/Them" },
