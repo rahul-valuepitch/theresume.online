@@ -124,12 +124,24 @@ const resumeSlice = createSlice({
   name: "alert",
   initialState,
   reducers: {
-    setResumes: (state, action) => {
-      state.resumes = action.payload;
+    addResume: (state, action) => {
+      state.resumes.push(action.payload);
+    },
+    createResume: (state, action) => {
+      state.detail = action.payload;
+    },
+    removeResume: (state, action) => {
+      state.resumes = state.resumes.filter(
+        (resume) => resume._id !== action.payload
+      );
+    },
+    setCurrentResume: (state, action) => {
+      state.detail = action.payload;
     },
   },
 });
 
-export const { setResumes } = resumeSlice.actions;
+export const { addResume, createResume, removeResume, setCurrentResume } =
+  resumeSlice.actions;
 
 export default resumeSlice.reducer;
