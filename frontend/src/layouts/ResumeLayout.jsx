@@ -1,8 +1,10 @@
+import { Outlet } from "react-router-dom";
+
 const ResumeLayout = () => {
   return (
-    <div>
-      <h1>Resume</h1>
-    </div>
+    <>
+      <Outlet />
+    </>
   );
 };
 

@@ -77,7 +77,7 @@ const Resume = () => {
           user: createdResume.user,
         })
       );
-      navigate();
+      navigate(`/resumes/create/${createdResume._id}`);
     } catch (error) {
       dispatch(showAlert({ message: "Error creating resume", type: "error" }));
     }
@@ -85,7 +85,6 @@ const Resume = () => {
 
   // Edit Resume
   const handleEditResume = async (resumeId) => {
-    console.log(resumeId);
     dispatch(
       setCurrentResume({
         templateId: resumeId.template,
@@ -93,6 +92,7 @@ const Resume = () => {
         user: resumeId.user,
       })
     );
+    // navigate(`/resumes/create/${resumeId._id}`);
   };
 
   // Delete Resume

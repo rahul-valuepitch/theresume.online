@@ -24,6 +24,7 @@ import {
   UpdateProfileDetails,
 } from "./pages/dashboard/index";
 import { Home } from "./pages/website/index";
+import { ResumePage } from "./pages/resumes/index";
 import { ProtectedRoute, FetchUserData } from "./utils/index";
 
 const App = () => {
@@ -118,7 +119,16 @@ const App = () => {
                 <ResumeLayout />
               </ProtectedRoute>
             }
-          ></Route>
+          >
+            <Route
+              path="create/:_id"
+              element={
+                <ProtectedRoute>
+                  <ResumePage />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
 
           {/* Dashboard Routes */}
           <Route
