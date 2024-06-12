@@ -417,10 +417,15 @@ export const updateProfileController = asyncHandler(async (req, res) => {
     user.pronounce = pronounce;
     await user.save();
 
+    // * Updated User
+    const updatedUser = await User.findById(user._id).select(
+      "-password -refreshToken"
+    );
+
     // * Sending Response
     return res
       .status(200)
-      .json(new ApiResponse(200, user, "User updated successfully!"));
+      .json(new ApiResponse(200, updatedUser, "User updated successfully!"));
   } catch (error) {
     throw new ApiError(500, `Server Error : ${error.message}`);
   }

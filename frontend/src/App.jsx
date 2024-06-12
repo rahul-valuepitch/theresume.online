@@ -17,7 +17,12 @@ import {
 } from "./layouts/index";
 import { Alert } from "./components/index";
 import { Register, Login, ForgotPassword } from "./pages/authentication/index";
-import { Dashboard, Profile, Resume } from "./pages/dashboard/index";
+import {
+  Dashboard,
+  Profile,
+  Resume,
+  UpdateProfileDetails,
+} from "./pages/dashboard/index";
 import { Home } from "./pages/website/index";
 import { ProtectedRoute, FetchUserData } from "./utils/index";
 
@@ -139,7 +144,9 @@ const App = () => {
                   <Profile />
                 </ProtectedRoute>
               }
-            />
+            >
+              <Route path="update-details" element={<UpdateProfileDetails />} />
+            </Route>
             <Route
               path="resumes"
               element={
