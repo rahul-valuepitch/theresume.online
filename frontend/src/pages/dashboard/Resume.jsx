@@ -92,7 +92,8 @@ const Resume = () => {
         user: resumeId.user,
       })
     );
-    // navigate(`/resumes/create/${resumeId._id}`);
+    navigate(`/resumes/create/${resumeId._id}`);
+    console.log(resumeId._id);
   };
 
   // Delete Resume

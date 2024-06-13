@@ -13,8 +13,6 @@ const ResumePage = () => {
   const resume = useSelector((state) => state.resume.detail);
   const resumeId = resume.resumeId;
 
-  console.log(resume);
-
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("authToken");
@@ -24,7 +22,6 @@ const ResumePage = () => {
         );
         return;
       }
-      console.log(token);
 
       try {
         const response = await axios.get(
@@ -36,8 +33,15 @@ const ResumePage = () => {
             },
           }
         );
-        console.log(response.data.data);
-        dispatch(setCurrentResume({}));
+        const currentResume = response.data.data;
+        console.log(currentResume);
+        dispatch(
+          setCurrentResume({
+            templateId: currentResume.template,
+            resumeId: currentResume._id,
+            user: currentResume.user,
+          })
+        );
       } catch (error) {
         console.error(error);
         dispatch(
