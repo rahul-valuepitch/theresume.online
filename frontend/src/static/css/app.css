@@ -401,8 +401,7 @@
 }
 .resume-container .resume-overview {
   width: 50%;
-  min-height: 100vh;
-  height: 100%;
+  height: 100vh;
   overflow-y: auto;
   background: var(--light-alt);
 }

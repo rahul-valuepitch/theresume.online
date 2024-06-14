@@ -93,7 +93,6 @@ const Resume = () => {
       })
     );
     navigate(`/resumes/create/${resumeId._id}`);
-    console.log(resumeId._id);
   };
 
   // Delete Resume

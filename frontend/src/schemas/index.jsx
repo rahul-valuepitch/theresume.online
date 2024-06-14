@@ -49,3 +49,24 @@ export const profileSchema = yup.object().shape({
     .email("Please enter a valid email")
     .required("Please enter Email Address"),
 });
+
+// Profession Detail Schema Validation
+export const professionalDetailSchema = yup.object({
+  experiences: yup.array().of(
+    yup.object({
+      title: yup.string().required("Job title is required"),
+      employer: yup.string().required("Employer is required"),
+      startDate: yup.date().required("Start date is required").nullable(),
+      endDate: yup
+        .date()
+        .nullable()
+        .when("currentlyWorking", {
+          is: false,
+          then: () => yup.date().required("End date is required"),
+        }),
+      city: yup.string().required("City is required"),
+      description: yup.string().required("Description is required"),
+      currentlyWorking: yup.boolean(),
+    })
+  ),
+});

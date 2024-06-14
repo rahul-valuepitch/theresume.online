@@ -1,7 +1,12 @@
+import { PersonalDetail, ProfessionalDetail } from "./forms";
+
 const ResumeForm = () => {
   return (
     <>
-      <h1>Resume</h1>
+      <PersonalDetail />
+      <hr />
+      <ProfessionalDetail />
+      <hr />
     </>
   );
 };

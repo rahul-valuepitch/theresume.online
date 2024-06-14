@@ -1,17 +1,28 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 import { ResumeForm, ResumeOutput } from "./index";
-import { setCurrentResume } from "../../store/slices/resumeSlice";
+import {
+  resetResumeState,
+  setCurrentResume,
+  updatePersonalDetail,
+} from "../../store/slices/resumeSlice";
 import { showAlert } from "../../store/slices/alertSlice";
 
 const ResumePage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const resume = useSelector((state) => state.resume.detail);
   const resumeId = resume.resumeId;
+
+  const goBackHandler = () => {
+    dispatch(resetResumeState());
+    navigate("/dashboard/resumes");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +53,7 @@ const ResumePage = () => {
             user: currentResume.user,
           })
         );
+        dispatch(updatePersonalDetail(currentResume.personalDetail));
       } catch (error) {
         console.error(error);
         dispatch(
@@ -58,10 +70,14 @@ const ResumePage = () => {
   return (
     <>
       <div className="resume-container">
-        <Link to="/dashboard/resumes" className="go-back-btn">
+        <button
+          to="/dashboard/resumes"
+          className="go-back-btn"
+          onClick={goBackHandler}
+        >
           <IoIosArrowRoundBack />
           <span>Go Back</span>
-        </Link>
+        </button>
         <div className="resume-form">
           <ResumeForm />
         </div>

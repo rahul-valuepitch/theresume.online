@@ -138,10 +138,26 @@ const resumeSlice = createSlice({
     setCurrentResume: (state, action) => {
       state.detail = action.payload;
     },
+    resetResumeState: () => {
+      return initialState;
+    },
+    updatePersonalDetail: (state, action) => {
+      state.personalDetail = { ...state.personalDetail, ...action.payload };
+    },
+    updateProfessionalDetail: (state, action) => {
+      state.professions = { ...state.professions, ...action.payload };
+    },
   },
 });
 
-export const { addResume, createResume, removeResume, setCurrentResume } =
-  resumeSlice.actions;
+export const {
+  addResume,
+  createResume,
+  removeResume,
+  setCurrentResume,
+  resetResumeState,
+  updatePersonalDetail,
+  updateProfessionalDetail,
+} = resumeSlice.actions;
 
 export default resumeSlice.reducer;
