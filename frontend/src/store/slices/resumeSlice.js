@@ -29,6 +29,7 @@ const initialState = {
   },
   professions: [
     {
+      _id: "",
       title: "",
       employer: "",
       startDate: "",
@@ -147,6 +148,19 @@ const resumeSlice = createSlice({
       state.personalDetail = { ...state.personalDetail, ...action.payload };
     },
 
+    setProfessions: (state, action) => {
+      state.professions = action.payload;
+    },
+    addProfessionalDetail: (state, action) => {
+      state.professions.push(action.payload);
+    },
+    deleteProfessionalDetail: (state, action) => {
+      const professionIndex = action.payload;
+      state.professions = state.professions.filter(
+        (index) => index !== professionIndex
+      );
+      // state.professions.splice(professionIndex, 0);
+    },
     updateProfessionalDetail: (state, action) => {
       state.professions = { ...state.professions, ...action.payload };
     },
@@ -160,6 +174,9 @@ export const {
   setCurrentResume,
   resetResumeState,
   updatePersonalDetail,
+  setProfessions,
+  addProfessionalDetail,
+  deleteProfessionalDetail,
   updateProfessionalDetail,
 } = resumeSlice.actions;
 

@@ -45,7 +45,6 @@ const ResumePage = () => {
           }
         );
         const currentResume = response.data.data;
-        console.log(currentResume);
         dispatch(
           setCurrentResume({
             templateId: currentResume.template,
@@ -55,7 +54,6 @@ const ResumePage = () => {
         );
         dispatch(updatePersonalDetail(currentResume.personalDetail));
       } catch (error) {
-        console.error(error);
         dispatch(
           showAlert({
             message: `Error fetching resume :: ${error}`,
