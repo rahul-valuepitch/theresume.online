@@ -273,8 +273,8 @@ export const getAllProfessionController = asyncHandler(async (req, res) => {
 // Add Profession Controller
 export const addProfessionController = asyncHandler(async (req, res) => {
   /**
-   * TODO: Get Rresume from request
-   * TODO: Get data from frontend
+   * TODO: Get Resume from request
+   * TODO: Check if resume exists
    * TODO: Add profession in resume
    * TODO: Sending Response
    * **/
@@ -284,17 +284,12 @@ export const addProfessionController = asyncHandler(async (req, res) => {
   const resume = await Resume.findById(resumeId);
 
   // * Get data from frontend
-  const { title, employer, startDate, endDate, city, description } = req.body;
+  const newProfession = req.body;
 
-  // * Add Profession in Resume
-  const newProfession = {
-    title,
-    employer,
-    startDate,
-    endDate,
-    city,
-    description,
-  };
+  // * Check if resume exists
+  if (!resume) {
+    return res.status(404).json(new ApiResponse(404, null, "Resume not found"));
+  }
 
   resume.professions.push(newProfession);
   const updatedResume = await resume.save();

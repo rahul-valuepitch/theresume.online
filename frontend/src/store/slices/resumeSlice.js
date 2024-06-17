@@ -135,15 +135,18 @@ const resumeSlice = createSlice({
         (resume) => resume._id !== action.payload
       );
     },
+
     setCurrentResume: (state, action) => {
       state.detail = action.payload;
     },
     resetResumeState: () => {
       return initialState;
     },
+
     updatePersonalDetail: (state, action) => {
       state.personalDetail = { ...state.personalDetail, ...action.payload };
     },
+
     updateProfessionalDetail: (state, action) => {
       state.professions = { ...state.professions, ...action.payload };
     },
