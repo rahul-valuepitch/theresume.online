@@ -150,6 +150,12 @@
 .form-group .form-control::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
+.form-group .form-check-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
 
 /* Button */
 .button {
@@ -185,6 +191,21 @@
 .button-alt:disabled {
   opacity: 0.5;
   cursor: none;
+}
+.button-sm {
+  display: inline-block;
+  padding: 5px 10px;
+  background: var(--primary);
+  color: var(--light);
+  border: 1px solid var(--primary);
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.5s ease all;
+}
+.button-sm:hover {
+  background: var(--dark);
+  border-color: var(--dark);
 }
 
 /* Card */

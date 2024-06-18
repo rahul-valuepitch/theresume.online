@@ -8,14 +8,14 @@ import { useFormik, FieldArray, FormikProvider } from "formik";
 
 import { showAlert } from "../../../store/slices/alertSlice";
 import {
-  setProfessions,
-  addProfessionalDetail,
-  deleteProfessionalDetail,
+  setEducations,
+  addEducationDetail,
+  deleteEducationDetail,
 } from "../../../store/slices/resumeSlice";
 import { FormInput, FormText, FormCheck } from "../../../components/index";
-import { professionalDetailSchema } from "../../../schemas/index";
+import { educationDetailSchema } from "../../../schemas/index";
 
-const ProfessionalDetail = () => {
+const EducationDetail = () => {
   const dispatch = useDispatch();
   const resume = useSelector((state) => state.resume);
   const fetchedResumeDetail = resume;
@@ -23,7 +23,7 @@ const ProfessionalDetail = () => {
   const resumeId = fetchedResumeDetail.detail.resumeId;
 
   // On Submit Function
-  const onSubmitHandler = async (professionId) => {
+  const onSubmitHandler = async (itemId) => {
     try {
       const token = localStorage.getItem("authToken");
       if (!token) {
@@ -33,15 +33,15 @@ const ProfessionalDetail = () => {
         return;
       }
 
-      const profession = values.professions.find(
-        (profession) => profession._id === professionId
+      const education = values.educations.find(
+        (education) => education._id === itemId
       );
 
-      await axios.patch(
+      const res = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=update-profession&pid=${professionId}`,
-        profession,
+        }/resume/${resumeId}?action=update-education&eid=${itemId}`,
+        education,
         {
           headers: {
             "Content-Type": "application/json",
@@ -49,15 +49,18 @@ const ProfessionalDetail = () => {
           },
         }
       );
+      console.log(res);
       dispatch(
         showAlert({
-          message: "Profession updated successfully",
+          message: "Education updated successfully",
           type: "success",
         })
       );
     } catch (error) {
+      console.error(error);
+      console.log(error);
       dispatch(
-        showAlert({ message: "Error updating profession", type: "error" })
+        showAlert({ message: "Error updating education", type: "error" })
       );
     }
   };
@@ -65,17 +68,16 @@ const ProfessionalDetail = () => {
   // Formik
   const formik = useFormik({
     initialValues: {
-      professions: fetchedResumeDetail.professions || [],
+      educations: fetchedResumeDetail.educations || [],
     },
-    validationSchema: professionalDetailSchema,
+    validationSchema: educationDetailSchema,
     onSubmit: onSubmitHandler,
     enableReinitialize: true,
   });
-
   const { values, handleChange, handleSubmit, setFieldValue } = formik;
 
-  // Fetch Professions
-  const fetchProfessions = async (resumeId) => {
+  // Fetch Educations
+  const fetchEducations = async (resumeId) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       dispatch(
@@ -88,7 +90,7 @@ const ProfessionalDetail = () => {
       const response = await axios.get(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=get-all-profession`,
+        }/resume/${resumeId}?action=get-all-education`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -97,14 +99,14 @@ const ProfessionalDetail = () => {
         }
       );
 
-      const data = response.data.data.professions;
-      dispatch(setProfessions(data || []));
-      setFieldValue("professions", data || []);
+      const data = response.data.data.education;
+      console.log("Education", data);
+      dispatch(setEducations(data || []));
+      setFieldValue("educations", data || []);
     } catch (error) {
       dispatch(
         showAlert({
-          message:
-            error.response?.data?.message || "Error fetching professions",
+          message: error.response?.data?.message || "Error fetching educations",
           type: "error",
         })
       );
@@ -112,12 +114,12 @@ const ProfessionalDetail = () => {
   };
   useEffect(() => {
     if (resumeId) {
-      fetchProfessions(resumeId);
+      fetchEducations(resumeId);
     }
   }, [resumeId]);
 
-  // Add Experience
-  const handleAddExperience = async () => {
+  // Add Education
+  const handleAddItem = async () => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       dispatch(
@@ -130,7 +132,7 @@ const ProfessionalDetail = () => {
       const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=add-profession`,
+        }/resume/${resumeId}?action=add-education`,
         {},
         {
           headers: {
@@ -140,27 +142,31 @@ const ProfessionalDetail = () => {
         }
       );
 
-      const newProfession = response.data.data.find(
-        (profession) => !profession.title && !profession.employer
+      const educations = response.data.data;
+      console.log(response.data);
+
+      const newItem = educations.find(
+        (education) => !education.school && !education.degree
       );
 
-      dispatch(addProfessionalDetail(newProfession));
-      setFieldValue("professions", [...values.professions, newProfession]);
+      dispatch(addEducationDetail(newItem));
+      setFieldValue("educations", [...values.educations, newItem]);
       dispatch(
-        showAlert({ message: "Profession added successfully", type: "success" })
+        showAlert({ message: "Education added successfully", type: "success" })
       );
     } catch (error) {
+      console.error(error);
       dispatch(
         showAlert({
-          message: error.response?.data?.message || "Error Adding Experience",
+          message: error.response?.data?.message || "Error Adding Education",
           type: "error",
         })
       );
     }
   };
 
-  // Delete Experience Card
-  const handleDeleteExperience = async (professionId) => {
+  // Delete Education
+  const handleDeleteItem = async (itemId) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       dispatch(
@@ -173,7 +179,7 @@ const ProfessionalDetail = () => {
       await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=delete-profession&pid=${professionId}`,
+        }/resume/${resumeId}?action=delete-education&eid=${itemId}`,
         {},
         {
           headers: {
@@ -182,19 +188,18 @@ const ProfessionalDetail = () => {
           },
         }
       );
-      const updatedExperiences = values.professions.filter(
-        (profession) => profession._id !== professionId
+      const updatedEducations = values.educations.filter(
+        (education) => education._id !== itemId
       );
-      setFieldValue("professions", updatedExperiences);
-      dispatch(deleteProfessionalDetail(professionId));
+      setFieldValue("educations", updatedEducations);
+      dispatch(deleteEducationDetail(itemId));
       dispatch(
         showAlert({
-          message: "Profession deleted successfully",
+          message: "Education deleted successfully",
           type: "success",
         })
       );
     } catch (error) {
-      console.error(error);
       dispatch(
         showAlert({
           message: error.response?.data?.message || "Error Deleting Experience",
@@ -204,62 +209,61 @@ const ProfessionalDetail = () => {
     }
   };
 
-  // Toggle Experience Card
-  const toggleExperienceVisibility = (index) => {
-    console.log("Profession", values.professions);
-    const updatedProfessions = values.professions.map((profession, i) => {
-      console.log(profession);
+  // Toggle Card
+  const toggleItemVisibility = (index) => {
+    const updatedEducations = values.educations.map((education, i) => {
       if (i === index) {
         return {
-          ...profession,
-          isOpen: !profession.isOpen,
+          ...education,
+          isOpen: !education.isOpen,
         };
       }
-      return profession;
+      return education;
     });
-    setFieldValue("professions", updatedProfessions);
+    setFieldValue("educations", updatedEducations);
   };
 
   // Checkbox Change
-  const handleCheckboxChange = (professionId) => {
-    const updatedProfessions = values.professions.map((profession) => {
-      if (profession._id === professionId) {
+  const handleCheckboxChange = (itemId) => {
+    const updatedEducations = values.educations.map((education) => {
+      if (education._id === itemId) {
         return {
-          ...profession,
-          currentlyWorking: !profession.currentlyWorking,
+          ...education,
+          currentlyStudying: !education.currentlyStudying,
         };
       }
-      return profession;
+      return education;
     });
-    setFieldValue("professions", updatedProfessions);
+    setFieldValue("educations", updatedEducations);
     formik.validateForm();
   };
 
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Employment History</h4>
+        <h4 className="sub-heading mb-5">Education History</h4>
 
         <FieldArray
-          name="professions"
+          name="educations"
           render={() => (
             <>
-              {values.professions.map((profession, index) => (
+              {values.educations.map((item, index) => (
                 <div
                   key={index}
                   className="content"
-                  data-profession-id={profession._id}
+                  data-education-id={item._id}
                 >
+                  {/* Head */}
                   <div className="head">
                     <div className="text">
-                      <h5>{profession.title || `Job Title`}</h5>
+                      <h5>{item.school || `School Name`}</h5>
                       <h6>
-                        <span>{profession.startDate || `Start Date`}</span>
+                        <span>{item.startDate || `Start Date`}</span>
                         <span>-</span>
                         <span>
-                          {profession.currentlyWorking
+                          {item.currentlyWorking
                             ? "Present"
-                            : profession.endDate || `End Date`}
+                            : item.endDate || `End Date`}
                         </span>
                       </h6>
                     </div>
@@ -267,107 +271,110 @@ const ProfessionalDetail = () => {
                       <button
                         type="button"
                         className="collapse-btn"
-                        onClick={() => toggleExperienceVisibility(index)}
+                        onClick={() => toggleItemVisibility(index)}
                       >
                         <IoIosArrowDown />
                       </button>
                       <button
                         type="button"
                         className="remove-btn"
-                        onClick={() => handleDeleteExperience(profession._id)}
+                        onClick={() => handleDeleteItem(item._id)}
                       >
                         <GoTrash />
                       </button>
                     </div>
                   </div>
-                  {profession.isOpen && (
+
+                  {/* Body */}
+                  {item.isOpen && (
                     <div className="body">
                       <div className="grid grid-cols-2 gap-5">
                         <div>
                           <FormInput
-                            label="Job Title"
-                            name={`professions[${index}].title`}
+                            label="School Name"
+                            name={`educations[${index}].school`}
                             type="text"
                             className="mb-0"
                             required
-                            value={profession.title}
+                            value={item.school}
                             onChange={handleChange}
                           />
                         </div>
                         <div>
                           <FormInput
-                            label="Employer"
-                            name={`professions[${index}].employer`}
+                            label="Degree"
+                            name={`educations[${index}].degree`}
                             type="text"
                             className="mb-0"
                             required
-                            value={profession.employer}
+                            value={item.degree}
                             onChange={handleChange}
                           />
                         </div>
                         <div className="col-span-2">
                           <FormCheck
                             className="mb-0"
-                            label="Currently working in this company"
-                            name={`professions[${index}].currentlyWorking`}
-                            checked={profession.currentlyWorking}
-                            onChange={() =>
-                              handleCheckboxChange(profession._id)
-                            }
+                            label="Currently studying in this school"
+                            name={`educations[${index}].currentlyStudying`}
+                            checked={item.currentlyStudying}
+                            onChange={() => {
+                              handleCheckboxChange(item._id);
+                            }}
                           />
                         </div>
                         <div>
                           <FormInput
                             label="Start Date"
-                            name={`professions[${index}].startDate`}
+                            name={`educations[${index}].startDate`}
                             type="date"
                             className="mb-0"
                             required
-                            value={profession.startDate}
+                            value={item.startDate}
                             onChange={handleChange}
                           />
                         </div>
-                        {!profession.currentlyWorking && (
+                        {!item.currentlyStudying && (
                           <div>
                             <FormInput
                               label="End Date"
-                              name={`professions[${index}].endDate`}
+                              name={`educations[${index}].endDate`}
                               type="date"
                               className="mb-0"
                               required
-                              value={profession.endDate}
+                              value={item.endDate}
                               onChange={handleChange}
                             />
                           </div>
                         )}
                         <div>
                           <FormInput
-                            label="City"
-                            name={`professions[${index}].city`}
+                            label="city"
+                            name={`educations[${index}].city`}
                             type="text"
                             className="mb-0"
                             required
-                            value={profession.city}
+                            value={item.city}
                             onChange={handleChange}
                           />
                         </div>
                         <div className="col-span-2">
                           <FormText
                             label="Description"
-                            name={`professions[${index}].description`}
+                            name={`educations[${index}].description`}
                             rows="4"
                             className="mb-0"
                             required
-                            value={profession.description}
+                            value={item.description}
                             onChange={handleChange}
                           />
                         </div>
                       </div>
                       <button
+                        type="button"
                         className="button-sm mt-3"
-                        onClick={() => onSubmitHandler(profession._id)}
+                        onClick={() => onSubmitHandler(item._id)}
                       >
-                        Update Experience
+                        Update Education
                       </button>
                     </div>
                   )}
@@ -380,9 +387,9 @@ const ProfessionalDetail = () => {
         <button
           type="button"
           className="toggle-info-btn"
-          onClick={handleAddExperience}
+          onClick={handleAddItem}
         >
-          <span className="me-2">Add New Experience</span>
+          <span className="me-2">Add New Education</span>
           <FaPlus />
         </button>
       </form>
@@ -390,4 +397,4 @@ const ProfessionalDetail = () => {
   );
 };
 
-export default ProfessionalDetail;
+export default EducationDetail;

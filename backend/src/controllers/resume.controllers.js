@@ -451,7 +451,7 @@ export const getAllEducationController = asyncHandler(async (req, res) => {
 export const addEducationController = asyncHandler(async (req, res) => {
   /**
    * TODO: Get Resume from request
-   * TODO: Get data from frontend
+   * TODO: Check if resume exists
    * TODO: Add education in resume
    * TODO: Sending Response
    * **/
@@ -461,17 +461,12 @@ export const addEducationController = asyncHandler(async (req, res) => {
   const resume = await Resume.findById(resumeId);
 
   // * Get data from frontend
-  const { school, degree, startDate, endDate, city, description } = req.body;
+  const newEducation = req.body;
 
-  // * Add Education in Resume
-  const newEducation = {
-    school,
-    degree,
-    startDate,
-    endDate,
-    city,
-    description,
-  };
+  // * Check if resume exists
+  if (!resume) {
+    return res.status(404).json(new ApiResponse(404, null, "Resume not found"));
+  }
 
   resume.education.push(newEducation);
   const updatedResume = await resume.save();
@@ -480,7 +475,11 @@ export const addEducationController = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, { updatedResume }, "Education added successfully!")
+      new ApiResponse(
+        200,
+        updatedResume.education,
+        "Education added successfully!"
+      )
     );
 });
 

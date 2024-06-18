@@ -70,3 +70,24 @@ export const professionalDetailSchema = yup.object({
     })
   ),
 });
+
+// Education Detail Schema Validation
+export const educationDetailSchema = yup.object({
+  educations: yup.array().of(
+    yup.object({
+      school: yup.string().required("School Name is required"),
+      degree: yup.string().required("Degree is required"),
+      startDate: yup.date().required("Start date is required").nullable(),
+      endDate: yup
+        .date()
+        .nullable()
+        .when("currentlyWorking", {
+          is: false,
+          then: () => yup.date().required("End date is required"),
+        }),
+      city: yup.string().required("City is required"),
+      description: yup.string().required("Description is required"),
+      currentlyWorking: yup.boolean(),
+    })
+  ),
+});

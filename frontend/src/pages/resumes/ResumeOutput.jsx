@@ -92,6 +92,24 @@ const ResumeOutput = () => {
             <th>Summary</th>
             <td>{resume.personalDetail.summary}</td>
           </tr>
+          <tr>
+            <th>Experience</th>
+            <td>
+              {resume.professions.map((profession) => (
+                <div key={profession._id}>
+                  <hr />
+                  <b>
+                    {profession.title} - {profession.employer}
+                  </b>
+                  <p>
+                    {profession.startDate} - {profession.endDate}
+                  </p>
+                  <p>{profession.description}</p>
+                  <hr />
+                </div>
+              ))}
+            </td>
+          </tr>
         </tbody>
       </table>
     </>

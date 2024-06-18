@@ -1,4 +1,4 @@
-import { PersonalDetail, ProfessionalDetail } from "./forms";
+import { EducationDetail, PersonalDetail, ProfessionalDetail } from "./forms";
 
 const ResumeForm = () => {
   return (
@@ -6,6 +6,8 @@ const ResumeForm = () => {
       <PersonalDetail />
       <hr />
       <ProfessionalDetail />
+      <hr />
+      <EducationDetail />
       <hr />
     </>
   );
