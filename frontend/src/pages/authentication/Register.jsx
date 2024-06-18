@@ -144,10 +144,10 @@ const Register = () => {
           <p className="mt-5 mb-5">
             Already a member? <Link to="/login">Login</Link>
           </p>
-          <Link className="social-btn">
+          {/* <Link className="social-btn">
             <img src={Google} alt="Google" />
             <span>Sign Up with Google</span>
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className="image">
