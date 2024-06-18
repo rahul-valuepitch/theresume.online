@@ -803,10 +803,12 @@ export const addSkillsController = asyncHandler(async (req, res) => {
   const resume = await Resume.findById(resumeId);
 
   // * Get data from frontend
-  const { skill, level } = req.body;
+  const newSkill = req.body;
 
-  // * Add skill in Resume
-  const newSkill = { skill, level };
+  // * Check if resume exists
+  if (!resume) {
+    return res.status(404).json(new ApiResponse(404, null, "Resume not found"));
+  }
 
   resume.skills.push(newSkill);
   const updatedResume = await resume.save();
@@ -815,7 +817,7 @@ export const addSkillsController = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, { updatedResume }, "Education added successfully!")
+      new ApiResponse(200, updatedResume.skills, "Skill added successfully!")
     );
 });
 
@@ -966,10 +968,12 @@ export const addLanguagesController = asyncHandler(async (req, res) => {
   const resume = await Resume.findById(resumeId);
 
   // * Get data from frontend
-  const { label, level } = req.body;
+  const newLanguage = req.body;
 
-  // * Add language in Resume
-  const newLanguage = { label, level };
+  // * Check if resume exists
+  if (!resume) {
+    return res.status(404).json(new ApiResponse(404, null, "Resume not found"));
+  }
 
   resume.languages.push(newLanguage);
   const updatedResume = await resume.save();
@@ -978,7 +982,11 @@ export const addLanguagesController = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, { updatedResume }, "Language added successfully!")
+      new ApiResponse(
+        200,
+        updatedResume.languages,
+        "Language added successfully!"
+      )
     );
 });
 
@@ -1133,17 +1141,12 @@ export const addCoursesController = asyncHandler(async (req, res) => {
   const resume = await Resume.findById(resumeId);
 
   // * Get data from frontend
-  const { title, institute, startDate, endDate, city, description } = req.body;
+  const newCourse = req.body;
 
-  // * Add course in Resume
-  const newCourse = {
-    title,
-    institute,
-    startDate,
-    endDate,
-    city,
-    description,
-  };
+  // * Check if resume exists
+  if (!resume) {
+    return res.status(404).json(new ApiResponse(404, null, "Resume not found"));
+  }
 
   resume.courses.push(newCourse);
   const updatedResume = await resume.save();
@@ -1152,7 +1155,7 @@ export const addCoursesController = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, { updatedResume }, "Course added successfully!")
+      new ApiResponse(200, updatedResume.courses, "Course added successfully!")
     );
 });
 
@@ -1313,17 +1316,12 @@ export const addInternshipController = asyncHandler(async (req, res) => {
   const resume = await Resume.findById(resumeId);
 
   // * Get data from frontend
-  const { title, employer, startDate, endDate, city, description } = req.body;
+  const newInternship = req.body;
 
-  // * Add Internship in Resume
-  const newInternship = {
-    title,
-    employer,
-    startDate,
-    endDate,
-    city,
-    description,
-  };
+  // * Check if resume exists
+  if (!resume) {
+    return res.status(404).json(new ApiResponse(404, null, "Resume not found"));
+  }
 
   resume.internships.push(newInternship);
   const updatedResume = await resume.save();
@@ -1495,10 +1493,12 @@ export const addHobbiesController = asyncHandler(async (req, res) => {
   const resume = await Resume.findById(resumeId);
 
   // * Get data from frontend
-  const { label } = req.body;
+  const newHobbie = req.body;
 
-  // * Add Hobbie in Resume
-  const newHobbie = { label };
+  // * Check if resume exists
+  if (!resume) {
+    return res.status(404).json(new ApiResponse(404, null, "Resume not found"));
+  }
 
   resume.hobbies.push(newHobbie);
   const updatedResume = await resume.save();
@@ -1507,11 +1507,7 @@ export const addHobbiesController = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(
-        200,
-        updatedResume.hobbies,
-        "Internship added successfully!"
-      )
+      new ApiResponse(200, updatedResume.hobbies, "Hobbie added successfully!")
     );
 });
 
@@ -1665,12 +1661,14 @@ export const addReferencesController = asyncHandler(async (req, res) => {
   const resume = await Resume.findById(resumeId);
 
   // * Get data from frontend
-  const { referenceFullname, company, phone, email } = req.body;
+  const newReference = req.body;
 
-  // * Add Reference in Resume
-  const newreference = { referenceFullname, company, phone, email };
+  // * Check if resume exists
+  if (!resume) {
+    return res.status(404).json(new ApiResponse(404, null, "Resume not found"));
+  }
 
-  resume.references.push(newreference);
+  resume.references.push(newReference);
   const updatedResume = await resume.save();
 
   // * Sending Response
@@ -1840,17 +1838,12 @@ export const addCurricularController = asyncHandler(async (req, res) => {
   const resume = await Resume.findById(resumeId);
 
   // * Get data from frontend
-  const { title, employer, startDate, endDate, city, description } = req.body;
+  const newCurricular = req.body;
 
-  // * Add Curricular in Resume
-  const newCurricular = {
-    title,
-    employer,
-    startDate,
-    endDate,
-    city,
-    description,
-  };
+  // * Check if resume exists
+  if (!resume) {
+    return res.status(404).json(new ApiResponse(404, null, "Resume not found"));
+  }
 
   resume.extraCurricular.push(newCurricular);
   const updatedResume = await resume.save();
@@ -2028,16 +2021,12 @@ export const addCustomSectionController = asyncHandler(async (req, res) => {
   const resume = await Resume.findById(resumeId);
 
   // * Get data from frontend
-  const { title, startDate, endDate, city, description } = req.body;
+  const newCustomSection = req.body;
 
-  // * Add Custom Section in Resume
-  const newCustomSection = {
-    title,
-    startDate,
-    endDate,
-    city,
-    description,
-  };
+  // * Check if resume exists
+  if (!resume) {
+    return res.status(404).json(new ApiResponse(404, null, "Resume not found"));
+  }
 
   resume.customSections.push(newCustomSection);
   const updatedResume = await resume.save();
