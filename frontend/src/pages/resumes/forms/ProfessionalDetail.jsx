@@ -6,6 +6,7 @@ import { FaPlus } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
 import { useFormik, FieldArray, FormikProvider } from "formik";
 
+import useRefresh from "../../../utils/useRefresh";
 import { showAlert } from "../../../store/slices/alertSlice";
 import {
   setProfessions,
@@ -19,6 +20,7 @@ const ProfessionalDetail = () => {
   const dispatch = useDispatch();
   const resume = useSelector((state) => state.resume);
   const fetchedResumeDetail = resume;
+  const refresh = useRefresh();
 
   const resumeId = fetchedResumeDetail.detail.resumeId;
 
@@ -55,6 +57,7 @@ const ProfessionalDetail = () => {
           type: "success",
         })
       );
+      refresh();
     } catch (error) {
       dispatch(
         showAlert({ message: "Error updating profession", type: "error" })
@@ -149,6 +152,7 @@ const ProfessionalDetail = () => {
       dispatch(
         showAlert({ message: "Profession added successfully", type: "success" })
       );
+      refresh();
     } catch (error) {
       dispatch(
         showAlert({
@@ -193,6 +197,7 @@ const ProfessionalDetail = () => {
           type: "success",
         })
       );
+      refresh();
     } catch (error) {
       console.error(error);
       dispatch(
@@ -218,6 +223,7 @@ const ProfessionalDetail = () => {
       return profession;
     });
     setFieldValue("professions", updatedProfessions);
+    refresh();
   };
 
   // Checkbox Change

@@ -91,3 +91,13 @@ export const educationDetailSchema = yup.object({
     })
   ),
 });
+
+// Link Detail Schema Validation
+export const linkDetailSchema = yup.object({
+  links: yup.array().of(
+    yup.object({
+      label: yup.string().required("Label is required"),
+      link: yup.string().required("Link is required"),
+    })
+  ),
+});

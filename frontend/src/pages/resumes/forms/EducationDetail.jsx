@@ -6,6 +6,7 @@ import { FaPlus } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
 import { useFormik, FieldArray, FormikProvider } from "formik";
 
+import useRefresh from "../../../utils/useRefresh";
 import { showAlert } from "../../../store/slices/alertSlice";
 import {
   setEducations,
@@ -19,6 +20,7 @@ const EducationDetail = () => {
   const dispatch = useDispatch();
   const resume = useSelector((state) => state.resume);
   const fetchedResumeDetail = resume;
+  const refresh = useRefresh();
 
   const resumeId = fetchedResumeDetail.detail.resumeId;
 
@@ -37,7 +39,7 @@ const EducationDetail = () => {
         (education) => education._id === itemId
       );
 
-      const res = await axios.patch(
+      await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
         }/resume/${resumeId}?action=update-education&eid=${itemId}`,
@@ -49,16 +51,14 @@ const EducationDetail = () => {
           },
         }
       );
-      console.log(res);
       dispatch(
         showAlert({
           message: "Education updated successfully",
           type: "success",
         })
       );
+      refresh();
     } catch (error) {
-      console.error(error);
-      console.log(error);
       dispatch(
         showAlert({ message: "Error updating education", type: "error" })
       );
@@ -100,7 +100,6 @@ const EducationDetail = () => {
       );
 
       const data = response.data.data.education;
-      console.log("Education", data);
       dispatch(setEducations(data || []));
       setFieldValue("educations", data || []);
     } catch (error) {
@@ -143,8 +142,6 @@ const EducationDetail = () => {
       );
 
       const educations = response.data.data;
-      console.log(response.data);
-
       const newItem = educations.find(
         (education) => !education.school && !education.degree
       );
@@ -154,6 +151,7 @@ const EducationDetail = () => {
       dispatch(
         showAlert({ message: "Education added successfully", type: "success" })
       );
+      refresh();
     } catch (error) {
       console.error(error);
       dispatch(
@@ -199,6 +197,7 @@ const EducationDetail = () => {
           type: "success",
         })
       );
+      refresh();
     } catch (error) {
       dispatch(
         showAlert({
@@ -221,6 +220,7 @@ const EducationDetail = () => {
       return education;
     });
     setFieldValue("educations", updatedEducations);
+    refresh();
   };
 
   // Checkbox Change

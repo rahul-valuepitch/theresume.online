@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Logo } from "../static/images/logos";
 import { logout } from "../store/slices/authSlice";
+import { resetResume } from "../store/slices/resumeSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const Header = () => {
 
       // Reset the Redux store
       dispatch(logout());
+      dispatch(resetResume());
     } catch (error) {
       console.error("Error during logout:", error);
     }

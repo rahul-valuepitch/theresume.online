@@ -110,6 +110,37 @@ const ResumeOutput = () => {
               ))}
             </td>
           </tr>
+          <tr>
+            <th>Education</th>
+            <td>
+              {resume.educations.map((education) => (
+                <div key={education._id}>
+                  <hr />
+                  <b>
+                    {education.school} - {education.degree}
+                  </b>
+                  <p>
+                    {education.startDate} - {education.endDate}
+                  </p>
+                  <p>{education.description}</p>
+                  <hr />
+                </div>
+              ))}
+            </td>
+          </tr>
+          <tr>
+            <th>Links</th>
+            <td>
+              {resume.links.map((link) => (
+                <div key={link._id}>
+                  <hr />
+                  <b>{link.label}</b>
+                  <p>{link.link}</p>
+                  <hr />
+                </div>
+              ))}
+            </td>
+          </tr>
         </tbody>
       </table>
     </>

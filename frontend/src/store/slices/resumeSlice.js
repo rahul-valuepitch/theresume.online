@@ -51,24 +51,28 @@ const initialState = {
   ],
   links: [
     {
+      _id: "",
       label: "",
       link: "",
     },
   ],
   skills: [
     {
+      _id: "",
       skill: "",
       level: "",
     },
   ],
   languages: [
     {
+      _id: "",
       label: "",
       level: "",
     },
   ],
   courses: [
     {
+      _id: "",
       title: "",
       institute: "",
       startDate: "",
@@ -79,6 +83,7 @@ const initialState = {
   ],
   internship: [
     {
+      _id: "",
       title: "",
       employer: "",
       startDate: "",
@@ -89,11 +94,13 @@ const initialState = {
   ],
   hobbies: [
     {
+      _id: "",
       label: "",
     },
   ],
   references: [
     {
+      _id: "",
       referenceFullname: "",
       company: "",
       phone: "",
@@ -102,6 +109,7 @@ const initialState = {
   ],
   extraCurricular: [
     {
+      _id: "",
       title: "",
       employer: "",
       startDate: "",
@@ -112,6 +120,7 @@ const initialState = {
   ],
   customSections: [
     {
+      _id: "",
       title: "",
       startDate: "",
       endDate: "",
@@ -126,6 +135,8 @@ const resumeSlice = createSlice({
   name: "alert",
   initialState,
   reducers: {
+    resetResume: () => initialState,
+
     addResume: (state, action) => {
       state.resumes.push(action.payload);
     },
@@ -180,10 +191,26 @@ const resumeSlice = createSlice({
     updateEducationDetail: (state, action) => {
       state.educations = { ...state.educations, ...action.payload };
     },
+
+    setLinks: (state, action) => {
+      state.links = action.payload;
+    },
+    addLink: (state, action) => {
+      state.links.push(action.payload);
+    },
+    deleteLink: (state, action) => {
+      const linkIndex = action.payload;
+      state.links = state.links.filter((index) => index !== linkIndex);
+    },
+    updateLink: (state, action) => {
+      state.links = { ...state.links, ...action.payload };
+    },
   },
 });
 
 export const {
+  resetResume,
+
   addResume,
   createResume,
   removeResume,
@@ -200,6 +227,11 @@ export const {
   addEducationDetail,
   deleteEducationDetail,
   updateEducationDetail,
+
+  setLinks,
+  addLink,
+  deleteLink,
+  updateLink,
 } = resumeSlice.actions;
 
 export default resumeSlice.reducer;

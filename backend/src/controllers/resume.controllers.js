@@ -638,10 +638,12 @@ export const addLinksController = asyncHandler(async (req, res) => {
   const resume = await Resume.findById(resumeId);
 
   // * Get data from frontend
-  const { label, link } = req.body;
+  const newLink = req.body;
 
-  // * Add Link in Resume
-  const newLink = { label, link };
+  // * Check if resume exists
+  if (!resume) {
+    return res.status(404).json(new ApiResponse(404, null, "Resume not found"));
+  }
 
   resume.links.push(newLink);
   const updatedResume = await resume.save();
@@ -650,7 +652,7 @@ export const addLinksController = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, { updatedResume }, "Education added successfully!")
+      new ApiResponse(200, updatedResume.links, "Education added successfully!")
     );
 });
 
