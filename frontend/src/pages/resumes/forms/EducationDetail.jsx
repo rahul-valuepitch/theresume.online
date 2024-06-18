@@ -153,7 +153,6 @@ const EducationDetail = () => {
       );
       refresh();
     } catch (error) {
-      console.error(error);
       dispatch(
         showAlert({
           message: error.response?.data?.message || "Error Adding Education",

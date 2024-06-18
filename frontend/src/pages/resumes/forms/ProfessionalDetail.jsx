@@ -199,7 +199,6 @@ const ProfessionalDetail = () => {
       );
       refresh();
     } catch (error) {
-      console.error(error);
       dispatch(
         showAlert({
           message: error.response?.data?.message || "Error Deleting Experience",
@@ -211,9 +210,7 @@ const ProfessionalDetail = () => {
 
   // Toggle Experience Card
   const toggleExperienceVisibility = (index) => {
-    console.log("Profession", values.professions);
     const updatedProfessions = values.professions.map((profession, i) => {
-      console.log(profession);
       if (i === index) {
         return {
           ...profession,

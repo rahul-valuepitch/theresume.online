@@ -96,7 +96,6 @@ const LinkDetails = () => {
       );
 
       const data = response.data.data.links;
-      console.log("Links", data);
       dispatch(setLinks(data || []));
       setFieldValue("educations", data || []);
     } catch (error) {
