@@ -12,6 +12,7 @@ import {
   setLinks,
   addLink,
   deleteLink,
+  updateLink,
 } from "../../../store/slices/resumeSlice";
 import { FormInput } from "../../../components/index";
 import { linkDetailSchema } from "../../../schemas/index";
@@ -19,58 +20,10 @@ import { linkDetailSchema } from "../../../schemas/index";
 const LinkDetails = () => {
   const dispatch = useDispatch();
   const resume = useSelector((state) => state.resume);
-  const fetchedResumeDetail = resume;
+  const { links: fetchedLinks, detail } = resume;
   const refresh = useRefresh();
 
-  const resumeId = fetchedResumeDetail.detail.resumeId;
-
-  // On Submit Function
-  const onSubmitHandler = async (itemId) => {
-    try {
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        dispatch(
-          showAlert({ message: "Unauthorized: No token found", type: "error" })
-        );
-        return;
-      }
-
-      const link = values.links.find((link) => link._id === itemId);
-
-      await axios.patch(
-        `${
-          import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=update-link&lid=${itemId}`,
-        link,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      dispatch(
-        showAlert({
-          message: "Link updated successfully",
-          type: "success",
-        })
-      );
-      refresh();
-    } catch (error) {
-      dispatch(showAlert({ message: "Error updating link", type: "error" }));
-    }
-  };
-
-  //   Formik
-  const formik = useFormik({
-    initialValues: {
-      links: fetchedResumeDetail.links || [],
-    },
-    validationSchema: linkDetailSchema,
-    onSubmit: onSubmitHandler,
-    enableReinitialize: true,
-  });
-  const { values, handleChange, handleSubmit, setFieldValue } = formik;
+  const resumeId = detail.resumeId;
 
   // Fetch Links
   const fetchLinks = async (resumeId) => {
@@ -97,7 +50,7 @@ const LinkDetails = () => {
 
       const data = response.data.data.links;
       dispatch(setLinks(data || []));
-      setFieldValue("educations", data || []);
+      formik.setFieldValue("links", data || []);
     } catch (error) {
       dispatch(
         showAlert({
@@ -112,6 +65,54 @@ const LinkDetails = () => {
       fetchLinks(resumeId);
     }
   }, [resumeId]);
+
+  // Formik
+  const formik = useFormik({
+    initialValues: {
+      links: fetchedLinks || [],
+    },
+    validationSchema: linkDetailSchema,
+    onSubmit: () => {},
+    enableReinitialize: true,
+  });
+  const { values, handleChange, handleSubmit, setFieldValue } = formik;
+
+  // On Submit Function
+  const onSubmitHandler = async (itemId) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        dispatch(
+          showAlert({ message: "Unauthorized: No token found", type: "error" })
+        );
+        return;
+      }
+
+      const link = values.links.find((link) => link._id === itemId);
+
+      const response = await axios.patch(
+        `${
+          import.meta.env.VITE_API_BASE_URL
+        }/resume/${resumeId}?action=update-link&lid=${itemId}`,
+        link,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const updatedLink = response.data.data;
+      dispatch(updateLink(updatedLink));
+      dispatch(
+        showAlert({ message: "Link updated successfully", type: "success" })
+      );
+      refresh();
+    } catch (error) {
+      dispatch(showAlert({ message: "Error updating link", type: "error" }));
+    }
+  };
 
   // Add Link
   const handleAddItem = async () => {
@@ -137,11 +138,10 @@ const LinkDetails = () => {
         }
       );
 
-      const links = response.data.data;
-      const newItem = links.find((link) => !link.school && !link.degree);
+      const newLink = response.data.data;
 
-      dispatch(addLink(newItem));
-      setFieldValue("links", [...values.links, newItem]);
+      dispatch(addLink(newLink));
+      setFieldValue("links", [...values.links, newLink]);
       dispatch(
         showAlert({ message: "Links added successfully", type: "success" })
       );
@@ -149,7 +149,7 @@ const LinkDetails = () => {
     } catch (error) {
       dispatch(
         showAlert({
-          message: error.response?.data?.message || "Error Adding Links",
+          message: error.response?.data?.message || "Error adding link",
           type: "error",
         })
       );
@@ -167,7 +167,7 @@ const LinkDetails = () => {
     }
 
     try {
-      await axios.patch(
+      const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
         }/resume/${resumeId}?action=delete-link&lid=${itemId}`,
@@ -179,20 +179,18 @@ const LinkDetails = () => {
           },
         }
       );
-      const updatedLinks = values.links.filter((link) => link._id !== itemId);
+
+      const updatedLinks = response.data.data;
       setFieldValue("links", updatedLinks);
-      dispatch(deleteLink(itemId));
+      dispatch(deleteLink(updatedLinks));
       dispatch(
-        showAlert({
-          message: "Link deleted successfully",
-          type: "success",
-        })
+        showAlert({ message: "Link deleted successfully", type: "success" })
       );
       refresh();
     } catch (error) {
       dispatch(
         showAlert({
-          message: error.response?.data?.message || "Error Deleting link",
+          message: error.response?.data?.message || "Error deleting link",
           type: "error",
         })
       );
@@ -200,7 +198,7 @@ const LinkDetails = () => {
   };
 
   // Toggle card
-  const toggleItemVisibility = async (index) => {
+  const toggleItemVisibility = (index) => {
     const updatedLinks = values.links.map((link, i) => {
       if (i === index) {
         return {
@@ -211,7 +209,6 @@ const LinkDetails = () => {
       return link;
     });
     setFieldValue("links", updatedLinks);
-    refresh();
   };
 
   return (

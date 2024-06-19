@@ -199,11 +199,16 @@ const resumeSlice = createSlice({
       state.links.push(action.payload);
     },
     deleteLink: (state, action) => {
-      const linkIndex = action.payload;
-      state.links = state.links.filter((index) => index !== linkIndex);
+      state.links = action.payload;
     },
     updateLink: (state, action) => {
-      state.links = { ...state.links, ...action.payload };
+      const updatedLink = action.payload;
+      const index = state.links.findIndex(
+        (link) => link._id === updatedLink._id
+      );
+      if (index !== -1) {
+        state.links[index] = updatedLink;
+      }
     },
   },
 });

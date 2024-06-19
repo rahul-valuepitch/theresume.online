@@ -648,12 +648,12 @@ export const addLinksController = asyncHandler(async (req, res) => {
   resume.links.push(newLink);
   const updatedResume = await resume.save();
 
+  const createdLink = updatedResume.links[updatedResume.links.length - 1];
+
   // * Sending Response
   return res
     .status(200)
-    .json(
-      new ApiResponse(200, updatedResume.links, "Education added successfully!")
-    );
+    .json(new ApiResponse(200, createdLink, "Education added successfully!"));
 });
 
 // Detail Links Controller
