@@ -294,15 +294,14 @@ export const addProfessionController = asyncHandler(async (req, res) => {
   resume.professions.push(newProfession);
   const updatedResume = await resume.save();
 
+  const createdProfession =
+    updatedResume.professions[updatedResume.professions.length - 1];
+
   // * Sending Response
   return res
     .status(200)
     .json(
-      new ApiResponse(
-        200,
-        updatedResume.professions,
-        "Profession added successfully!"
-      )
+      new ApiResponse(200, createdProfession, "Profession added successfully!")
     );
 });
 
@@ -471,15 +470,14 @@ export const addEducationController = asyncHandler(async (req, res) => {
   resume.education.push(newEducation);
   const updatedResume = await resume.save();
 
+  const createdEducation =
+    updatedResume.education[updatedResume.education.length - 1];
+
   // * Sending Response
   return res
     .status(200)
     .json(
-      new ApiResponse(
-        200,
-        updatedResume.education,
-        "Education added successfully!"
-      )
+      new ApiResponse(200, createdEducation, "Education added successfully!")
     );
 });
 

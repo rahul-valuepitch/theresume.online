@@ -6,6 +6,7 @@ import { FaPlus } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
 import { useFormik, FieldArray, FormikProvider } from "formik";
 
+import formatDate from "../../../utils/dateFormator";
 import useRefresh from "../../../utils/useRefresh";
 import { showAlert } from "../../../store/slices/alertSlice";
 import {
@@ -23,58 +24,6 @@ const EducationDetail = () => {
   const refresh = useRefresh();
 
   const resumeId = fetchedResumeDetail.detail.resumeId;
-
-  // On Submit Function
-  const onSubmitHandler = async (itemId) => {
-    try {
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        dispatch(
-          showAlert({ message: "Unauthorized: No token found", type: "error" })
-        );
-        return;
-      }
-
-      const education = values.educations.find(
-        (education) => education._id === itemId
-      );
-
-      await axios.patch(
-        `${
-          import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=update-education&eid=${itemId}`,
-        education,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      dispatch(
-        showAlert({
-          message: "Education updated successfully",
-          type: "success",
-        })
-      );
-      refresh();
-    } catch (error) {
-      dispatch(
-        showAlert({ message: "Error updating education", type: "error" })
-      );
-    }
-  };
-
-  // Formik
-  const formik = useFormik({
-    initialValues: {
-      educations: fetchedResumeDetail.educations || [],
-    },
-    validationSchema: educationDetailSchema,
-    onSubmit: onSubmitHandler,
-    enableReinitialize: true,
-  });
-  const { values, handleChange, handleSubmit, setFieldValue } = formik;
 
   // Fetch Educations
   const fetchEducations = async (resumeId) => {
@@ -117,6 +66,62 @@ const EducationDetail = () => {
     }
   }, [resumeId]);
 
+  // Formik
+  const formik = useFormik({
+    initialValues: {
+      educations: fetchedResumeDetail.educations || [],
+    },
+    validationSchema: educationDetailSchema,
+    onSubmit: () => {},
+    enableReinitialize: true,
+  });
+  const { values, handleChange, handleSubmit, setFieldValue } = formik;
+
+  // On Submit Function
+  const onSubmitHandler = async (itemId) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        dispatch(
+          showAlert({ message: "Unauthorized: No token found", type: "error" })
+        );
+        return;
+      }
+
+      const education = values.educations.find(
+        (education) => education._id === itemId
+      );
+
+      const response = await axios.patch(
+        `${
+          import.meta.env.VITE_API_BASE_URL
+        }/resume/${resumeId}?action=update-education&eid=${itemId}`,
+        education,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const updatedEducation = response.data.data;
+
+      dispatch(updatedEducation(updatedEducation));
+      dispatch(
+        showAlert({
+          message: "Education updated successfully",
+          type: "success",
+        })
+      );
+      refresh();
+    } catch (error) {
+      dispatch(
+        showAlert({ message: "Error updating education", type: "error" })
+      );
+    }
+  };
+
   // Add Education
   const handleAddItem = async () => {
     const token = localStorage.getItem("authToken");
@@ -141,13 +146,10 @@ const EducationDetail = () => {
         }
       );
 
-      const educations = response.data.data;
-      const newItem = educations.find(
-        (education) => !education.school && !education.degree
-      );
+      const newEducation = response.data.data;
 
-      dispatch(addEducationDetail(newItem));
-      setFieldValue("educations", [...values.educations, newItem]);
+      dispatch(addEducationDetail(newEducation));
+      setFieldValue("educations", [...values.educations, newEducation]);
       dispatch(
         showAlert({ message: "Education added successfully", type: "success" })
       );
@@ -173,7 +175,7 @@ const EducationDetail = () => {
     }
 
     try {
-      await axios.patch(
+      const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
         }/resume/${resumeId}?action=delete-education&eid=${itemId}`,
@@ -185,11 +187,10 @@ const EducationDetail = () => {
           },
         }
       );
-      const updatedEducations = values.educations.filter(
-        (education) => education._id !== itemId
-      );
+      const updatedEducations = response.data.data;
+      console.log(updatedEducations);
       setFieldValue("educations", updatedEducations);
-      dispatch(deleteEducationDetail(itemId));
+      dispatch(deleteEducationDetail(updatedEducations));
       dispatch(
         showAlert({
           message: "Education deleted successfully",
@@ -257,12 +258,14 @@ const EducationDetail = () => {
                     <div className="text">
                       <h5>{item.school || `School Name`}</h5>
                       <h6>
-                        <span>{item.startDate || `Start Date`}</span>
+                        <span>
+                          {formatDate(item.startDate) || `Start Date`}
+                        </span>
                         <span>-</span>
                         <span>
                           {item.currentlyWorking
                             ? "Present"
-                            : item.endDate || `End Date`}
+                            : formatDate(item.endDate) || `End Date`}
                         </span>
                       </h6>
                     </div>
@@ -328,7 +331,7 @@ const EducationDetail = () => {
                             type="date"
                             className="mb-0"
                             required
-                            value={item.startDate}
+                            value={formatDate(item.startDate)}
                             onChange={handleChange}
                           />
                         </div>
@@ -340,7 +343,7 @@ const EducationDetail = () => {
                               type="date"
                               className="mb-0"
                               required
-                              value={item.endDate}
+                              value={formatDate(item.endDate)}
                               onChange={handleChange}
                             />
                           </div>

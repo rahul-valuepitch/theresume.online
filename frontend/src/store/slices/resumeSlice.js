@@ -167,10 +167,7 @@ const resumeSlice = createSlice({
       state.professions.push(action.payload);
     },
     deleteProfessionalDetail: (state, action) => {
-      const professionIndex = action.payload;
-      state.professions = state.professions.filter(
-        (index) => index !== professionIndex
-      );
+      state.professions = action.payload;
     },
     updateProfessionalDetail: (state, action) => {
       state.professions = { ...state.professions, ...action.payload };
@@ -183,10 +180,7 @@ const resumeSlice = createSlice({
       state.educations.push(action.payload);
     },
     deleteEducationDetail: (state, action) => {
-      const educationIndex = action.payload;
-      state.educations = state.educations.filter(
-        (index) => index !== educationIndex
-      );
+      state.educations = action.payload;
     },
     updateEducationDetail: (state, action) => {
       state.educations = { ...state.educations, ...action.payload };

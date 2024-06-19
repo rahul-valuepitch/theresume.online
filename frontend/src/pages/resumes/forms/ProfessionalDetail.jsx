@@ -6,6 +6,7 @@ import { FaPlus } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
 import { useFormik, FieldArray, FormikProvider } from "formik";
 
+import formatDate from "../../../utils/dateFormator";
 import useRefresh from "../../../utils/useRefresh";
 import { showAlert } from "../../../store/slices/alertSlice";
 import {
@@ -23,59 +24,6 @@ const ProfessionalDetail = () => {
   const refresh = useRefresh();
 
   const resumeId = fetchedResumeDetail.detail.resumeId;
-
-  // On Submit Function
-  const onSubmitHandler = async (professionId) => {
-    try {
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        dispatch(
-          showAlert({ message: "Unauthorized: No token found", type: "error" })
-        );
-        return;
-      }
-
-      const profession = values.professions.find(
-        (profession) => profession._id === professionId
-      );
-
-      await axios.patch(
-        `${
-          import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=update-profession&pid=${professionId}`,
-        profession,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      dispatch(
-        showAlert({
-          message: "Profession updated successfully",
-          type: "success",
-        })
-      );
-      refresh();
-    } catch (error) {
-      dispatch(
-        showAlert({ message: "Error updating profession", type: "error" })
-      );
-    }
-  };
-
-  // Formik
-  const formik = useFormik({
-    initialValues: {
-      professions: fetchedResumeDetail.professions || [],
-    },
-    validationSchema: professionalDetailSchema,
-    onSubmit: onSubmitHandler,
-    enableReinitialize: true,
-  });
-
-  const { values, handleChange, handleSubmit, setFieldValue } = formik;
 
   // Fetch Professions
   const fetchProfessions = async (resumeId) => {
@@ -119,8 +67,65 @@ const ProfessionalDetail = () => {
     }
   }, [resumeId]);
 
+  // Formik
+  const formik = useFormik({
+    initialValues: {
+      professions: fetchedResumeDetail.professions || [],
+    },
+    validationSchema: professionalDetailSchema,
+    onSubmit: () => {},
+    enableReinitialize: true,
+  });
+
+  const { values, handleChange, handleSubmit, setFieldValue } = formik;
+
+  // On Submit Function
+  const onSubmitHandler = async (professionId) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        dispatch(
+          showAlert({ message: "Unauthorized: No token found", type: "error" })
+        );
+        return;
+      }
+
+      const profession = values.professions.find(
+        (profession) => profession._id === professionId
+      );
+
+      const response = await axios.patch(
+        `${
+          import.meta.env.VITE_API_BASE_URL
+        }/resume/${resumeId}?action=update-profession&pid=${professionId}`,
+        profession,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const updatedProfession = response.data.data;
+
+      dispatch(addProfessionalDetail(updatedProfession));
+      dispatch(
+        showAlert({
+          message: "Profession updated successfully",
+          type: "success",
+        })
+      );
+      refresh();
+    } catch (error) {
+      dispatch(
+        showAlert({ message: "Error updating profession", type: "error" })
+      );
+    }
+  };
+
   // Add Experience
-  const handleAddExperience = async () => {
+  const handleAddItem = async () => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       dispatch(
@@ -143,9 +148,7 @@ const ProfessionalDetail = () => {
         }
       );
 
-      const newProfession = response.data.data.find(
-        (profession) => !profession.title && !profession.employer
-      );
+      const newProfession = response.data.data;
 
       dispatch(addProfessionalDetail(newProfession));
       setFieldValue("professions", [...values.professions, newProfession]);
@@ -164,7 +167,7 @@ const ProfessionalDetail = () => {
   };
 
   // Delete Experience Card
-  const handleDeleteExperience = async (professionId) => {
+  const handleDeleteItem = async (professionId) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       dispatch(
@@ -174,7 +177,7 @@ const ProfessionalDetail = () => {
     }
 
     try {
-      await axios.patch(
+      const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
         }/resume/${resumeId}?action=delete-profession&pid=${professionId}`,
@@ -186,9 +189,9 @@ const ProfessionalDetail = () => {
           },
         }
       );
-      const updatedExperiences = values.professions.filter(
-        (profession) => profession._id !== professionId
-      );
+
+      const updatedExperiences = response.data.data;
+
       setFieldValue("professions", updatedExperiences);
       dispatch(deleteProfessionalDetail(professionId));
       dispatch(
@@ -257,12 +260,14 @@ const ProfessionalDetail = () => {
                     <div className="text">
                       <h5>{profession.title || `Job Title`}</h5>
                       <h6>
-                        <span>{profession.startDate || `Start Date`}</span>
+                        <span>
+                          {formatDate(profession.startDate) || `Start Date`}
+                        </span>
                         <span>-</span>
                         <span>
                           {profession.currentlyWorking
                             ? "Present"
-                            : profession.endDate || `End Date`}
+                            : formatDate(profession.endDate) || `End Date`}
                         </span>
                       </h6>
                     </div>
@@ -277,7 +282,7 @@ const ProfessionalDetail = () => {
                       <button
                         type="button"
                         className="remove-btn"
-                        onClick={() => handleDeleteExperience(profession._id)}
+                        onClick={() => handleDeleteItem(profession._id)}
                       >
                         <GoTrash />
                       </button>
@@ -326,7 +331,7 @@ const ProfessionalDetail = () => {
                             type="date"
                             className="mb-0"
                             required
-                            value={profession.startDate}
+                            value={formatDate(profession.startDate)}
                             onChange={handleChange}
                           />
                         </div>
@@ -338,7 +343,7 @@ const ProfessionalDetail = () => {
                               type="date"
                               className="mb-0"
                               required
-                              value={profession.endDate}
+                              value={formatDate(profession.endDate)}
                               onChange={handleChange}
                             />
                           </div>
@@ -383,7 +388,7 @@ const ProfessionalDetail = () => {
         <button
           type="button"
           className="toggle-info-btn"
-          onClick={handleAddExperience}
+          onClick={handleAddItem}
         >
           <span className="me-2">Add New Experience</span>
           <FaPlus />
