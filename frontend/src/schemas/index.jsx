@@ -101,3 +101,13 @@ export const linkDetailSchema = yup.object({
     })
   ),
 });
+
+// Skill Detail Schema Validation
+export const skillDetailSchema = yup.object({
+  skills: yup.array().of(
+    yup.object({
+      name: yup.string().required("Skill Name is required"),
+      level: yup.string().required("Level is required"),
+    })
+  ),
+});

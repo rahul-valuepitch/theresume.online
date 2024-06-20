@@ -97,17 +97,16 @@ const ResumeOutput = () => {
           <tr>
             <th>Experience</th>
             <td>
-              {resume.professions.map((profession) => (
-                <div key={profession._id}>
+              {resume.professions.map((item) => (
+                <div key={item._id}>
                   <hr />
                   <b>
-                    {profession.title} - {profession.employer}
+                    {item.title} - {item.employer}
                   </b>
                   <p>
-                    {formatDate(profession.startDate)} -{" "}
-                    {formatDate(profession.endDate)}
+                    {formatDate(item.startDate)} - {formatDate(item.endDate)}
                   </p>
-                  <p>{profession.description}</p>
+                  <p>{item.description}</p>
                   <hr />
                 </div>
               ))}
@@ -116,17 +115,16 @@ const ResumeOutput = () => {
           <tr>
             <th>Education</th>
             <td>
-              {resume.educations.map((education) => (
-                <div key={education._id}>
+              {resume.educations.map((item) => (
+                <div key={item._id}>
                   <hr />
                   <b>
-                    {education.school} - {education.degree}
+                    {item.school} - {item.degree}
                   </b>
                   <p>
-                    {formatDate(education.startDate)} -{" "}
-                    {formatDate(education.endDate)}
+                    {formatDate(item.startDate)} - {formatDate(item.endDate)}
                   </p>
-                  <p>{education.description}</p>
+                  <p>{item.description}</p>
                   <hr />
                 </div>
               ))}
@@ -135,11 +133,24 @@ const ResumeOutput = () => {
           <tr>
             <th>Links</th>
             <td>
-              {resume.links.map((link) => (
-                <div key={link._id}>
+              {resume.links.map((item) => (
+                <div key={item._id}>
                   <hr />
-                  <b>{link.label}</b>
-                  <p>{link.link}</p>
+                  <b>{item.label}</b>
+                  <p>{item.link}</p>
+                  <hr />
+                </div>
+              ))}
+            </td>
+          </tr>
+          <tr>
+            <th>Skills</th>
+            <td>
+              {resume.skills.map((item) => (
+                <div key={item._id}>
+                  <hr />
+                  <b>{item.skill}</b>
+                  <p>{item.level}</p>
                   <hr />
                 </div>
               ))}

@@ -811,12 +811,12 @@ export const addSkillsController = asyncHandler(async (req, res) => {
   resume.skills.push(newSkill);
   const updatedResume = await resume.save();
 
+  const createdSkill = updatedResume.skills[updatedResume.skills.length - 1];
+
   // * Sending Response
   return res
     .status(200)
-    .json(
-      new ApiResponse(200, updatedResume.skills, "Skill added successfully!")
-    );
+    .json(new ApiResponse(200, createdSkill, "Skill added successfully!"));
 });
 
 // Detail Skills Controller

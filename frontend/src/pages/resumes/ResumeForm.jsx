@@ -3,6 +3,7 @@ import {
   LinkDetails,
   PersonalDetail,
   ProfessionalDetail,
+  SkillDetail,
 } from "./forms";
 
 const ResumeForm = () => {
@@ -15,6 +16,8 @@ const ResumeForm = () => {
       <EducationDetail />
       <hr />
       <LinkDetails />
+      <hr />
+      <SkillDetail />
       <hr />
     </>
   );
