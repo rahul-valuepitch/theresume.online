@@ -170,7 +170,13 @@ const resumeSlice = createSlice({
       state.professions = action.payload;
     },
     updateProfessionalDetail: (state, action) => {
-      state.professions = { ...state.professions, ...action.payload };
+      const updatedProfession = action.payload;
+      const index = state.professions.findIndex(
+        (profession) => profession._id === updatedProfession._id
+      );
+      if (index !== -1) {
+        state.professions[index] = updatedProfession;
+      }
     },
 
     setEducations: (state, action) => {
@@ -183,7 +189,13 @@ const resumeSlice = createSlice({
       state.educations = action.payload;
     },
     updateEducationDetail: (state, action) => {
-      state.educations = { ...state.educations, ...action.payload };
+      const updatedEducation = action.payload;
+      const index = state.educations.findIndex(
+        (education) => education._id === updatedEducation._id
+      );
+      if (index !== -1) {
+        state.educations[index] = updatedEducation;
+      }
     },
 
     setLinks: (state, action) => {

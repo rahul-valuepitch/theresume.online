@@ -13,6 +13,7 @@ import {
   setEducations,
   addEducationDetail,
   deleteEducationDetail,
+  updateEducationDetail,
 } from "../../../store/slices/resumeSlice";
 import { FormInput, FormText, FormCheck } from "../../../components/index";
 import { educationDetailSchema } from "../../../schemas/index";
@@ -23,7 +24,7 @@ const EducationDetail = () => {
   const fetchedResumeDetail = resume;
   const refresh = useRefresh();
 
-  const resumeId = fetchedResumeDetail.detail.resumeId;
+  const resumeId = fetchedResumeDetail.detail?.resumeId;
 
   // Fetch Educations
   const fetchEducations = async (resumeId) => {
@@ -60,6 +61,7 @@ const EducationDetail = () => {
       );
     }
   };
+
   useEffect(() => {
     if (resumeId) {
       fetchEducations(resumeId);
@@ -105,9 +107,8 @@ const EducationDetail = () => {
         }
       );
 
-      const updatedEducation = response.data.data;
-
-      dispatch(updatedEducation(updatedEducation));
+      const data = response.data.data;
+      dispatch(updateEducationDetail(data));
       dispatch(
         showAlert({
           message: "Education updated successfully",
@@ -146,10 +147,9 @@ const EducationDetail = () => {
         }
       );
 
-      const newEducation = response.data.data;
-
-      dispatch(addEducationDetail(newEducation));
-      setFieldValue("educations", [...values.educations, newEducation]);
+      const data = response.data.data;
+      dispatch(addEducationDetail(data));
+      setFieldValue("educations", [...values.educations, data]);
       dispatch(
         showAlert({ message: "Education added successfully", type: "success" })
       );
@@ -187,10 +187,9 @@ const EducationDetail = () => {
           },
         }
       );
-      const updatedEducations = response.data.data;
-      console.log(updatedEducations);
-      setFieldValue("educations", updatedEducations);
-      dispatch(deleteEducationDetail(updatedEducations));
+      const data = response.data.data;
+      setFieldValue("educations", data);
+      dispatch(deleteEducationDetail(data));
       dispatch(
         showAlert({
           message: "Education deleted successfully",
@@ -235,7 +234,6 @@ const EducationDetail = () => {
       return education;
     });
     setFieldValue("educations", updatedEducations);
-    formik.validateForm();
   };
 
   return (

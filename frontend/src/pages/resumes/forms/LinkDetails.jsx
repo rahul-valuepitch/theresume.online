@@ -103,8 +103,8 @@ const LinkDetails = () => {
         }
       );
 
-      const updatedLink = response.data.data;
-      dispatch(updateLink(updatedLink));
+      const data = response.data.data;
+      dispatch(updateLink(data));
       dispatch(
         showAlert({ message: "Link updated successfully", type: "success" })
       );
@@ -138,10 +138,9 @@ const LinkDetails = () => {
         }
       );
 
-      const newLink = response.data.data;
-
-      dispatch(addLink(newLink));
-      setFieldValue("links", [...values.links, newLink]);
+      const data = response.data.data;
+      dispatch(addLink(data));
+      setFieldValue("links", [...values.links, data]);
       dispatch(
         showAlert({ message: "Links added successfully", type: "success" })
       );
@@ -180,9 +179,9 @@ const LinkDetails = () => {
         }
       );
 
-      const updatedLinks = response.data.data;
-      setFieldValue("links", updatedLinks);
-      dispatch(deleteLink(updatedLinks));
+      const data = response.data.data;
+      setFieldValue("links", data);
+      dispatch(deleteLink(data));
       dispatch(
         showAlert({ message: "Link deleted successfully", type: "success" })
       );

@@ -13,6 +13,7 @@ import {
   setProfessions,
   addProfessionalDetail,
   deleteProfessionalDetail,
+  updateProfessionalDetail,
 } from "../../../store/slices/resumeSlice";
 import { FormInput, FormText, FormCheck } from "../../../components/index";
 import { professionalDetailSchema } from "../../../schemas/index";
@@ -107,9 +108,8 @@ const ProfessionalDetail = () => {
         }
       );
 
-      const updatedProfession = response.data.data;
-
-      dispatch(addProfessionalDetail(updatedProfession));
+      const data = response.data.data;
+      dispatch(updateProfessionalDetail(data));
       dispatch(
         showAlert({
           message: "Profession updated successfully",
@@ -148,10 +148,10 @@ const ProfessionalDetail = () => {
         }
       );
 
-      const newProfession = response.data.data;
+      const data = response.data.data;
 
-      dispatch(addProfessionalDetail(newProfession));
-      setFieldValue("professions", [...values.professions, newProfession]);
+      dispatch(addProfessionalDetail(data));
+      setFieldValue("professions", [...values.professions, data]);
       dispatch(
         showAlert({ message: "Profession added successfully", type: "success" })
       );
@@ -190,10 +190,10 @@ const ProfessionalDetail = () => {
         }
       );
 
-      const updatedExperiences = response.data.data;
+      const data = response.data.data;
 
-      setFieldValue("professions", updatedExperiences);
-      dispatch(deleteProfessionalDetail(professionId));
+      setFieldValue("professions", data);
+      dispatch(deleteProfessionalDetail(data));
       dispatch(
         showAlert({
           message: "Profession deleted successfully",
@@ -238,7 +238,6 @@ const ProfessionalDetail = () => {
       return profession;
     });
     setFieldValue("professions", updatedProfessions);
-    formik.validateForm();
   };
 
   return (
@@ -372,6 +371,7 @@ const ProfessionalDetail = () => {
                         </div>
                       </div>
                       <button
+                        type="button"
                         className="button-sm mt-3"
                         onClick={() => onSubmitHandler(profession._id)}
                       >

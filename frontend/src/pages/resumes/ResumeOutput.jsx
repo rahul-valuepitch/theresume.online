@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import formatDate from "../../utils/dateFormator";
+
 const ResumeOutput = () => {
   const navigate = useNavigate();
   const resume = useSelector((state) => state.resume);
@@ -78,7 +80,7 @@ const ResumeOutput = () => {
           </tr>
           <tr>
             <th>Date Of Birth</th>
-            <td>{resume.personalDetail.dateOfBirth}</td>
+            <td>{formatDate(resume.personalDetail.dateOfBirth)}</td>
           </tr>
           <tr>
             <th>Gender</th>
@@ -102,7 +104,8 @@ const ResumeOutput = () => {
                     {profession.title} - {profession.employer}
                   </b>
                   <p>
-                    {profession.startDate} - {profession.endDate}
+                    {formatDate(profession.startDate)} -{" "}
+                    {formatDate(profession.endDate)}
                   </p>
                   <p>{profession.description}</p>
                   <hr />
@@ -120,7 +123,8 @@ const ResumeOutput = () => {
                     {education.school} - {education.degree}
                   </b>
                   <p>
-                    {education.startDate} - {education.endDate}
+                    {formatDate(education.startDate)} -{" "}
+                    {formatDate(education.endDate)}
                   </p>
                   <p>{education.description}</p>
                   <hr />
