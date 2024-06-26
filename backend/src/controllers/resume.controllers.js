@@ -1148,12 +1148,12 @@ export const addCoursesController = asyncHandler(async (req, res) => {
   resume.courses.push(newCourse);
   const updatedResume = await resume.save();
 
+  const createdCourse = updatedResume.courses[updatedResume.courses.length - 1];
+
   // * Sending Response
   return res
     .status(200)
-    .json(
-      new ApiResponse(200, updatedResume.courses, "Course added successfully!")
-    );
+    .json(new ApiResponse(200, createdCourse, "Course added successfully!"));
 });
 
 // Detail Courses Controller

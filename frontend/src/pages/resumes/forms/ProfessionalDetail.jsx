@@ -77,7 +77,6 @@ const ProfessionalDetail = () => {
     onSubmit: () => {},
     enableReinitialize: true,
   });
-
   const { values, handleChange, handleSubmit, setFieldValue } = formik;
 
   // On Submit Function

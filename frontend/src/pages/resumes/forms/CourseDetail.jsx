@@ -10,24 +10,24 @@ import formatDate from "../../../utils/dateFormator";
 import useRefresh from "../../../utils/useRefresh";
 import { showAlert } from "../../../store/slices/alertSlice";
 import {
-  setEducations,
-  addEducationDetail,
-  deleteEducationDetail,
-  updateEducationDetail,
+  setCourses,
+  addCourseDetail,
+  updateCourseDetail,
+  deleteCourseDetail,
 } from "../../../store/slices/resumeSlice";
-import { FormInput, FormText, FormCheck } from "../../../components/index";
-import { educationDetailSchema } from "../../../schemas/index";
+import { FormInput, FormText } from "../../../components/index";
+import { courseDetailSchema } from "../../../schemas/index";
 
-const EducationDetail = () => {
+const CourseDetail = () => {
   const dispatch = useDispatch();
   const resume = useSelector((state) => state.resume);
   const fetchedResumeDetail = resume;
   const refresh = useRefresh();
 
-  const resumeId = fetchedResumeDetail.detail?.resumeId;
+  const resumeId = fetchedResumeDetail.detail.resumeId;
 
-  // Fetch Educations
-  const fetchEducations = async (resumeId) => {
+  // Fetch Course
+  const fetchCourses = async (resumeId) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       dispatch(
@@ -40,7 +40,7 @@ const EducationDetail = () => {
       const response = await axios.get(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=get-all-education`,
+        }/resume/${resumeId}?action=get-all-courses`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -49,13 +49,13 @@ const EducationDetail = () => {
         }
       );
 
-      const data = response.data.data.education;
-      dispatch(setEducations(data || []));
-      setFieldValue("educations", data || []);
+      const data = response.data.data.courses;
+      dispatch(setCourses(data || []));
+      setFieldValue("courses", data || []);
     } catch (error) {
       dispatch(
         showAlert({
-          message: error.response?.data?.message || "Error fetching educations",
+          message: error.response?.data?.message || "Error fetching courses",
           type: "error",
         })
       );
@@ -63,22 +63,22 @@ const EducationDetail = () => {
   };
   useEffect(() => {
     if (resumeId) {
-      fetchEducations(resumeId);
+      fetchCourses(resumeId);
     }
   }, [resumeId]);
 
   // Formik
   const formik = useFormik({
     initialValues: {
-      educations: fetchedResumeDetail.educations || [],
+      courses: fetchedResumeDetail.courses || [],
     },
-    validationSchema: educationDetailSchema,
+    validationSchema: courseDetailSchema,
     onSubmit: () => {},
     enableReinitialize: true,
   });
   const { values, handleChange, handleSubmit, setFieldValue } = formik;
 
-  // On Submit Function
+  // On Submit Handler
   const onSubmitHandler = async (itemId) => {
     try {
       const token = localStorage.getItem("authToken");
@@ -89,15 +89,13 @@ const EducationDetail = () => {
         return;
       }
 
-      const education = values.educations.find(
-        (education) => education._id === itemId
-      );
+      const course = values.courses.find((course) => course._id === itemId);
 
       const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=update-education&eid=${itemId}`,
-        education,
+        }/resume/${resumeId}?action=update-course&cid=${itemId}`,
+        course,
         {
           headers: {
             "Content-Type": "application/json",
@@ -107,22 +105,20 @@ const EducationDetail = () => {
       );
 
       const data = response.data.data;
-      dispatch(updateEducationDetail(data));
+      dispatch(updateCourseDetail(data));
       dispatch(
         showAlert({
-          message: "Education updated successfully",
+          message: "Course updated successfully",
           type: "success",
         })
       );
       refresh();
     } catch (error) {
-      dispatch(
-        showAlert({ message: "Error updating education", type: "error" })
-      );
+      dispatch(showAlert({ message: "Error updating course", type: "error" }));
     }
   };
 
-  // Add Education
+  // Add Course
   const handleAddItem = async () => {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -136,7 +132,7 @@ const EducationDetail = () => {
       const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=add-education`,
+        }/resume/${resumeId}?action=add-course`,
         {},
         {
           headers: {
@@ -147,23 +143,23 @@ const EducationDetail = () => {
       );
 
       const data = response.data.data;
-      dispatch(addEducationDetail(data));
-      setFieldValue("educations", [...values.educations, data]);
+      dispatch(addCourseDetail(data));
+      setFieldValue("courses", [...values.courses, data]);
       dispatch(
-        showAlert({ message: "Education added successfully", type: "success" })
+        showAlert({ message: "Course added successfully", type: "success" })
       );
       refresh();
     } catch (error) {
       dispatch(
         showAlert({
-          message: error.response?.data?.message || "Error Adding Education",
+          message: error.response?.data?.message || "Error Adding Course",
           type: "error",
         })
       );
     }
   };
 
-  // Delete Education
+  // Delete Course
   const handleDeleteItem = async (itemId) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -177,7 +173,7 @@ const EducationDetail = () => {
       const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=delete-education&eid=${itemId}`,
+        }/resume/${resumeId}?action=delete-course&cid=${itemId}`,
         {},
         {
           headers: {
@@ -187,11 +183,11 @@ const EducationDetail = () => {
         }
       );
       const data = response.data.data;
-      setFieldValue("educations", data);
-      dispatch(deleteEducationDetail(data));
+      setFieldValue("courses", data);
+      dispatch(deleteCourseDetail(data));
       dispatch(
         showAlert({
-          message: "Education deleted successfully",
+          message: "Course deleted successfully",
           type: "success",
         })
       );
@@ -199,7 +195,7 @@ const EducationDetail = () => {
     } catch (error) {
       dispatch(
         showAlert({
-          message: error.response?.data?.message || "Error Deleting Experience",
+          message: error.response?.data?.message || "Error Deleting Course",
           type: "error",
         })
       );
@@ -208,62 +204,40 @@ const EducationDetail = () => {
 
   // Toggle Card
   const toggleItemVisibility = (index) => {
-    const updatedEducations = values.educations.map((education, i) => {
+    const updatedCourses = values.courses.map((course, i) => {
       if (i === index) {
         return {
-          ...education,
-          isOpen: !education.isOpen,
+          ...course,
+          isOpen: !course.isOpen,
         };
       }
-      return education;
+      return course;
     });
-    setFieldValue("educations", updatedEducations);
+    setFieldValue("courses", updatedCourses);
     refresh();
-  };
-
-  // Checkbox Change
-  const handleCheckboxChange = (itemId) => {
-    const updatedEducations = values.educations.map((education) => {
-      if (education._id === itemId) {
-        return {
-          ...education,
-          currentlyStudying: !education.currentlyStudying,
-        };
-      }
-      return education;
-    });
-    setFieldValue("educations", updatedEducations);
   };
 
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Education History</h4>
+        <h4 className="sub-heading mb-5">Courses</h4>
 
         <FieldArray
-          name="educations"
+          name="courses"
           render={() => (
             <>
-              {values.educations.map((item, index) => (
-                <div
-                  key={index}
-                  className="content"
-                  data-education-id={item._id}
-                >
+              {values.courses.map((item, index) => (
+                <div key={index} className="content" data-course-id={item._id}>
                   {/* Head */}
                   <div className="head">
                     <div className="text">
-                      <h5>{item.school || `School Name`}</h5>
+                      <h5>{item.title || `Title`}</h5>
                       <h6>
                         <span>
                           {formatDate(item.startDate) || `Start Date`}
                         </span>
                         <span>-</span>
-                        <span>
-                          {item.currentlyWorking
-                            ? "Present"
-                            : formatDate(item.endDate) || `End Date`}
-                        </span>
+                        <span>{formatDate(item.endDate) || `End Date`}</span>
                       </h6>
                     </div>
                     <div className="action">
@@ -290,41 +264,30 @@ const EducationDetail = () => {
                       <div className="grid grid-cols-2 gap-5">
                         <div>
                           <FormInput
-                            label="School Name"
-                            name={`educations[${index}].school`}
+                            label="Title"
+                            name={`courses[${index}].title`}
                             type="text"
                             className="mb-0"
                             required
-                            value={item.school}
+                            value={item.title}
                             onChange={handleChange}
                           />
                         </div>
                         <div>
                           <FormInput
-                            label="Degree"
-                            name={`educations[${index}].degree`}
+                            label="Institute"
+                            name={`courses[${index}].institute`}
                             type="text"
                             className="mb-0"
                             required
-                            value={item.degree}
+                            value={item.institute}
                             onChange={handleChange}
-                          />
-                        </div>
-                        <div className="col-span-2">
-                          <FormCheck
-                            className="mb-0"
-                            label="Currently studying in this school"
-                            name={`educations[${index}].currentlyStudying`}
-                            checked={item.currentlyStudying}
-                            onChange={() => {
-                              handleCheckboxChange(item._id);
-                            }}
                           />
                         </div>
                         <div>
                           <FormInput
                             label="Start Date"
-                            name={`educations[${index}].startDate`}
+                            name={`courses[${index}].startDate`}
                             type="date"
                             className="mb-0"
                             required
@@ -332,23 +295,21 @@ const EducationDetail = () => {
                             onChange={handleChange}
                           />
                         </div>
-                        {!item.currentlyStudying && (
-                          <div>
-                            <FormInput
-                              label="End Date"
-                              name={`educations[${index}].endDate`}
-                              type="date"
-                              className="mb-0"
-                              required
-                              value={formatDate(item.endDate)}
-                              onChange={handleChange}
-                            />
-                          </div>
-                        )}
                         <div>
                           <FormInput
-                            label="city"
-                            name={`educations[${index}].city`}
+                            label="End Date"
+                            name={`courses[${index}].endDate`}
+                            type="date"
+                            className="mb-0"
+                            required
+                            value={formatDate(item.endDate)}
+                            onChange={handleChange}
+                          />
+                        </div>
+                        <div>
+                          <FormInput
+                            label="City"
+                            name={`courses[${index}].city`}
                             type="text"
                             className="mb-0"
                             required
@@ -359,7 +320,7 @@ const EducationDetail = () => {
                         <div className="col-span-2">
                           <FormText
                             label="Description"
-                            name={`educations[${index}].description`}
+                            name={`courses[${index}].description`}
                             rows="4"
                             className="mb-0"
                             required
@@ -373,7 +334,7 @@ const EducationDetail = () => {
                         className="button-sm mt-3"
                         onClick={() => onSubmitHandler(item._id)}
                       >
-                        Update Education
+                        Update Course
                       </button>
                     </div>
                   )}
@@ -388,7 +349,7 @@ const EducationDetail = () => {
           className="toggle-info-btn"
           onClick={handleAddItem}
         >
-          <span className="me-2">Add New Education</span>
+          <span className="me-2">Add New Course</span>
           <FaPlus />
         </button>
       </form>
@@ -396,4 +357,4 @@ const EducationDetail = () => {
   );
 };
 
-export default EducationDetail;
+export default CourseDetail;

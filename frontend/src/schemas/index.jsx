@@ -121,3 +121,21 @@ export const languageDetailSchema = yup.object({
     })
   ),
 });
+
+// Course Detail Schema Validation
+export const courseDetailSchema = yup.object({
+  courses: yup.array().of(
+    yup.object({
+      title: yup.string().required("Course Name is required"),
+      institute: yup.string().required("Institute Name is required"),
+      startDate: yup.date().required("Start date is required").nullable(),
+      endDate: yup
+        .date()
+        .nullable()
+        .required("End date is required")
+        .nullable(),
+      city: yup.string().required("City is required"),
+      description: yup.string().required("Description is required"),
+    })
+  ),
+});
