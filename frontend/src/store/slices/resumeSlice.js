@@ -273,6 +273,44 @@ const resumeSlice = createSlice({
         state.courses[index] = updatedCourse;
       }
     },
+
+    setInternships: (state, action) => {
+      state.internship = action.payload;
+    },
+    addInternshipDetail: (state, action) => {
+      state.internship.push(action.payload);
+    },
+    deleteInternshipDetail: (state, action) => {
+      state.internship = action.payload;
+    },
+    updateInternshipDetail: (state, action) => {
+      const updatedInternship = action.payload;
+      const index = state.internship.findIndex(
+        (item) => item._id === updatedInternship._id
+      );
+      if (index !== -1) {
+        state.internship[index] = updatedInternship;
+      }
+    },
+
+    setHobbies: (state, action) => {
+      state.hobbies = action.payload;
+    },
+    addHobbieDetail: (state, action) => {
+      state.hobbies.push(action.payload);
+    },
+    deleteHobbieDetail: (state, action) => {
+      state.hobbies = action.payload;
+    },
+    updateHobbieDetail: (state, action) => {
+      const updatedHobbie = action.payload;
+      const index = state.hobbies.findIndex(
+        (item) => item._id === updatedHobbie._id
+      );
+      if (index !== -1) {
+        state.hobbies[index] = updatedHobbie;
+      }
+    },
   },
 });
 
@@ -315,6 +353,16 @@ export const {
   addCourseDetail,
   deleteCourseDetail,
   updateCourseDetail,
+
+  setInternships,
+  addInternshipDetail,
+  deleteInternshipDetail,
+  updateInternshipDetail,
+
+  setHobbies,
+  addHobbieDetail,
+  deleteHobbieDetail,
+  updateHobbieDetail,
 } = resumeSlice.actions;
 
 export default resumeSlice.reducer;

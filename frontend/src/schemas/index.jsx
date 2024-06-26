@@ -139,3 +139,33 @@ export const courseDetailSchema = yup.object({
     })
   ),
 });
+
+// Internship Detail Schema Validation
+export const internshipDetailSchema = yup.object({
+  internships: yup.array().of(
+    yup.object({
+      title: yup.string().required("Internship title is required"),
+      employer: yup.string().required("Employer is required"),
+      startDate: yup.date().required("Start date is required").nullable(),
+      endDate: yup
+        .date()
+        .nullable()
+        .when("currentlyWorking", {
+          is: false,
+          then: () => yup.date().required("End date is required"),
+        }),
+      city: yup.string().required("City is required"),
+      description: yup.string().required("Description is required"),
+      currentlyWorking: yup.boolean(),
+    })
+  ),
+});
+
+// Hobbie Detail Schema Validation
+export const hobbieDetailSchema = yup.object({
+  hobbies: yup.array().of(
+    yup.object({
+      name: yup.string().required("Hobbie Name is required"),
+    })
+  ),
+});

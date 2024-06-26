@@ -1323,15 +1323,14 @@ export const addInternshipController = asyncHandler(async (req, res) => {
   resume.internships.push(newInternship);
   const updatedResume = await resume.save();
 
+  const createdInternship =
+    updatedResume.internships[updatedResume.internships.length - 1];
+
   // * Sending Response
   return res
     .status(200)
     .json(
-      new ApiResponse(
-        200,
-        updatedResume.internships,
-        "Internship added successfully!"
-      )
+      new ApiResponse(200, createdInternship, "Internship added successfully!")
     );
 });
 
@@ -1500,12 +1499,13 @@ export const addHobbiesController = asyncHandler(async (req, res) => {
   resume.hobbies.push(newHobbie);
   const updatedResume = await resume.save();
 
+  const createdHobbies =
+    updatedResume.hobbies[updatedResume.hobbies.length - 1];
+
   // * Sending Response
   return res
     .status(200)
-    .json(
-      new ApiResponse(200, updatedResume.hobbies, "Hobbie added successfully!")
-    );
+    .json(new ApiResponse(200, createdHobbies, "Hobbie added successfully!"));
 });
 
 // Detail Hobbies Controller
