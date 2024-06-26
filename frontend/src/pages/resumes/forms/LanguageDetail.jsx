@@ -9,24 +9,24 @@ import { useFormik, FieldArray, FormikProvider } from "formik";
 import useRefresh from "../../../utils/useRefresh";
 import { showAlert } from "../../../store/slices/alertSlice";
 import {
-  setSkills,
-  addSkill,
-  deleteSkill,
-  updateSkill,
+  setLanguages,
+  addLanguage,
+  deleteLanguage,
+  updateLanguage,
 } from "../../../store/slices/resumeSlice";
 import { FormInput, FormRadioSlide } from "../../../components/index";
-import { skillDetailSchema } from "../../../schemas/index";
+import { languageDetailSchema } from "../../../schemas/index";
 
-const SkillDetail = () => {
+const LanguageDetail = () => {
   const dispatch = useDispatch();
   const resume = useSelector((state) => state.resume);
-  const { skills: fetchedSkills, detail } = resume;
+  const { languages: fetchedLanguages, detail } = resume;
   const refresh = useRefresh();
 
   const resumeId = detail.resumeId;
 
-  // Fetch Skills
-  const fetchSkills = async (resumeId) => {
+  // Fetch Languages
+  const fetchLanguages = async (resumeId) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       dispatch(
@@ -39,7 +39,7 @@ const SkillDetail = () => {
       const response = await axios.get(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=get-all-skills`,
+        }/resume/${resumeId}?action=get-all-languages`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -48,13 +48,13 @@ const SkillDetail = () => {
         }
       );
 
-      const data = response.data.data.skills;
-      dispatch(setSkills(data || []));
-      formik.setFieldValue("skills", data || []);
+      const data = response.data.data.languages;
+      dispatch(setLanguages(data || []));
+      formik.setFieldValue("languages", data || []);
     } catch (error) {
       dispatch(
         showAlert({
-          message: error.response?.data?.message || "Error fetching skills",
+          message: error.response?.data?.message || "Error fetching Languages",
           type: "error",
         })
       );
@@ -62,22 +62,22 @@ const SkillDetail = () => {
   };
   useEffect(() => {
     if (resumeId) {
-      fetchSkills(resumeId);
+      fetchLanguages(resumeId);
     }
   }, [resumeId]);
 
   // Formik
   const formik = useFormik({
     initialValues: {
-      skills: fetchedSkills || [],
+      languages: fetchedLanguages || [],
     },
-    validationSchema: skillDetailSchema,
+    validationSchema: languageDetailSchema,
     onSubmit: () => {},
     enableReinitialize: true,
   });
   const { values, handleChange, handleSubmit, setFieldValue } = formik;
 
-  // Update Skills
+  // Update Language
   const onSubmitHandler = async (itemId) => {
     try {
       const token = localStorage.getItem("authToken");
@@ -88,13 +88,15 @@ const SkillDetail = () => {
         return;
       }
 
-      const skill = values.skills.find((skill) => skill._id === itemId);
+      const language = values.languages.find(
+        (language) => language._id === itemId
+      );
 
       const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=update-skill&sid=${itemId}`,
-        skill,
+        }/resume/${resumeId}?action=update-language&laid=${itemId}`,
+        language,
         {
           headers: {
             "Content-Type": "application/json",
@@ -104,17 +106,18 @@ const SkillDetail = () => {
       );
 
       const data = response.data.data;
-
-      dispatch(updateSkill(data));
+      dispatch(updateLanguage(data));
       dispatch(
-        showAlert({ message: "Skill updated successfully", type: "success" })
+        showAlert({ message: "Language updated successfully", type: "success" })
       );
     } catch (error) {
-      dispatch(showAlert({ message: "Error updating skill", type: "error" }));
+      dispatch(
+        showAlert({ message: "Error updating language", type: "error" })
+      );
     }
   };
 
-  // Add Skill
+  // Add Language
   const handleAddItem = async () => {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -128,7 +131,7 @@ const SkillDetail = () => {
       const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=add-skill`,
+        }/resume/${resumeId}?action=add-language`,
         {},
         {
           headers: {
@@ -139,23 +142,23 @@ const SkillDetail = () => {
       );
 
       const data = response.data.data;
-      dispatch(addSkill(data));
-      setFieldValue("skills", [...values.skills, data]);
+      dispatch(addLanguage(data));
+      setFieldValue("languages", [...values.languages, data]);
       dispatch(
-        showAlert({ message: "Skills added successfully", type: "success" })
+        showAlert({ message: "Language added successfully", type: "success" })
       );
       refresh();
     } catch (error) {
       dispatch(
         showAlert({
-          message: error.response?.data?.message || "Error adding skill",
+          message: error.response?.data?.message || "Error adding language",
           type: "error",
         })
       );
     }
   };
 
-  // Handle Delete Skills
+  // Delete Language
   const handleDeleteItem = async (itemId) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -169,7 +172,7 @@ const SkillDetail = () => {
       const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=delete-skill&sid=${itemId}`,
+        }/resume/${resumeId}?action=delete-language&laid=${itemId}`,
         {},
         {
           headers: {
@@ -180,64 +183,68 @@ const SkillDetail = () => {
       );
 
       const data = response.data.data;
-      setFieldValue("skills", data);
-      dispatch(deleteSkill(data));
+      setFieldValue("language", data);
+      dispatch(deleteLanguage(data));
       dispatch(
-        showAlert({ message: "Skill deleted successfully", type: "success" })
+        showAlert({ message: "Language deleted successfully", type: "success" })
       );
       refresh();
     } catch (error) {
       dispatch(
         showAlert({
-          message: error.response?.data?.message || "Error deleting skill",
+          message: error.response?.data?.message || "Error deleting language",
           type: "error",
         })
       );
     }
   };
 
-  // Toggle card
+  // Toggle Card
   const toggleItemVisibility = (index) => {
-    const updatedSkills = values.skills.map((skill, i) => {
+    const updatedLanguages = values.languages.map((language, i) => {
       if (i === index) {
         return {
-          ...skill,
-          isOpen: !skill.isOpen,
+          ...language,
+          isOpen: !language.isOpen,
         };
       }
-      return skill;
+      return language;
     });
-    setFieldValue("skills", updatedSkills);
+    setFieldValue("languages", updatedLanguages);
   };
 
   // Handle Radio Change
   const handleRadioChange = (index, event) => {
-    const updatedSkills = values.skills.map((skill, i) => {
+    const updatedLanguages = values.languages.map((language, i) => {
       if (i === index) {
-        return { ...skill, level: event.target.value };
+        return { ...language, level: event.target.value };
       }
-      return skill;
+      return language;
     });
-    setFieldValue("skills", updatedSkills);
+    setFieldValue("languages", updatedLanguages);
   };
 
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Skills</h4>
+        <h4 className="sub-heading mb-5">Language</h4>
 
         <FieldArray
-          name="skills"
+          name="languages"
           render={() => (
             <>
-              {values.skills.map((item, index) => (
-                <div key={index} className="content" data-skill-id={item._id}>
+              {values.languages.map((item, index) => (
+                <div
+                  key={index}
+                  className="content"
+                  data-language-id={item._id}
+                >
                   {/* Head */}
                   <div className="head">
                     <div className="text">
-                      <h5>{item.skill || `Skill Name`}</h5>
+                      <h5>{item.label || `Language Name`}</h5>
                       <h6>
-                        <span>{item.level || `Skill Level`}</span>
+                        <span>{item.level || `Language Level`}</span>
                       </h6>
                     </div>
                     <div className="action">
@@ -265,18 +272,18 @@ const SkillDetail = () => {
                         <div>
                           <FormInput
                             label="Label"
-                            name={`skills[${index}].skill`}
+                            name={`languages[${index}].label`}
                             type="text"
                             className="mb-0"
                             required
-                            value={item.skill}
+                            value={item.language}
                             onChange={handleChange}
                           />
                         </div>
                         <div>
                           <FormRadioSlide
                             label="Level"
-                            name={`skills[${index}].level`}
+                            name={`languages[${index}].level`}
                             options={[
                               { value: 1, label: "Very Bad" },
                               { value: 2, label: "Bad" },
@@ -296,7 +303,7 @@ const SkillDetail = () => {
                         className="button-sm mt-3"
                         onClick={() => onSubmitHandler(item._id)}
                       >
-                        Update Skill
+                        Update Language
                       </button>
                     </div>
                   )}
@@ -311,7 +318,7 @@ const SkillDetail = () => {
           className="toggle-info-btn"
           onClick={handleAddItem}
         >
-          <span className="me-2">Add New Skill</span>
+          <span className="me-2">Add New Language</span>
           <FaPlus />
         </button>
       </form>
@@ -319,4 +326,4 @@ const SkillDetail = () => {
   );
 };
 
-export default SkillDetail;
+export default LanguageDetail;

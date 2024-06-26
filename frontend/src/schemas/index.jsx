@@ -111,3 +111,13 @@ export const skillDetailSchema = yup.object({
     })
   ),
 });
+
+// Language Detail Schema Validation
+export const languageDetailSchema = yup.object({
+  languages: yup.array().of(
+    yup.object({
+      name: yup.string().required("Language Name is required"),
+      level: yup.string().required("Level is required"),
+    })
+  ),
+});

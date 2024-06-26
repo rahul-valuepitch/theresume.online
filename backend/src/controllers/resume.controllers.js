@@ -976,15 +976,14 @@ export const addLanguagesController = asyncHandler(async (req, res) => {
   resume.languages.push(newLanguage);
   const updatedResume = await resume.save();
 
+  const createdLanguage =
+    updatedResume.languages[updatedResume.languages.length - 1];
+
   // * Sending Response
   return res
     .status(200)
     .json(
-      new ApiResponse(
-        200,
-        updatedResume.languages,
-        "Language added successfully!"
-      )
+      new ApiResponse(200, createdLanguage, "Language added successfully!")
     );
 });
 

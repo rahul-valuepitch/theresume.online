@@ -235,6 +235,25 @@ const resumeSlice = createSlice({
         state.skills[index] = updatedSkill;
       }
     },
+
+    setLanguages: (state, action) => {
+      state.languages = action.payload;
+    },
+    addLanguage: (state, action) => {
+      state.languages.push(action.payload);
+    },
+    deleteLanguage: (state, action) => {
+      state.languages = action.payload;
+    },
+    updateLanguage: (state, action) => {
+      const updatedLanguage = action.payload;
+      const index = state.languages.findIndex(
+        (language) => language._id === updatedLanguage._id
+      );
+      if (index !== -1) {
+        state.languages[index] = updatedLanguage;
+      }
+    },
   },
 });
 
@@ -267,6 +286,11 @@ export const {
   addSkill,
   deleteSkill,
   updateSkill,
+
+  setLanguages,
+  addLanguage,
+  deleteLanguage,
+  updateLanguage,
 } = resumeSlice.actions;
 
 export default resumeSlice.reducer;
