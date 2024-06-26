@@ -169,3 +169,18 @@ export const hobbieDetailSchema = yup.object({
     })
   ),
 });
+
+// Reference Detail Schema Validation
+export const referenceDetailSchema = yup.object({
+  references: yup.array().of(
+    yup.object({
+      name: yup.string().required("Name is required"),
+      company: yup.string().required("Company Name is required"),
+      email: yup
+        .string()
+        .email("Please enter a valid email")
+        .required("Please enter Email Address"),
+      phone: yup.string().required("Phone is required"),
+    })
+  ),
+});

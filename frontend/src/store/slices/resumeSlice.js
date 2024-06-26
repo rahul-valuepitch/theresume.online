@@ -311,6 +311,25 @@ const resumeSlice = createSlice({
         state.hobbies[index] = updatedHobbie;
       }
     },
+
+    setReference: (state, action) => {
+      state.references = action.payload;
+    },
+    addReferenceDetail: (state, action) => {
+      state.references.push(action.payload);
+    },
+    deleteReferenceDetail: (state, action) => {
+      state.references = action.payload;
+    },
+    updateReferenceDetail: (state, action) => {
+      const updateReference = action.payload;
+      const index = state.references.findIndex(
+        (item) => item._id === updateReference._id
+      );
+      if (index !== -1) {
+        state.references[index] = updateReference;
+      }
+    },
   },
 });
 
@@ -363,6 +382,11 @@ export const {
   addHobbieDetail,
   deleteHobbieDetail,
   updateHobbieDetail,
+
+  setReference,
+  addReferenceDetail,
+  deleteReferenceDetail,
+  updateReferenceDetail,
 } = resumeSlice.actions;
 
 export default resumeSlice.reducer;

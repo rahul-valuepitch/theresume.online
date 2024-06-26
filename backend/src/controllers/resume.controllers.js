@@ -1668,15 +1668,14 @@ export const addReferencesController = asyncHandler(async (req, res) => {
   resume.references.push(newReference);
   const updatedResume = await resume.save();
 
+  const createdReferennce =
+    updatedResume.references[updatedResume.references.length - 1];
+
   // * Sending Response
   return res
     .status(200)
     .json(
-      new ApiResponse(
-        200,
-        updatedResume.references,
-        "Reference added successfully!"
-      )
+      new ApiResponse(200, createdReferennce, "Reference added successfully!")
     );
 });
 
