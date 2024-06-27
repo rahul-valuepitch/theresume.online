@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import formatDate from "../../utils/dateFormator";
+import { TemplateRenderer } from "./index";
 
 const ResumeOutput = () => {
   const navigate = useNavigate();
@@ -24,6 +25,9 @@ const ResumeOutput = () => {
       <p>Template ID: {resume.detail.templateId}</p>
       <p>Resume ID: {resume.detail.resumeId}</p>
       <p>User ID: {resume.detail.user}</p>
+      <hr />
+      <TemplateRenderer templateId={resume.detail.templateId} />
+      <hr />
       <table>
         <tbody>
           <tr>

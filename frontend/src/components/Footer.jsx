@@ -14,16 +14,16 @@ const Footer = () => {
               <img src={LogoLight} alt="" />
             </Link>
             <div className="social">
-              <Link to="/">
+              <Link to="/" target="_blank" rel="noopener noreferrer">
                 <FaFacebookF />
               </Link>
-              <Link to="/">
+              <Link to="/" target="_blank" rel="noopener noreferrer">
                 <BsInstagram />
               </Link>
-              <Link to="/">
+              <Link to="/" target="_blank" rel="noopener noreferrer">
                 <FaLinkedinIn />
               </Link>
-              <Link to="/">
+              <Link to="/" target="_blank" rel="noopener noreferrer">
                 <BsTwitterX />
               </Link>
             </div>
@@ -95,7 +95,7 @@ const Footer = () => {
                 <Link to="/">Terms of services</Link>
               </li>
               <li>
-                <Link to="/">Privacy</Link>
+                <Link to="/privacy-policy">Privacy Policy</Link>
               </li>
             </ul>
           </div>

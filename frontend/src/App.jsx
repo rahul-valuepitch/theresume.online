@@ -23,7 +23,7 @@ import {
   Resume,
   UpdateProfileDetails,
 } from "./pages/dashboard/index";
-import { Home } from "./pages/website/index";
+import { Home, PrivacyPolicy } from "./pages/website/index";
 import { ResumePage } from "./pages/resumes/index";
 import { ProtectedRoute, FetchUserData } from "./utils/index";
 
@@ -109,6 +109,7 @@ const App = () => {
           {/* Website Routes */}
           <Route path="/" element={<WebsiteLayout />}>
             <Route index element={<Home />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           </Route>
 
           {/* Resume Routes */}
