@@ -4,7 +4,7 @@ import { useReactToPrint } from "react-to-print";
 
 import templateMapper from "../../utils/templateMapper";
 
-const TemplateRenderer = ({ templateId }) => {
+const TemplateRenderer = ({ templateId, resume }) => {
   const [TemplateComponent, setTemplateComponent] = useState(null);
 
   useEffect(() => {
@@ -32,12 +32,16 @@ const TemplateRenderer = ({ templateId }) => {
   });
 
   return TemplateComponent ? (
-    <>
-      <div ref={componentRef}>
-        <TemplateComponent />
-      </div>
-      <button onClick={handlePrint}>Download as PDF</button>
-    </>
+    <div className="print-container">
+      <main>
+        <div className="print-content" ref={componentRef}>
+          <TemplateComponent resume={resume} />
+        </div>
+      </main>
+      <button onClick={handlePrint} className="button download-temp-btn">
+        Download as PDF
+      </button>
+    </div>
   ) : (
     <div>Loading...</div>
   );

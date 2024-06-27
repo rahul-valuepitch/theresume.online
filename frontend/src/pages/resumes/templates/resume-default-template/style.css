@@ -1,0 +1,99 @@
+/* Resetting Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  line-height: 100%;
+}
+
+:root {
+  --temp-primary: var(--primary);
+  --temp-secondary: #3949ab;
+  --temp-dark: #2f2f2f;
+  --temp-dark-alt: #7a7777;
+  --temp-light: #ffffff;
+  --temp-light-alt: #eaeaea;
+}
+
+.temp-content {
+  background: var(--temp-light);
+  height: 100%;
+  padding: 24pt;
+}
+.temp-content h1 {
+  font-size: 25pt;
+  font-weight: 700;
+  color: var(--temp-primary);
+}
+.temp-content h2 {
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--temp-dark);
+  margin-top: 5pt;
+}
+
+.temp-content .divider {
+  display: block;
+  margin: 10pt 0 20pt;
+  height: 1.5pt;
+  width: 100%;
+  background: var(--temp-light-alt);
+  opacity: 1;
+}
+br {
+  content: "";
+  display: block;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.temp-content .info-container {
+  width: 100%;
+  border-collapse: collapse;
+  vertical-align: top;
+}
+
+.temp-content .info-container .contact-info {
+  width: 110pt;
+}
+.temp-content .contact-info p,
+.temp-content .detail-info p {
+  font-size: 11pt;
+  font-weight: 400;
+  color: var(--temp-dark-alt);
+  margin-bottom: 10px;
+  line-height: 110%;
+}
+.temp-content .contact-info p span {
+  color: var(--temp-primary);
+  display: block;
+  font-size: 9pt;
+  font-weight: 600;
+  margin-bottom: 1.5pt;
+}
+.temp-content .contact-info p a,
+.temp-content .detail-info p a {
+  text-decoration: underline;
+}
+
+.temp-content .info-container .detail-info {
+  width: 100%;
+  height: 100%;
+  margin-left: 15pt;
+  padding-left: 15pt;
+  border-left: 2pt solid var(--temp-light-alt);
+}
+
+.temp-heading {
+  font-size: 12pt;
+  font-weight: 600;
+  color: var(--temp-primary);
+}
