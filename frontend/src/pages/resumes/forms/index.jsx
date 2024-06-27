@@ -9,6 +9,7 @@ import InternshipDetail from "./InternshipDetail";
 import HobbieDetail from "./HobbieDetail";
 import ReferenceDetail from "./ReferenceDetail";
 import ExtraCurricularDetail from "./ExtraCurricularDetail";
+import CustomSectionDetail from "./CustomSectionDetail";
 
 export {
   PersonalDetail,
@@ -22,4 +23,5 @@ export {
   HobbieDetail,
   ReferenceDetail,
   ExtraCurricularDetail,
+  CustomSectionDetail,
 };

@@ -198,3 +198,16 @@ export const curricularDetailSchema = yup.object({
     })
   ),
 });
+
+// Custom Section Detail Sechema Validation
+export const customSectionDetailSchema = yup.object({
+  customSection: yup.array().of(
+    yup.object({
+      title: yup.string().required("Custom Section title is required"),
+      startDate: yup.date().required("Start date is required").nullable(),
+      endDate: yup.date().nullable().required("End date is required"),
+      city: yup.string().required("City is required"),
+      description: yup.string().required("Description is required"),
+    })
+  ),
+});

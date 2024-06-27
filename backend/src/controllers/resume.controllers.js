@@ -2030,13 +2030,16 @@ export const addCustomSectionController = asyncHandler(async (req, res) => {
   resume.customSections.push(newCustomSection);
   const updatedResume = await resume.save();
 
+  const createdCustomSection =
+    updatedResume.customSections[updatedResume.customSections.length - 1];
+
   // * Sending Response
   return res
     .status(200)
     .json(
       new ApiResponse(
         200,
-        updatedResume.customSections,
+        createdCustomSection,
         "Custom Section added successfully!"
       )
     );

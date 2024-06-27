@@ -10,15 +10,15 @@ import formatDate from "../../../utils/dateFormator";
 import useRefresh from "../../../utils/useRefresh";
 import { showAlert } from "../../../store/slices/alertSlice";
 import {
-  setCurriculars,
-  addCurricularDetail,
-  deleteCurricularDetail,
-  updateCurricularDetail,
+  setCustomSections,
+  addCustomSection,
+  deleteCustomSection,
+  updateCustomSection,
 } from "../../../store/slices/resumeSlice";
 import { FormInput, FormText } from "../../../components/index";
-import { curricularDetailSchema } from "../../../schemas/index";
+import { customSectionDetailSchema } from "../../../schemas/index";
 
-const ExtraCurricularDetail = () => {
+const CustomSectionDetail = () => {
   const dispatch = useDispatch();
   const resume = useSelector((state) => state.resume);
   const fetchedResumeDetail = resume;
@@ -26,8 +26,8 @@ const ExtraCurricularDetail = () => {
 
   const resumeId = fetchedResumeDetail.detail?.resumeId;
 
-  // Fetch Curricular Detail
-  const fetchCurricular = async (resumeId) => {
+  // Fetch Sections
+  const fetchCustomSection = async (resumeId) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       dispatch(
@@ -40,7 +40,7 @@ const ExtraCurricularDetail = () => {
       const response = await axios.get(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=get-all-curricular`,
+        }/resume/${resumeId}?action=get-all-custom-sections`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -49,15 +49,14 @@ const ExtraCurricularDetail = () => {
         }
       );
 
-      const data = response.data.data.extraCurricular;
-
-      dispatch(setCurriculars(data || []));
-      setFieldValue("extraCurricular", data || []);
+      const data = response.data.data.customSections;
+      dispatch(setCustomSections(data || []));
+      setFieldValue("customSections", data || []);
     } catch (error) {
       dispatch(
         showAlert({
           message:
-            error.response?.data?.message || "Error fetching Extra Curricular",
+            error.response?.data?.message || "Error fetching custom section",
           type: "error",
         })
       );
@@ -65,16 +64,16 @@ const ExtraCurricularDetail = () => {
   };
   useEffect(() => {
     if (resumeId) {
-      fetchCurricular(resumeId);
+      fetchCustomSection(resumeId);
     }
   }, [resumeId]);
 
   // Formik
   const formik = useFormik({
     initialValues: {
-      extraCurricular: fetchedResumeDetail.extraCurricular || [],
+      customSections: fetchedResumeDetail.customSections || [],
     },
-    validationSchema: curricularDetailSchema,
+    validationSchema: customSectionDetailSchema,
     onSubmit: () => {},
     enableReinitialize: true,
   });
@@ -91,15 +90,15 @@ const ExtraCurricularDetail = () => {
         return;
       }
 
-      const curricular = values.extraCurricular.find(
+      const customSection = values.customSections.find(
         (item) => item._id === itemId
       );
 
       const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=update-curricular&ecid=${itemId}`,
-        curricular,
+        }/resume/${resumeId}?action=update-custom-section&csid=${itemId}`,
+        customSection,
         {
           headers: {
             "Content-Type": "application/json",
@@ -110,22 +109,22 @@ const ExtraCurricularDetail = () => {
 
       const data = response.data.data;
 
-      dispatch(updateCurricularDetail(data));
+      dispatch(updateCustomSection(data));
       dispatch(
         showAlert({
-          message: "Extra Curricular updated successfully",
+          message: "Custom Section updated successfully",
           type: "success",
         })
       );
       refresh();
     } catch (error) {
       dispatch(
-        showAlert({ message: "Error updating extra curricular", type: "error" })
+        showAlert({ message: "Error updating custom section", type: "error" })
       );
     }
   };
 
-  // Add Curricular
+  // Add Section
   const handleAddItem = async () => {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -139,7 +138,7 @@ const ExtraCurricularDetail = () => {
       const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=add-curricular`,
+        }/resume/${resumeId}?action=add-custom-section`,
         {},
         {
           headers: {
@@ -151,11 +150,11 @@ const ExtraCurricularDetail = () => {
 
       const data = response.data.data;
 
-      dispatch(addCurricularDetail(data));
-      setFieldValue("extraCurricular", [...values.extraCurricular, data]);
+      dispatch(addCustomSection(data));
+      setFieldValue("customSections", [...values.customSection, data]);
       dispatch(
         showAlert({
-          message: "Extra Curricular added successfully",
+          message: "Custom Section added successfully",
           type: "success",
         })
       );
@@ -164,14 +163,14 @@ const ExtraCurricularDetail = () => {
       dispatch(
         showAlert({
           message:
-            error.response?.data?.message || "Error Adding Extra Curricular",
+            error.response?.data?.message || "Error Adding custom section",
           type: "error",
         })
       );
     }
   };
 
-  // Delete Curricular
+  // Delete Section
   const handleDeleteItem = async (itemId) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
@@ -185,7 +184,7 @@ const ExtraCurricularDetail = () => {
       const response = await axios.patch(
         `${
           import.meta.env.VITE_API_BASE_URL
-        }/resume/${resumeId}?action=delete-curricular&ecid=${itemId}`,
+        }/resume/${resumeId}?action=delete-custom-section&csid=${itemId}`,
         {},
         {
           headers: {
@@ -195,12 +194,11 @@ const ExtraCurricularDetail = () => {
         }
       );
       const data = response.data.data;
-
-      setFieldValue("extraCurricular", data);
-      dispatch(deleteCurricularDetail(data));
+      setFieldValue("customSections", data);
+      dispatch(deleteCustomSection(data));
       dispatch(
         showAlert({
-          message: "Extra Curricular deleted successfully",
+          message: "Custom Section deleted successfully",
           type: "success",
         })
       );
@@ -209,7 +207,7 @@ const ExtraCurricularDetail = () => {
       dispatch(
         showAlert({
           message:
-            error.response?.data?.message || "Error Deleting Extra Curricular",
+            error.response?.data?.message || "Error Deleting Custom Section",
           type: "error",
         })
       );
@@ -218,7 +216,7 @@ const ExtraCurricularDetail = () => {
 
   // Toggle Card
   const toggleItemVisibility = (index) => {
-    const updatedCurricular = values.extraCurricular.map((item, i) => {
+    const updatedCustomSection = values.customSections.map((item, i) => {
       if (i === index) {
         return {
           ...item,
@@ -227,29 +225,29 @@ const ExtraCurricularDetail = () => {
       }
       return item;
     });
-    setFieldValue("extraCurricular", updatedCurricular);
+    setFieldValue("customSections", updatedCustomSection);
     refresh();
   };
 
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Extra Curricular</h4>
+        <h4 className="sub-heading mb-5">Custom Section</h4>
 
         <FieldArray
-          name="extraCurricular"
+          name="customSections"
           render={() => (
             <>
-              {values.extraCurricular.map((item, index) => (
+              {values.customSections.map((item, index) => (
                 <div
                   key={index}
                   className="content"
-                  data-education-id={item._id}
+                  data-custom-section-id={item._id}
                 >
                   {/* Head */}
                   <div className="head">
                     <div className="text">
-                      <h5>{item.title || `Title`}</h5>
+                      <h5>{item.title || `Section Title`}</h5>
                       <h6>
                         <span>
                           {formatDate(item.startDate) || `Start Date`}
@@ -280,10 +278,10 @@ const ExtraCurricularDetail = () => {
                   {item.isOpen && (
                     <div className="body">
                       <div className="grid grid-cols-2 gap-5">
-                        <div>
+                        <div className="col-span-2">
                           <FormInput
                             label="Title"
-                            name={`extraCurricular[${index}].title`}
+                            name={`customSections[${index}].title`}
                             type="text"
                             className="mb-0"
                             required
@@ -293,19 +291,8 @@ const ExtraCurricularDetail = () => {
                         </div>
                         <div>
                           <FormInput
-                            label="Employer"
-                            name={`extraCurricular[${index}].employer`}
-                            type="text"
-                            className="mb-0"
-                            required
-                            value={item.employer}
-                            onChange={handleChange}
-                          />
-                        </div>
-                        <div>
-                          <FormInput
                             label="Start Date"
-                            name={`extraCurricular[${index}].startDate`}
+                            name={`customSections[${index}].startDate`}
                             type="date"
                             className="mb-0"
                             required
@@ -316,7 +303,7 @@ const ExtraCurricularDetail = () => {
                         <div>
                           <FormInput
                             label="End Date"
-                            name={`extraCurricular[${index}].endDate`}
+                            name={`customSections[${index}].endDate`}
                             type="date"
                             className="mb-0"
                             required
@@ -324,10 +311,10 @@ const ExtraCurricularDetail = () => {
                             onChange={handleChange}
                           />
                         </div>
-                        <div>
+                        <div className="col-span-2">
                           <FormInput
                             label="city"
-                            name={`extraCurricular[${index}].city`}
+                            name={`customSections[${index}].city`}
                             type="text"
                             className="mb-0"
                             required
@@ -338,7 +325,7 @@ const ExtraCurricularDetail = () => {
                         <div className="col-span-2">
                           <FormText
                             label="Description"
-                            name={`extraCurricular[${index}].description`}
+                            name={`customSections[${index}].description`}
                             rows="4"
                             className="mb-0"
                             required
@@ -352,7 +339,7 @@ const ExtraCurricularDetail = () => {
                         className="button-sm mt-3"
                         onClick={() => onSubmitHandler(item._id)}
                       >
-                        Update Curricular
+                        Update Section
                       </button>
                     </div>
                   )}
@@ -367,7 +354,7 @@ const ExtraCurricularDetail = () => {
           className="toggle-info-btn"
           onClick={handleAddItem}
         >
-          <span className="me-2">Add New Curricular</span>
+          <span className="me-2">Add New Section</span>
           <FaPlus />
         </button>
       </form>
@@ -375,4 +362,4 @@ const ExtraCurricularDetail = () => {
   );
 };
 
-export default ExtraCurricularDetail;
+export default CustomSectionDetail;

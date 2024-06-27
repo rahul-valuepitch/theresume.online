@@ -349,6 +349,25 @@ const resumeSlice = createSlice({
         state.extraCurricular[index] = updatedCurricular;
       }
     },
+
+    setCustomSections: (state, action) => {
+      state.customSections = action.payload;
+    },
+    addCustomSection: (state, action) => {
+      state.customSections.push(action.payload);
+    },
+    deleteCustomSection: (state, action) => {
+      state.customSections = action.payload;
+    },
+    updateCustomSection: (state, action) => {
+      const updatedCustomSection = action.payload;
+      const index = state.customSections.findIndex(
+        (item) => item._id === updatedCustomSection._id
+      );
+      if (index !== -1) {
+        state.customSections[index] = updatedCustomSection;
+      }
+    },
   },
 });
 
@@ -411,6 +430,11 @@ export const {
   addCurricularDetail,
   deleteCurricularDetail,
   updateCurricularDetail,
+
+  setCustomSections,
+  addCustomSection,
+  deleteCustomSection,
+  updateCustomSection,
 } = resumeSlice.actions;
 
 export default resumeSlice.reducer;

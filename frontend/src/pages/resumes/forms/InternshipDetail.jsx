@@ -50,7 +50,6 @@ const InternshipDetail = () => {
       );
 
       const data = response.data.data.internships;
-      console.log(data);
 
       dispatch(setInternships(data || []));
       setFieldValue("internships", data || []);
@@ -108,7 +107,6 @@ const InternshipDetail = () => {
       );
 
       const data = response.data.data;
-      console.log(data);
 
       dispatch(updateInternshipDetail(data));
       dispatch(
@@ -150,7 +148,6 @@ const InternshipDetail = () => {
       );
 
       const data = response.data.data;
-      console.log(data);
 
       dispatch(addInternshipDetail(data));
       setFieldValue("internship", [...values.internship, data]);
@@ -192,7 +189,6 @@ const InternshipDetail = () => {
         }
       );
       const data = response.data.data;
-      console.log(data);
       setFieldValue("internship", data);
       dispatch(deleteInternshipDetail(data));
       dispatch(
