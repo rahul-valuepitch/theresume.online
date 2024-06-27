@@ -184,3 +184,17 @@ export const referenceDetailSchema = yup.object({
     })
   ),
 });
+
+// Extra Curricular Detail Schema Validation
+export const curricularDetailSchema = yup.object({
+  extraCurricular: yup.array().of(
+    yup.object({
+      title: yup.string().required("Extra Curricular title is required"),
+      employer: yup.string().required("Employer is required"),
+      startDate: yup.date().required("Start date is required").nullable(),
+      endDate: yup.date().nullable().required("End date is required"),
+      city: yup.string().required("City is required"),
+      description: yup.string().required("Description is required"),
+    })
+  ),
+});

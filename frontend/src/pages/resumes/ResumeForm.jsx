@@ -1,6 +1,7 @@
 import {
   CourseDetail,
   EducationDetail,
+  ExtraCurricularDetail,
   HobbieDetail,
   InternshipDetail,
   LanguageDetail,
@@ -33,6 +34,8 @@ const ResumeForm = () => {
       <HobbieDetail />
       <hr />
       <ReferenceDetail />
+      <hr />
+      <ExtraCurricularDetail />
       <hr />
     </>
   );

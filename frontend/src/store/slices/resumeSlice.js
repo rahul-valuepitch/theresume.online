@@ -330,6 +330,25 @@ const resumeSlice = createSlice({
         state.references[index] = updateReference;
       }
     },
+
+    setCurriculars: (state, action) => {
+      state.extraCurricular = action.payload;
+    },
+    addCurricularDetail: (state, action) => {
+      state.extraCurricular.push(action.payload);
+    },
+    deleteCurricularDetail: (state, action) => {
+      state.extraCurricular = action.payload;
+    },
+    updateCurricularDetail: (state, action) => {
+      const updatedCurricular = action.payload;
+      const index = state.extraCurricular.findIndex(
+        (item) => item._id === updatedCurricular._id
+      );
+      if (index !== -1) {
+        state.extraCurricular[index] = updatedCurricular;
+      }
+    },
   },
 });
 
@@ -387,6 +406,11 @@ export const {
   addReferenceDetail,
   deleteReferenceDetail,
   updateReferenceDetail,
+
+  setCurriculars,
+  addCurricularDetail,
+  deleteCurricularDetail,
+  updateCurricularDetail,
 } = resumeSlice.actions;
 
 export default resumeSlice.reducer;

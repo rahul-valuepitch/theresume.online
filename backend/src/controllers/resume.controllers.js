@@ -1844,13 +1844,16 @@ export const addCurricularController = asyncHandler(async (req, res) => {
   resume.extraCurricular.push(newCurricular);
   const updatedResume = await resume.save();
 
+  const createdCurricular =
+    updatedResume.extraCurricular[updatedResume.extraCurricular.length - 1];
+
   // * Sending Response
   return res
     .status(200)
     .json(
       new ApiResponse(
         200,
-        updatedResume.extraCurricular,
+        createdCurricular,
         "Extra Curricular added successfully!"
       )
     );
