@@ -28,6 +28,7 @@
     "react-to-print": "^2.15.1",
     "react-uploader": "^3.43.0",
     "slick-carousel": "^1.8.1",
+    "Uploader": "^2.0.0",
     "uuid": "^10.0.0",
     "yup": "^1.4.0"
   },
