@@ -101,11 +101,26 @@
   font-size: 35px;
   font-weight: 700;
   color: var(--dark);
+  text-transform: capitalize;
 }
 .sub-heading {
   font-size: 20px;
   font-weight: 700;
   color: var(--dark);
+  text-transform: capitalize;
+}
+.title {
+  font-size: 35px;
+  font-weight: 700;
+  color: var(--dark);
+  text-transform: capitalize;
+  line-height: 130%;
+}
+.title-alt {
+  font-size: 25px;
+  font-weight: 500;
+  color: var(--primary);
+  text-transform: capitalize;
 }
 
 /* Form Control */

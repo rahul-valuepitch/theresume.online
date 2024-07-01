@@ -536,3 +536,241 @@
   width: 100%;
   border-radius: 5px 5px 0 0;
 }
+
+/* Home Page */
+.hero {
+  background: #e2f0e9;
+}
+.hero .text {
+  text-align: center;
+  width: 100%;
+  max-width: 750px;
+  margin: auto;
+}
+.hero .text h5 {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--dark);
+  text-transform: uppercase;
+  line-height: 100%;
+  margin-bottom: 15px;
+}
+.hero .text h4 {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--dark);
+  text-transform: capitalize;
+  line-height: 130%;
+  margin-bottom: 30px;
+}
+.hero .text p {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--dark);
+  text-transform: capitalize;
+  line-height: 140%;
+  width: 80%;
+  margin-inline: auto;
+}
+.hero .image {
+  width: 100%;
+  max-width: 1000px;
+  margin: 50px auto 0;
+}
+
+/* Testimonials Section */
+.testimonial .image {
+  width: 150px;
+  margin-left: auto;
+  margin-right: 0;
+}
+.testimonial .testimonial-carousel {
+  background: var(--light-alt);
+  padding: 30px 30px 0;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+.testimonial .testimonial-carousel .item .stars {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+.testimonial .testimonial-carousel .item .stars svg {
+  color: var(--primary);
+}
+.testimonial .testimonial-carousel .item .text h6 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 15px;
+}
+.testimonial .testimonial-carousel .item .text p {
+  width: 80%;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 130%;
+  margin-bottom: 20px;
+  color: var(--dark);
+}
+.testimonial .testimonial-carousel .item .text span {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 130%;
+  color: var(--dark-alt);
+}
+.testimonial .testimonial-carousel .slick-dots {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: nowrap !important;
+  flex-direction: row !important;
+  margin-top: 30px !important;
+  position: relative !important;
+  inset: auto !important;
+  height: auto !important;
+}
+.testimonial .testimonial-carousel .slick-dots li {
+  margin: 0;
+  width: 100%;
+  height: auto !important;
+}
+.testimonial .testimonial-carousel .slick-dots li button {
+  padding: 0;
+  width: 100%;
+  height: 5px;
+  background: #c2c2c2;
+  transition: 0.5s ease all;
+  border-radius: 5px;
+}
+.testimonial .testimonial-carousel .slick-dots li.slick-active button {
+  background: var(--primary);
+}
+.testimonial .testimonial-carousel .slick-dots li button::before {
+  display: none;
+}
+
+/* Features Section */
+.features .text {
+  text-align: center;
+  width: 100%;
+  max-width: 750px;
+  margin-inline: auto;
+}
+.features .text p {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 170%;
+  color: var(--light-alt);
+}
+.features .item .icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 30px;
+  background: var(--primary);
+  border-radius: 10px;
+  padding: 15px 20px;
+}
+.features .item .icon img {
+  width: 70px;
+}
+.features .item .icon h6 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--light);
+  line-height: 100%;
+}
+.features .item .content {
+  padding: 15px 20px 0;
+}
+.features .item .content p {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--light-alt);
+  line-height: 170%;
+}
+
+/* CTA Section */
+.cta {
+  background: #e2f0e9;
+  padding: 50px 0;
+}
+.cta .container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.cta .text {
+  width: 50%;
+  margin: 0 0 0 auto;
+}
+.cta .text p {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 140%;
+}
+.cta .image {
+  width: 45%;
+}
+
+/* FAQ Section */
+.faq .image {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 35%;
+  transform: translateY(-50%);
+}
+.faq .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+.faq .text p {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 140%;
+}
+.faq .accordion {
+  width: 100%;
+}
+.faq .accordion-item {
+  margin-bottom: 10px;
+  background: #e2f0e9;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.faq .accordion-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-radius: 10px;
+  background: var(--primary);
+  cursor: pointer;
+}
+.faq .accordion-title span {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--light);
+}
+.faq .accordion-title svg {
+  color: var(--light);
+}
+.faq .accordion-content {
+  display: none;
+  padding: 15px;
+  background: #e2f0e9;
+}
+.faq .accordion-content.show {
+  display: block;
+}
+.faq .accordion-content p {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--dark);
+}

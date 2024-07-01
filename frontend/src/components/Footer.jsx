@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { BsTwitterX, BsInstagram } from "react-icons/bs";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 
-import { LogoLight } from "../static/images/logos";
+import { LogoAlt } from "../static/images/logos";
 
 const Footer = () => {
   return (
@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="grid grid-cols-5 gap-4">
           <div className="info">
             <Link to="/" className="logo">
-              <img src={LogoLight} alt="" />
+              <img src={LogoAlt} alt="" />
             </Link>
             <div className="social">
               <Link to="/" target="_blank" rel="noopener noreferrer">
