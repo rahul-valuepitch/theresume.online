@@ -2,7 +2,7 @@ import axios from "axios";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { GoPencil } from "react-icons/go";
 import { useSelector, useDispatch } from "react-redux";
-import { Uploader } from "Uploader";
+import { Uploader } from "uploader";
 import { UploadButton } from "react-uploader";
 
 import { Modal } from "../../components/index";
