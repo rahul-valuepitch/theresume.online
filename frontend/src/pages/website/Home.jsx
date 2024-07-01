@@ -339,6 +339,9 @@ const Home = () => {
                     </div>
                   ))}
                 </div>
+                <Link to="/" className="button">
+                  Create My Resume
+                </Link>
               </div>
             </div>
           </div>
