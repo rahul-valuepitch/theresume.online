@@ -1,4 +1,5 @@
-import Logo from "./main.svg";
+import MainLogo from "./main.svg";
 import LogoLight from "./light.svg";
+import Logo from "./logo.png";
 
-export { Logo, LogoLight };
+export { MainLogo, LogoLight, Logo };
