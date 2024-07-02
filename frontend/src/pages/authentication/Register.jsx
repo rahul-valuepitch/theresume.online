@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { Logo } from "../../static/images/logos";
 import AbstractImages from "../../static/images/abstract";
-import { Google } from "../../static/images/icons/index";
+// import { Google } from "../../static/images/icons/index";
 import { login, setAuthError } from "../../store/slices/authSlice";
 import FormInput from "../../components/FormInput";
 import { registerSchema } from "../../schemas/index";

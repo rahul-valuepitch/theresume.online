@@ -28,9 +28,7 @@ const Profile = () => {
   const handleUploadComplete = async (files) => {
     try {
       const token = localStorage.getItem("authToken");
-      console.log(token);
       const file = files[0].fileUrl;
-      console.log(file, files);
 
       // Use FormData to send the image file
       const formData = new FormData();
@@ -47,8 +45,6 @@ const Profile = () => {
           withCredentials: true,
         }
       );
-
-      console.log(response);
 
       dispatch(updateProfile(response.data.data));
     } catch (error) {

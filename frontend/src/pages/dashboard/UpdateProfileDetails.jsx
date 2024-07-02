@@ -40,7 +40,7 @@ const UpdateProfileDetails = () => {
           withCredentials: true,
         }
       );
-      console.log(response);
+
       dispatch(updateProfile(response.data.data));
       resetForm();
       setIsUpdated(true);
