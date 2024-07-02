@@ -29,7 +29,7 @@ export const sendPasswordResetEmail = async (
   username,
   resetPasswordCode
 ) => {
-  const appUrl = `http://localhost:8000`;
+  const appUrl = `${process.env.APP_URL}:${process.env.PORT}`;
 
   const passwordResetData = {
     email: sendTo,
