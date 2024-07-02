@@ -1,6 +1,6 @@
 const PrivacyPolicy = () => {
   return (
-    <section className="section privacy-section">
+    <section className="section content-section">
       <div className="container">
         <div className="grid grid-cols-12">
           <div></div>

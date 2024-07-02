@@ -774,3 +774,24 @@
   font-weight: 400;
   color: var(--dark);
 }
+
+/* Content Section */
+.content-section hr {
+  margin: 30px 0;
+}
+.content-section p {
+  line-height: 140%;
+}
+
+/* About Section */
+.about p {
+  line-height: 140%;
+  font-size: 18px;
+}
+.about ul li {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.about ul li b {
+  display: block;
+}
