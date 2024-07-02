@@ -3,9 +3,12 @@ import axios from "axios";
 import { useReactToPrint } from "react-to-print";
 
 import templateMapper from "../../utils/templateMapper";
+import { chunkContent } from "../../utils/resumeChunk";
 
 const TemplateRenderer = ({ templateId, resume }) => {
   const [TemplateComponent, setTemplateComponent] = useState(null);
+
+  const contentChunks = chunkContent(resumeContent);
 
   useEffect(() => {
     const fetchTemplateData = async () => {

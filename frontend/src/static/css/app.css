@@ -536,6 +536,14 @@
   width: 100%;
   border-radius: 5px 5px 0 0;
 }
+@media print {
+  .print-container .print-content {
+    page-break-inside: avoid;
+    page-break-after: always;
+    width: 794px;
+    height: 1123px;
+  }
+}
 
 /* Home Page */
 .hero {

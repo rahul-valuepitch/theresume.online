@@ -205,7 +205,7 @@ const ResumeDefaultTemplate = ({ resume }) => {
                   ))}
                 </div>
 
-                {/* <div className="temp-section">
+                <div className="temp-section">
                   <h6 className="temp-heading">Internship History</h6>
                   {internships.map((item, index) => (
                     <div key={index} className="temp-item">
@@ -224,7 +224,7 @@ const ResumeDefaultTemplate = ({ resume }) => {
                       <p>{item.description}</p>
                     </div>
                   ))}
-                </div> */}
+                </div>
               </div>
             </td>
           </tr>
