@@ -7,7 +7,7 @@ export const options = {
   secure: process.env.OPTIONS === "production",
   sameSite: "Lax",
   maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-  domain: process.env.APP_URL,
+  domain: process.env.DOMAIN,
   path: "/",
 };
 
