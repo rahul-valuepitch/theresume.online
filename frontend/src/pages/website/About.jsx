@@ -1,8 +1,12 @@
+import { Breadcrumb } from "../../components";
 import { AboutImg } from "../../static/images/about";
 
 const About = () => {
   return (
     <>
+      {/* Breadcrumb */}
+      <Breadcrumb />
+
       {/* About Page Us */}
       <section className="section about">
         <div className="container">

@@ -8,9 +8,11 @@ const Breadcrumb = () => {
   const titleMapping = {
     "/": "Home",
     "/about": "About",
+    "/templates": "Templates",
+    "/privacy-policy": "Privacy Policy",
     "/dashboard": "Dashboard",
     "/dashboard/profile": "Profile",
-    "/dashboard/resume": "Resumes",
+    "/dashboard/resumes": "Resumes",
   };
 
   const pageTitle = titleMapping[`/${pathnames.join("/")}`] || "Page";
