@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Breadcrumb } from "../../components";
-import { showAlert } from "../../../store/slices/alertSlice";
+import { showAlert } from "../../store/slices/alertSlice";
 
 const Templates = () => {
   const dispatch = useDispatch();
