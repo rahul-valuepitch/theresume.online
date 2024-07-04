@@ -795,16 +795,85 @@
 }
 
 /* About Section */
-.about p {
+.about-hero .image {
+  width: 100%;
+  max-width: 700px;
+}
+.about-text .title-alt {
+  line-height: 120%;
+  width: 100%;
+  max-width: 400px;
+}
+.about-text p {
+  width: 100%;
+  max-width: 500px;
   line-height: 140%;
   font-size: 18px;
 }
-.about ul li {
+.about-choose ul li {
   font-size: 18px;
   margin-bottom: 10px;
+  position: relative;
+  padding-left: 25px;
 }
-.about ul li b {
+.about-choose ul li::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--primary);
+  border-radius: 10px;
+  top: 10px;
+  left: 0;
+}
+.about-choose ul li b {
   display: block;
+}
+.about-icons {
+  background: #e2f0e9;
+}
+.about-icons .about-item {
+  position: relative;
+  padding: 10px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.about-icons .about-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -35px;
+  width: 2px;
+  height: 100%;
+  background: var(--primary);
+}
+.about-icons .col:last-child .about-item::after {
+  display: none;
+}
+.about-icons .about-item .head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 30px;
+  margin-bottom: 15px;
+}
+.about-icons .about-item .head .icon {
+  width: 70px;
+}
+.about-icons .about-item .head h5 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 130%;
+  color: var(--dark);
+  width: calc(100% - 100px);
+}
+.about-icons .about-item .body p {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 140%;
+  color: var(--dark);
 }
 
 /* Template Section */
