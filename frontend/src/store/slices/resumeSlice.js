@@ -132,7 +132,7 @@ const initialState = {
 };
 
 const resumeSlice = createSlice({
-  name: "alert",
+  name: "resume",
   initialState,
   reducers: {
     resetResume: () => initialState,

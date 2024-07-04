@@ -806,3 +806,31 @@
 .about ul li b {
   display: block;
 }
+
+/* Template Section */
+.template-card {
+  position: relative;
+  padding: 15px;
+  background: var(--white);
+  border-radius: 5px;
+  box-shadow: 0 0 100px 0 #00000021;
+}
+.template-card .image {
+  position: relative;
+  border: 2px solid var(--light-alt);
+}
+.template-card .action {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.template-card .action .button {
+  opacity: 0;
+  transform: translateY(50px);
+}
+.template-card:hover .action .button {
+  opacity: 1;
+  transform: translateY(0);
+}

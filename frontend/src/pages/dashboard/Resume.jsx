@@ -33,8 +33,6 @@ const Resume = () => {
           }
         );
 
-        console.log(response);
-
         const resumes = response.data.data;
         resumes.forEach((resume) => {
           dispatch(addResume(resume));
