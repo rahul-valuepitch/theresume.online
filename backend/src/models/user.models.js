@@ -5,6 +5,10 @@ import mongoose from "mongoose";
 // User Schema
 const UserSchema = new mongoose.Schema(
   {
+    googleId: {
+      type: String,
+      unique: true,
+    },
     email: {
       type: String,
       required: true,

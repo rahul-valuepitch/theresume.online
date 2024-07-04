@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { OAuth2Client } from "google-auth-library";
 import User from "../models/user.models.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiResponse from "../utils/apiResponse.js";
@@ -480,16 +481,67 @@ export const removeAvatarController = asyncHandler(async (req, res) => {
 });
 
 // Redirect to Google for authentication
-export const googleAuthentication = asyncHandler(async (req, res) => {
-  const googleAuthURL = "https://accounts.google.com/o/oauth2/v2/auth";
-  const params = {
-    client_id: process.env.GOOGLE_CLIENT_ID,
-    redirect_uri: process.env.GOOGLE_REDIRECT_URI,
-    response_type: "code",
-    scope: "profile email",
-    access_type: "offline",
-    prompt: "consent",
-  };
-  const queryParams = querystring.stringify(params);
-  res.redirect(`${googleAuthURL}?${queryParams}`);
-});
+export const googleAuthentication = async (req, res) => {
+  const client = new OAuth2Client(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    "postmessage" // Specify the redirect URI (for example: 'postmessage' for client-side apps)
+  );
+
+  const { code } = req.body;
+
+  if (!code) {
+    throw new ApiError(400, "Code not provided");
+  }
+
+  try {
+    const { tokens } = await client.getToken(code);
+    const idToken = tokens.id_token;
+
+    // Verify the ID token using Google's OAuth2Client
+    const ticket = await client.verifyIdToken({
+      idToken,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const { sub, email, name, picture } = ticket.getPayload();
+
+    // Check if the user already exists in your database
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // If user does not exist, create a new user
+      user = await User.create({
+        googleId: sub,
+        email,
+        fullName: name,
+        avatar: picture,
+      });
+    }
+
+    // Generate Access & Refresh Token
+    const { accessToken, refreshToken } = await generateAccessRefreshToken(
+      user._id
+    );
+
+    // Sending Response
+    return res
+      .status(201)
+      .cookie("accessToken", accessToken, { httpOnly: true, secure: true })
+      .cookie("refreshToken", refreshToken, { httpOnly: true, secure: true })
+      .json({
+        user: user.toObject({
+          transform: function (doc, ret) {
+            delete ret.password;
+            delete ret.refreshToken;
+            return ret;
+          },
+        }),
+        accessToken,
+        refreshToken,
+      });
+  } catch (error) {
+    console.error("Error verifying Google token:", error);
+    throw new ApiError(500, "Internal Server Error");
+  }
+};

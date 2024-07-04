@@ -5,10 +5,10 @@ import { useDispatch } from "react-redux";
 
 import { Logo } from "../../static/images/logos";
 import AbstractImages from "../../static/images/abstract";
-// import { Google } from "../../static/images/icons/index";
 import { login, setAuthError } from "../../store/slices/authSlice";
 import FormInput from "../../components/FormInput";
 import { registerSchema } from "../../schemas/index";
+import GoogleSignIn from "./GoogleSignIn";
 
 // Random Number generator
 const randomIndex = Math.floor(Math.random() * AbstractImages.length);
@@ -144,10 +144,7 @@ const Register = () => {
           <p className="mt-5 mb-5">
             Already a member? <Link to="/login">Login</Link>
           </p>
-          {/* <Link className="social-btn">
-            <img src={Google} alt="Google" />
-            <span>Sign Up with Google</span>
-          </Link> */}
+          <GoogleSignIn label="Sign Up with Google" />
         </div>
       </div>
       <div className="image">
