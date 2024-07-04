@@ -215,8 +215,8 @@ const PrivacyPolicy = () => {
                 If you would like us to delete all of the information that we
                 have stored in our databases, backups, and recoveries, please
                 contact us at{" "}
-                <a href="mailto:communications@theresume.online">
-                  communications@theresume.online
+                <a href="mailto:theresumes.online@gmail.com">
+                  theresumes.online@gmail.com
                 </a>
                 . After we verify your account, we will delete all of your data.
                 Deletion requests could take up to 90 days to complete. Please
@@ -295,8 +295,8 @@ const PrivacyPolicy = () => {
               <p className="mb-3">
                 If you have questions regarding this privacy policy or wish to
                 obtain additional information, please send an email to
-                <a href="mailto:communications@theresume.online">
-                  communications@theresume.online
+                <a href="mailto:theresumes.online@gmail.com">
+                  theresumes.online@gmail.com
                 </a>
                 , or send mail to TheResume.online at Andheri West, Mumbai,
                 Maharashtra, India.

@@ -38,7 +38,7 @@ const Home = () => {
     {
       title: "How much time do recruiters spend on my resume?",
       content:
-        "The ideal length for a resume is generally considered to be one page for most applicants. However, candidates with extensive experience may extend to two pages.",
+        "Recruiters typically spend about 7 seconds initially scanning a resume to decide if it warrants further consideration.",
     },
     {
       title: "How long should my resume be?",

@@ -8,8 +8,12 @@ const Breadcrumb = () => {
   const titleMapping = {
     "/": "Home",
     "/about": "About",
+    "/faq": "FAQ",
+    "/contact": "Contact Us",
+    "/terms-of-services": "Terms of Services",
     "/templates": "Templates",
     "/privacy-policy": "Privacy Policy",
+    "/payment-policy": "Payment Policy",
     "/dashboard": "Dashboard",
     "/dashboard/profile": "Profile",
     "/dashboard/resumes": "Resumes",

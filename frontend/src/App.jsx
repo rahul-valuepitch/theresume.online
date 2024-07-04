@@ -23,9 +23,15 @@ import {
   Resume,
   UpdateProfileDetails,
 } from "./pages/dashboard/index";
-import { About, Home, PrivacyPolicy, Templates } from "./pages/website/index";
+import {
+  About,
+  Home,
+  PaymentPolicy,
+  PrivacyPolicy,
+  Templates,
+} from "./pages/website/index";
 import { ResumePage } from "./pages/resumes/index";
-import { ProtectedRoute, FetchUserData } from "./utils/index";
+import { ProtectedRoute, FetchUserData, ScrollToTop } from "./utils/index";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -79,6 +85,7 @@ const App = () => {
       )}
 
       <Router>
+        <ScrollToTop />
         <Routes>
           {/* Authentication Routes */}
           <Route path="/" element={<AuthenticationLayout />}>
@@ -112,6 +119,7 @@ const App = () => {
             <Route path="/templates" element={<Templates />} />
             <Route path="/about" element={<About />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/payment-policy" element={<PaymentPolicy />} />
           </Route>
 
           {/* Resume Routes */}
