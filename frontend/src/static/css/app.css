@@ -691,7 +691,7 @@
   font-size: 22px;
   font-weight: 600;
   color: var(--light);
-  line-height: 100%;
+  line-height: 80%;
 }
 .features .item .content {
   padding: 15px 20px 0;
@@ -700,7 +700,7 @@
   font-size: 16px;
   font-weight: 400;
   color: var(--light-alt);
-  line-height: 170%;
+  line-height: 150%;
 }
 
 /* CTA Section */
@@ -740,6 +740,11 @@
   height: 100%;
   object-fit: contain;
   object-position: center;
+}
+.faq .image .button {
+  position: absolute;
+  bottom: 30px;
+  left: -170px;
 }
 .faq .text p {
   font-size: 18px;

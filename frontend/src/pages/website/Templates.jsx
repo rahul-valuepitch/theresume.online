@@ -31,6 +31,8 @@ const Templates = () => {
       }
     );
 
+    console.log(response);
+
     const data = response.data.data;
 
     dispatch(setTemplates(data));

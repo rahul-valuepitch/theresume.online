@@ -17,13 +17,25 @@ const Footer = () => {
               <Link to="/" target="_blank" rel="noopener noreferrer">
                 <FaFacebookF />
               </Link>
-              <Link to="/" target="_blank" rel="noopener noreferrer">
+              <Link
+                to="https://www.instagram.com/theresumes.online/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <BsInstagram />
               </Link>
-              <Link to="/" target="_blank" rel="noopener noreferrer">
+              <Link
+                to="https://www.linkedin.com/showcase/theresumes/about/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaLinkedinIn />
               </Link>
-              <Link to="/" target="_blank" rel="noopener noreferrer">
+              <Link
+                to="https://x.com/the_resumes"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <BsTwitterX />
               </Link>
             </div>
@@ -35,10 +47,7 @@ const Footer = () => {
                 <Link to="/">Create a resume</Link>
               </li>
               <li>
-                <Link to="/">Resume examples</Link>
-              </li>
-              <li>
-                <Link to="/">Resume templates</Link>
+                <Link to="/templates">Resume templates</Link>
               </li>
               <li>
                 <Link to="/">Cover Letter templates</Link>
@@ -58,9 +67,6 @@ const Footer = () => {
                 <Link to="/">Job interview</Link>
               </li>
               <li>
-                <Link to="/">Career</Link>
-              </li>
-              <li>
                 <Link to="/">Cover letter</Link>
               </li>
               <li>
@@ -77,22 +83,16 @@ const Footer = () => {
               <li>
                 <Link to="/">Pricing</Link>
               </li>
-              <li>
-                <Link to="/">Product Updates</Link>
-              </li>
             </ul>
           </div>
           <div className="item">
             <h6>Support</h6>
             <ul>
               <li>
-                <Link to="/">FAQ</Link>
+                <Link to="/#faq">FAQ</Link>
               </li>
               <li>
                 <Link to="/">Contact Us</Link>
-              </li>
-              <li>
-                <Link to="/">Terms of services</Link>
               </li>
               <li>
                 <Link to="/privacy-policy">Privacy Policy</Link>

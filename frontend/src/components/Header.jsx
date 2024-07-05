@@ -49,7 +49,22 @@ const Header = () => {
           <ul>
             <li className="nav-item">
               <Link to="/templates" className="nav-link">
-                Templates
+                Resume Templates
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/about" className="nav-link">
+                About Us
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/contact" className="nav-link">
+                Contact Us
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/#faq" className="nav-link">
+                FAQ
               </Link>
             </li>
             {!isAuthenticated ? (

@@ -45,6 +45,11 @@ const Home = () => {
       content:
         "The ideal length for a resume is generally considered to be one page for most applicants. However, candidates with extensive experience may extend to two pages.",
     },
+    {
+      title: "What is a resume summary?",
+      content:
+        "A resume summary, also called a professional summary or summary statement, is a brief section at the top of your resume highlighting your experience, skills, and qualities. It helps you immediately showcase your strongest assets to potential employers.",
+    },
   ];
 
   return (
@@ -306,7 +311,7 @@ const Home = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="section faq">
+      <section className="section faq" id="faq">
         <div className="container">
           <div className="grid grid-cols-2">
             <div>
@@ -339,14 +344,14 @@ const Home = () => {
                     </div>
                   ))}
                 </div>
-                <Link to="/" className="button">
-                  Create My Resume
-                </Link>
               </div>
             </div>
           </div>
         </div>
         <div className="image">
+          <Link to="/" className="button">
+            Create My Resume
+          </Link>
           <img src={FAQImg} alt="" />
         </div>
       </section>

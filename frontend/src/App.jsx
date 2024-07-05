@@ -116,8 +116,8 @@ const App = () => {
           {/* Website Routes */}
           <Route path="/" element={<WebsiteLayout />}>
             <Route index element={<Home />} />
-            <Route path="/templates" element={<Templates />} />
             <Route path="/about" element={<About />} />
+            <Route path="/templates" element={<Templates />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/payment-policy" element={<PaymentPolicy />} />
           </Route>
