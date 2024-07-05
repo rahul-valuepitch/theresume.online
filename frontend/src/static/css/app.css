@@ -236,6 +236,34 @@
   position: relative;
   background: var(--light);
 }
+.db-section .create-resume-btn {
+  height: 100%;
+  width: 100%;
+  min-height: 300px;
+  border-radius: 10px;
+  background: var(--primary);
+  border: 2px solid var(--primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.db-section .create-resume-btn span {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--light);
+}
+.db-section .create-resume-btn .icon {
+  width: 70px;
+  height: 70px;
+  background: var(--light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
 
 /* DB Sidebar */
 .db-sidebar {
@@ -907,4 +935,69 @@
 .template-card:hover .action .button {
   opacity: 1;
   transform: translateY(0);
+}
+.template-card .edit-btn {
+  background: var(--primary);
+  border: 0;
+  padding: 10px;
+  margin: 3px;
+}
+.template-card .delete-btn {
+  background: var(--danger);
+  border: 0;
+  padding: 10px;
+  margin: 3px;
+}
+
+/* Contact Section */
+.contact .image {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.contact .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom center;
+}
+.contact .links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+}
+.contact .link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  background: var(--light);
+  border: 2px solid var(--primary);
+  margin-bottom: 15px;
+  transition: 0.5s ease all;
+}
+.contact .link svg {
+  width: 30px;
+  height: 30px;
+  color: var(--primary);
+  transition: 0.5s ease all;
+}
+.contact .link span {
+  font-size: 18px;
+  font-weight: 600;
+  width: calc(100% - 45px);
+  transition: 0.5s ease all;
+  color: var(--dark);
+}
+.contact .link:hover {
+  background: var(--primary);
+}
+.contact .link:hover span {
+  color: var(--light);
+}
+.contact .link:hover svg {
+  color: var(--light);
 }

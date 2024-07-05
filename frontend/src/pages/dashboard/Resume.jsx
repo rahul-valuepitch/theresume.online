@@ -4,25 +4,31 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineEdit } from "react-icons/md";
 import { FiTrash2 } from "react-icons/fi";
+import { FaPlus } from "react-icons/fa";
 
 import {
   addResume,
   createResume,
   removeResume,
   setCurrentResume,
+  resetResume,
 } from "../../store/slices/resumeSlice";
 import { showAlert } from "../../store/slices/alertSlice";
+import imageMap from "../resumes/template-images";
 
 const Resume = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const allResumes = useSelector((state) => state.resume.resumes);
+  const templates = useSelector((state) => state.template.templates);
 
   // Fetch data on Load
   useEffect(() => {
     const fetchResumes = async () => {
       try {
+        dispatch(resetResume());
+
         const response = await axios.get(
           `${import.meta.env.VITE_API_BASE_URL}/resume`,
           {
@@ -120,44 +126,59 @@ const Resume = () => {
     <>
       <h1 className="sub-heading mb-5">My Resumes ({allResumes.length})</h1>
 
-      {allResumes.length === 0 ? (
-        <p>No resumes created!</p>
-      ) : (
-        <ul className="grid grid-cols-3 gap-5">
-          {allResumes.map((resume, i) => (
-            <li key={resume._id} className="card resume-card">
-              <div className="card-body">
-                <h2>
-                  {resume.title}
-                  {i + 1}
-                </h2>
-                <p>
-                  Template ID: <br /> {resume.template}
-                </p>
-                <p>
-                  Resume ID: <br /> {resume._id}
-                </p>
-                <button
-                  className="edit-btn"
-                  onClick={() => handleEditResume(resume)}
-                >
-                  <MdOutlineEdit />
-                </button>
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDeleteResume(resume._id)}
-                >
-                  <FiTrash2 />
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className="grid grid-cols-4 gap-5">
+        {allResumes.length === 0 ? (
+          <div className="col-span-4">
+            <p className="sub-heading text-danger">No resumes created!</p>
+          </div>
+        ) : (
+          <>
+            {allResumes.map((resume) => (
+              <li key={resume._id}>
+                {templates
+                  .filter((template) => resume.template === template._id)
+                  .map((template, index) => (
+                    <div className="template-card" key={index}>
+                      <div className="action">
+                        <button
+                          className="button edit-btn"
+                          onClick={() => handleEditResume(resume)}
+                        >
+                          <MdOutlineEdit />
+                        </button>
+                        <button
+                          className="button delete-btn"
+                          onClick={() => handleDeleteResume(resume._id)}
+                        >
+                          <FiTrash2 />
+                        </button>
+                      </div>
+                      <div className="image">
+                        <img
+                          src={
+                            imageMap[
+                              template.file.replace(".", "-").toLowerCase()
+                            ]
+                          }
+                          alt={template.file}
+                        />
+                      </div>
+                    </div>
+                  ))}
+              </li>
+            ))}
+          </>
+        )}
 
-      <button onClick={handleCreateResume} className="button mt-5">
-        Create Resume
-      </button>
+        <li>
+          <button className="create-resume-btn" onClick={handleCreateResume}>
+            <span>Create Resume</span>
+            <div className="icon">
+              <FaPlus />
+            </div>
+          </button>
+        </li>
+      </ul>
     </>
   );
 };

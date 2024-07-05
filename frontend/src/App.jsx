@@ -25,6 +25,7 @@ import {
 } from "./pages/dashboard/index";
 import {
   About,
+  Contact,
   Home,
   PaymentPolicy,
   PrivacyPolicy,
@@ -117,6 +118,7 @@ const App = () => {
           <Route path="/" element={<WebsiteLayout />}>
             <Route index element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/templates" element={<Templates />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/payment-policy" element={<PaymentPolicy />} />
