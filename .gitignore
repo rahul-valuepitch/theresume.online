@@ -41,7 +41,6 @@ build/Release
 
 # Dependency directories
 *extras
-*public
 *node_modules
 jspm_packages*
 
