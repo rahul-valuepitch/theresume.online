@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { FaPlus, FaMinus } from "react-icons/fa6";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import { Breadcrumb } from "../../components";
 import { FAQImg } from "../../static/images/home";
+import { B2BLogo, MLLogo } from "../../static/images/clients";
 
 const Pricing = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -46,6 +48,18 @@ const Pricing = () => {
         "We provide customer support through our email. Our support team is ready to assist you with any issues or questions you may have about your account or our services.",
     },
   ];
+
+  const settings = {
+    dots: false,
+    arrows: false,
+    infinite: true,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+  };
 
   return (
     <>
@@ -287,6 +301,40 @@ const Pricing = () => {
           <div className="text-center mb-8">
             <h4 className="title-alt">Clients</h4>
             <h3 className="title">Our Valued Clients</h3>
+          </div>
+          <div className="slider-container">
+            <Slider {...settings}>
+              <div>
+                <img src={B2BLogo} alt="" />
+              </div>
+              <div>
+                <img src={MLLogo} alt="" />
+              </div>
+              <div>
+                <img src={B2BLogo} alt="" />
+              </div>
+              <div>
+                <img src={MLLogo} alt="" />
+              </div>
+              <div>
+                <img src={B2BLogo} alt="" />
+              </div>
+              <div>
+                <img src={MLLogo} alt="" />
+              </div>
+              <div>
+                <img src={B2BLogo} alt="" />
+              </div>
+              <div>
+                <img src={MLLogo} alt="" />
+              </div>
+              <div>
+                <img src={B2BLogo} alt="" />
+              </div>
+              <div>
+                <img src={MLLogo} alt="" />
+              </div>
+            </Slider>
           </div>
         </div>
       </section>
