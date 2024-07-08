@@ -2,10 +2,10 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import { Logo } from "../../static/images/logos";
 import AbstractImages from "../../static/images/abstract";
 import { FormInput } from "../../components/index";
 import { forgotPasswordSchema } from "../../schemas/index";
+import { Breadcrumb } from "../../components";
 
 // Random Number generator
 const randomIndex = Math.floor(Math.random() * AbstractImages.length);
@@ -59,48 +59,52 @@ const ForgotPassword = () => {
   });
 
   return (
-    <div className="authentication">
-      <div className="form">
-        <div className="content">
-          <Link to="/" className="logo">
-            <img src={Logo} alt="The Resumes Online" />
-          </Link>
-          <form onSubmit={handleSubmit}>
-            <h1 className="heading text-dark mt-5 mb-3">Trouble Logging In?</h1>
-            <h6 className="mb-10">
-              Enter your email and we'll send you a link to get back to your
-              account.
-            </h6>
+    <>
+      {/* Breadcrumb */}
+      <Breadcrumb />
 
-            <FormInput
-              label="Email"
-              type="email"
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.email && errors.email}
-            />
+      <div className="authentication">
+        <div className="form">
+          <div className="content">
+            <form onSubmit={handleSubmit}>
+              <h1 className="heading text-dark mt-5 mb-3">
+                Trouble Logging In?
+              </h1>
+              <h6 className="mb-10">
+                Enter your email and we'll send you a link to get back to your
+                account.
+              </h6>
 
-            {errors.apiError && (
-              <span className="block text-sm text-red-500 mb-4">
-                {errors.apiError}
-              </span>
-            )}
+              <FormInput
+                label="Email"
+                type="email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.email && errors.email}
+              />
 
-            <button type="button" className="button" disabled={isSubmitting}>
-              {isSubmitting ? "Submitting" : "Send Passsword Reset Link"}
-            </button>
-          </form>
-          <p className="mt-5">
-            Already a member? <Link to="/login">Login</Link>
-          </p>
+              {errors.apiError && (
+                <span className="block text-sm text-red-500 mb-4">
+                  {errors.apiError}
+                </span>
+              )}
+
+              <button type="button" className="button" disabled={isSubmitting}>
+                {isSubmitting ? "Submitting" : "Send Passsword Reset Link"}
+              </button>
+            </form>
+            <p className="mt-5">
+              Already a member? <Link to="/login">Login</Link>
+            </p>
+          </div>
+        </div>
+        <div className="image">
+          <img src={randomImage} alt="Abstract" />
         </div>
       </div>
-      <div className="image">
-        <img src={randomImage} alt="Abstract" />
-      </div>
-    </div>
+    </>
   );
 };
 

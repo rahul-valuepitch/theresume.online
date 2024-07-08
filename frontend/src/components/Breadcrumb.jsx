@@ -12,11 +12,15 @@ const Breadcrumb = () => {
     "/contact": "Contact Us",
     "/terms-of-services": "Terms of Services",
     "/templates": "Templates",
+    "/pricing": "Pricing",
     "/privacy-policy": "Privacy Policy",
     "/payment-policy": "Payment Policy",
     "/dashboard": "Dashboard",
     "/dashboard/profile": "Profile",
     "/dashboard/resumes": "Resumes",
+    "/login": "Login",
+    "/register": "Register",
+    "/forgot-password": "Forgot Password",
   };
 
   const pageTitle = titleMapping[`/${pathnames.join("/")}`] || "Page";

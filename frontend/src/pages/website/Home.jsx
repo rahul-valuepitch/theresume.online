@@ -50,6 +50,26 @@ const Home = () => {
       content:
         "A resume summary, also called a professional summary or summary statement, is a brief section at the top of your resume highlighting your experience, skills, and qualities. It helps you immediately showcase your strongest assets to potential employers.",
     },
+    {
+      title: "Why should I use TheResumes?",
+      content:
+        "UsingTheResumes streamlines the resume creation process, saving you time and effort. Have you ever tried crafting your resume in Word? It can be frustrating - even a small edit can disrupt your entire layout. \n A resume builder like TheResumes eliminates these headaches. You don’t need to worry about choosing fonts, adjusting layouts, or formatting details. Simply select a professional template, input your information, and your resume is ready for job applications in no time!",
+    },
+    {
+      title: "Is this resume builder completely free?",
+      content:
+        "Yes, TheResumes is entirely free to use. Whether you're on a budget or simply looking for no-cost options, you can create your resume without any charges. Unlike many other resume builders, we do not impose a paywall after you finish your resume. \n Should you choose to utilize any of our premium features, TheResumes will inform you and provide options to confirm whether it was accidental or if you wish to upgrade to TheResumes Premium. You maintain full control over your choices.",
+    },
+    {
+      title: "How can I create my resume?",
+      content:
+        "Making a resume with TheResumes is very straightforward. \n Just pick one of our professional resume templates. \nThen, you’ll be forwarded to our resume builder, where all you have to do is fill in your resume content!",
+    },
+    {
+      title: "What should a resume include?",
+      content:
+        "Your resume should include these essential sections: \n Work Experience \n Educational Background \n Contact Information \n Resume Summary or Objective \n \n  Optional sections to consider adding: \n Hobbies & Interests \n Skills \n Volunteering Experience \n  \n These elements collectively showcase your professional background, skills, and personal interests, helping to paint a comprehensive picture for potential employers.",
+    },
   ];
 
   return (
@@ -339,7 +359,7 @@ const Home = () => {
                           activeIndex === index ? "show" : ""
                         }`}
                       >
-                        <p>{item.content}</p>
+                        <p style={{ whiteSpace: "pre-line" }}>{item.content}</p>
                       </div>
                     </div>
                   ))}

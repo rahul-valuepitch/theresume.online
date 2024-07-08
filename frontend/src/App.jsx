@@ -28,6 +28,7 @@ import {
   Contact,
   Home,
   PaymentPolicy,
+  Pricing,
   PrivacyPolicy,
   Templates,
 } from "./pages/website/index";
@@ -120,6 +121,7 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/templates" element={<Templates />} />
+            <Route path="/pricing" element={<Pricing />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/payment-policy" element={<PaymentPolicy />} />
           </Route>

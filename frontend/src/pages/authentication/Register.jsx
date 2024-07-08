@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 
-import { Logo } from "../../static/images/logos";
 import AbstractImages from "../../static/images/abstract";
 import { login, setAuthError } from "../../store/slices/authSlice";
 import FormInput from "../../components/FormInput";
 import { registerSchema } from "../../schemas/index";
 import GoogleSignIn from "./GoogleSignIn";
+import { Breadcrumb } from "../../components";
 
 // Random Number generator
 const randomIndex = Math.floor(Math.random() * AbstractImages.length);
@@ -81,76 +81,78 @@ const Register = () => {
   });
 
   return (
-    <div className="authentication">
-      <div className="form">
-        <div className="content">
-          <Link to="/" className="logo">
-            <img src={Logo} alt="The Resumes Online" />
-          </Link>
-          <form onSubmit={handleSubmit}>
-            <h1 className="heading text-dark mt-5 mb-3">Let's Get Started</h1>
-            <h6 className="mb-10">
-              Carefully read and fill all the inputs with your original
-              information
-            </h6>
+    <>
+      {/* Breadcrumb */}
+      <Breadcrumb />
 
-            <FormInput
-              label="Full Name"
-              type="text"
-              name="name"
-              value={values.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.name && errors.name}
-            />
-            <FormInput
-              label="Email"
-              type="email"
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.email && errors.email}
-            />
-            <FormInput
-              label="Password"
-              type="password"
-              name="password"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.password && errors.password}
-            />
-            <FormInput
-              label="Confirm Password"
-              type="password"
-              name="password2"
-              value={values.password2}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.password2 && errors.password2}
-            />
+      <div className="authentication">
+        <div className="form">
+          <div className="content">
+            <form onSubmit={handleSubmit}>
+              <h1 className="heading text-dark mt-5 mb-3">Let's Get Started</h1>
+              <h6 className="mb-10">
+                Carefully read and fill all the inputs with your original
+                information
+              </h6>
 
-            {errors.apiError && (
-              <span className="block text-sm text-red-500 mb-4">
-                {errors.apiError}
-              </span>
-            )}
+              <FormInput
+                label="Full Name"
+                type="text"
+                name="name"
+                value={values.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.name && errors.name}
+              />
+              <FormInput
+                label="Email"
+                type="email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.email && errors.email}
+              />
+              <FormInput
+                label="Password"
+                type="password"
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.password && errors.password}
+              />
+              <FormInput
+                label="Confirm Password"
+                type="password"
+                name="password2"
+                value={values.password2}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.password2 && errors.password2}
+              />
 
-            <button type="submit" className="button" disabled={isSubmitting}>
-              {isSubmitting ? "Submitting" : "Register"}
-            </button>
-          </form>
-          <p className="mt-5 mb-5">
-            Already a member? <Link to="/login">Login</Link>
-          </p>
-          <GoogleSignIn label="Sign Up with Google" />
+              {errors.apiError && (
+                <span className="block text-sm text-red-500 mb-4">
+                  {errors.apiError}
+                </span>
+              )}
+
+              <button type="submit" className="button" disabled={isSubmitting}>
+                {isSubmitting ? "Submitting" : "Register"}
+              </button>
+            </form>
+            <p className="mt-5 mb-5">
+              Already a member? <Link to="/login">Login</Link>
+            </p>
+            <GoogleSignIn label="Sign Up with Google" />
+          </div>
+        </div>
+        <div className="image">
+          <img src={randomImage} alt="Abstract" />
         </div>
       </div>
-      <div className="image">
-        <img src={randomImage} alt="Abstract" />
-      </div>
-    </div>
+    </>
   );
 };
 
