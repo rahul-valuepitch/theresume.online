@@ -4,8 +4,8 @@ import ApiError from "./apiError.js";
 // Options
 export const options = {
   httpOnly: true,
-  // secure: process.env.NODE_ENV === "prod",
-  secure: false,
+  secure: process.env.NODE_ENV === "prod",
+  // secure: false,
   sameSite: "Lax",
   maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
   domain: process.env.DOMAIN,

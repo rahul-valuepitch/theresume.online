@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Slider from "react-slick";
-import { FaStar, FaPlus, FaMinus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { FaStar, FaPlus, FaMinus } from "react-icons/fa6";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -19,6 +20,7 @@ import {
 } from "../../static/images/home";
 
 const Home = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [activeIndex, setActiveIndex] = useState(null);
 
   const handleToggle = (index) => {
@@ -89,7 +91,10 @@ const Home = () => {
               'resume rules' employers seek. Create your winning resume in
               minutes <br /> - Get started now for free!
             </p>
-            <Link to="/" className="button">
+            <Link
+              to={isAuthenticated ? "/templates" : "/login"}
+              className="button"
+            >
               Create My Resume
             </Link>
           </div>
@@ -299,7 +304,10 @@ const Home = () => {
             </div>
           </div>
           <div className="text-center">
-            <Link to="/" className="button">
+            <Link
+              to={isAuthenticated ? "/templates" : "/login"}
+              className="button"
+            >
               Create My Resume
             </Link>
           </div>
@@ -323,7 +331,10 @@ const Home = () => {
               experts, bolstered by data, and relied upon by countless
               professionals.
             </p>
-            <Link to="/" className="button">
+            <Link
+              to={isAuthenticated ? "/templates" : "/login"}
+              className="button"
+            >
               Create My Resume
             </Link>
           </div>
@@ -369,7 +380,10 @@ const Home = () => {
           </div>
         </div>
         <div className="image">
-          <Link to="/" className="button">
+          <Link
+            to={isAuthenticated ? "/templates" : "/login"}
+            className="button"
+          >
             Create My Resume
           </Link>
           <img src={FAQImg} alt="" />

@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { BsTwitterX, BsInstagram } from "react-icons/bs";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 
 import { LogoAlt } from "../static/images/logos";
 
 const Footer = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   return (
     <footer className="footer">
       <div className="container">
@@ -44,7 +47,9 @@ const Footer = () => {
             <h6>Job Seekers</h6>
             <ul>
               <li>
-                <Link to="/">Create a resume</Link>
+                <Link to={isAuthenticated ? "/templates" : "/login"}>
+                  Create a resume
+                </Link>
               </li>
               <li>
                 <Link to="/templates">Resume templates</Link>
