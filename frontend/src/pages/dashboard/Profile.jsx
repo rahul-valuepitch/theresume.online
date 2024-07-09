@@ -65,7 +65,7 @@ const Profile = () => {
   }
 
   return (
-    <>
+    <div className="db-profile">
       <div className="grid grid-cols-3 gap-5">
         <div className="col-span-1">
           <div className="profile-card card">
@@ -152,7 +152,7 @@ const Profile = () => {
       <Modal show={isDetailsModalOpen} onClose={handleCloseModal}>
         <Outlet />
       </Modal>
-    </>
+    </div>
   );
 };
 

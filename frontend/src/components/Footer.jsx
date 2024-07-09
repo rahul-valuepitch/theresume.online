@@ -43,6 +43,7 @@ const Footer = () => {
               </Link>
             </div>
           </div>
+
           <div className="item">
             <h6>Job Seekers</h6>
             <ul>
@@ -62,6 +63,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+
           <div className="item">
             <h6>Career resources</h6>
             <ul>
@@ -79,6 +81,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+
           <div className="item">
             <h6>Our Company</h6>
             <ul>
@@ -90,6 +93,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+
           <div className="item">
             <h6>Support</h6>
             <ul>

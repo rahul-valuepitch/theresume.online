@@ -59,6 +59,22 @@ const Pricing = () => {
     speed: 2000,
     autoplaySpeed: 2000,
     cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
@@ -71,7 +87,7 @@ const Pricing = () => {
         <div className="container">
           <div className="text-center">
             <h2 className="title-alt">Pricing</h2>
-            <h1 className="title mb-10">Priving for TheResumes</h1>
+            <h1 className="title mb-10">Pricing for TheResumes</h1>
           </div>
           <div className="grid grid-cols-4 gap-8">
             <div className="col">
@@ -340,7 +356,10 @@ const Pricing = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="section faq" id="faq">
+      <section className="section faq pricing-faq" id="faq">
+        <div className="image">
+          <img src={FAQImg} alt="" />
+        </div>
         <div className="container">
           <div className="grid grid-cols-2">
             <div>
@@ -376,9 +395,6 @@ const Pricing = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="image">
-          <img src={FAQImg} alt="" />
         </div>
       </section>
     </>

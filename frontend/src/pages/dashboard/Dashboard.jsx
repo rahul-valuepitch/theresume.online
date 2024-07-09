@@ -145,56 +145,52 @@ const Dashboard = () => {
 
   return (
     <>
-      {/* Profile */}
-      <div className="db-profile">
-        <div className="image">
-          <img src="" alt="" />
-        </div>
-        <div className="text"></div>
-      </div>
-
       {/* Grid */}
-      <div className="grid grid-cols-4 gap-5">
-        {resumeTemplates.map((resume, index) => (
-          <div className="col" key={index}>
-            {templates
-              .filter((template) => resume.template === template._id)
-              .map((template, index) => (
-                <div className="template-card" key={index}>
-                  <div className="action">
-                    <button
-                      className="button edit-btn"
-                      onClick={() => handleEditResume(resume)}
-                    >
-                      <MdOutlineEdit />
-                    </button>
-                    <button
-                      className="button delete-btn"
-                      onClick={() => handleDeleteResume(resume._id)}
-                    >
-                      <FiTrash2 />
-                    </button>
+      <div className="db-temp-grid">
+        <div className="grid grid-cols-4 gap-5">
+          {resumeTemplates.map((resume, index) => (
+            <div className="col" key={index}>
+              {templates
+                .filter((template) => resume.template === template._id)
+                .map((template, index) => (
+                  <div className="template-card" key={index}>
+                    <div className="action">
+                      <button
+                        className="button edit-btn"
+                        onClick={() => handleEditResume(resume)}
+                      >
+                        <MdOutlineEdit />
+                      </button>
+                      <button
+                        className="button delete-btn"
+                        onClick={() => handleDeleteResume(resume._id)}
+                      >
+                        <FiTrash2 />
+                      </button>
+                    </div>
+                    <div className="image">
+                      <img
+                        src={
+                          imageMap[
+                            template.file.replace(".", "-").toLowerCase()
+                          ]
+                        }
+                        alt={template.file}
+                      />
+                    </div>
                   </div>
-                  <div className="image">
-                    <img
-                      src={
-                        imageMap[template.file.replace(".", "-").toLowerCase()]
-                      }
-                      alt={template.file}
-                    />
-                  </div>
-                </div>
-              ))}
-          </div>
-        ))}
-
-        <div className="col">
-          <button className="create-resume-btn" onClick={handleCreateResume}>
-            <span>Create Resume</span>
-            <div className="icon">
-              <FaPlus />
+                ))}
             </div>
-          </button>
+          ))}
+
+          <div className="col">
+            <button className="create-resume-btn" onClick={handleCreateResume}>
+              <span>Create Resume</span>
+              <div className="icon">
+                <FaPlus />
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </>

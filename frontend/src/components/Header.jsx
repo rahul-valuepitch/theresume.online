@@ -1,6 +1,9 @@
 import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { HiBars3 } from "react-icons/hi2";
+import { RxCross2 } from "react-icons/rx";
 
 import { Logo } from "../static/images/logos";
 import { logout } from "../store/slices/authSlice";
@@ -8,6 +11,7 @@ import { resetResume } from "../store/slices/resumeSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const [navOpen, setNavOpen] = useState(false);
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   const handleLogout = async () => {
@@ -39,6 +43,11 @@ const Header = () => {
     }
   };
 
+  // Open Navbar
+  const handleToggleNavbar = () => {
+    setNavOpen(!navOpen);
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -46,7 +55,13 @@ const Header = () => {
           <Link to="/" className="logo">
             <img src={Logo} alt="TheResumes.online" />
           </Link>
-          <ul>
+
+          <button className="toggle" onClick={handleToggleNavbar}>
+            {navOpen && <RxCross2 />}
+            {!navOpen && <HiBars3 />}
+          </button>
+
+          <ul className={navOpen ? "show" : ""}>
             <li className="nav-item">
               <Link to="/templates" className="nav-link">
                 Resume Templates

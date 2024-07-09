@@ -27,13 +27,29 @@ const Home = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
-  var carouselSettings = {
+  const carouselSettings = {
     dots: true,
     arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   const data = [
@@ -204,7 +220,7 @@ const Home = () => {
               millions of pros.
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-6 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
             <div>
               <div className="item">
                 <div className="icon">
@@ -343,50 +359,47 @@ const Home = () => {
 
       {/* FAQ Section */}
       <section className="section faq" id="faq">
-        <div className="container">
-          <div className="grid grid-cols-2">
-            <div>
-              <div className="text">
-                <h5 className="title mb-4">Frequently Asked Questions</h5>
-                <p className="mb-8">
-                  Common questions customers have and is useful to customers at
-                  all stages of the customer journey. FAQs start with a question
-                  and then answer it concisely.
-                </p>
-                <div className="accordion">
-                  {data.map((item, index) => (
-                    <div key={index} className="accordion-item">
-                      <div
-                        className={`accordion-title ${
-                          activeIndex === index ? "active" : ""
-                        }`}
-                        onClick={() => handleToggle(index)}
-                      >
-                        <span>{item.title}</span>
-                        {activeIndex === index ? <FaMinus /> : <FaPlus />}
-                      </div>
-                      <div
-                        className={`accordion-content ${
-                          activeIndex === index ? "show" : ""
-                        }`}
-                      >
-                        <p style={{ whiteSpace: "pre-line" }}>{item.content}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div className="image">
+          <img src={FAQImg} alt="" />
           <Link
             to={isAuthenticated ? "/templates" : "/login"}
             className="button"
           >
             Create My Resume
           </Link>
-          <img src={FAQImg} alt="" />
+        </div>
+
+        <div className="container">
+          <div className="text">
+            <h5 className="title mb-4">Frequently Asked Questions</h5>
+            <p className="mb-8">
+              Common questions customers have and is useful to customers at all
+              stages of the customer journey. FAQs start with a question and
+              then answer it concisely.
+            </p>
+            <div className="accordion">
+              {data.map((item, index) => (
+                <div key={index} className="accordion-item">
+                  <div
+                    className={`accordion-title ${
+                      activeIndex === index ? "active" : ""
+                    }`}
+                    onClick={() => handleToggle(index)}
+                  >
+                    <span>{item.title}</span>
+                    {activeIndex === index ? <FaMinus /> : <FaPlus />}
+                  </div>
+                  <div
+                    className={`accordion-content ${
+                      activeIndex === index ? "show" : ""
+                    }`}
+                  >
+                    <p style={{ whiteSpace: "pre-line" }}>{item.content}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </>
