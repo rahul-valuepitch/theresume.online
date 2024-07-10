@@ -424,6 +424,22 @@
   gap: 15px;
   position: absolute;
   top: 0;
+  left: 0;
+  padding: 10px 15px;
+  border-radius: 3px;
+  background: var(--dark);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--light);
+  z-index: 2;
+}
+.resume-container .preview-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: absolute;
+  top: 0;
   right: 0;
   padding: 10px 15px;
   border-radius: 3px;
@@ -439,6 +455,12 @@
   overflow-y: auto;
   padding: 30px 50px;
   background: var(--light);
+}
+.resume-container .resume-form .resume-head p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--dark-alt);
+  line-height: 140%;
 }
 .resume-container .resume-form hr {
   margin: 50px 0;

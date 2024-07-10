@@ -1,25 +1,21 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Breadcrumb } from "../../components";
-import { showAlert } from "../../store/slices/alertSlice";
 import { setTemplates } from "../../store/slices/templateSlice";
+import { addResume, createResume } from "../../store/slices/resumeSlice";
+import { showAlert } from "../../store/slices/alertSlice";
 import imageMap from "../resumes/template-images";
 
 const Templates = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const templates = useSelector((state) => state.template.templates);
 
   const fetchTemplates = async () => {
-    const token = localStorage.getItem("authToken");
-    if (!token) {
-      dispatch(
-        showAlert({ message: "Unauthorized: No token found", type: "error" })
-      );
-      return;
-    }
-
     // Fetch Templates
     const response = await axios.get(
       `${import.meta.env.VITE_API_BASE_URL}/template`,
@@ -27,15 +23,45 @@ const Templates = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true,
       }
     );
 
-    console.log(response);
-
     const data = response.data.data;
-
     dispatch(setTemplates(data));
+  };
+
+  // Create Resume
+  const handleCreateResume = async () => {
+    try {
+      const templateId = `6666c6894f54cada58060652`;
+      const fetchUrl = `${
+        import.meta.env.VITE_API_BASE_URL
+      }/resume/?templateId=${templateId}`;
+
+      const response = await axios.post(
+        fetchUrl,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      const createdResume = response.data.data;
+      dispatch(addResume(createdResume));
+      dispatch(
+        createResume({
+          templateId: createdResume.template,
+          resumeId: createdResume._id,
+          user: createdResume.user,
+        })
+      );
+      navigate(`/resumes/create/${createdResume._id}`);
+    } catch (error) {
+      dispatch(showAlert({ message: "Error creating resume", type: "error" }));
+    }
   };
 
   useEffect(() => {
@@ -67,7 +93,15 @@ const Templates = () => {
               <div className="col" key={index}>
                 <div className="template-card">
                   <div className="action">
-                    <button className="button">Use This Template</button>
+                    {isAuthenticated ? (
+                      <button onClick={handleCreateResume} className="button">
+                        Use This Template
+                      </button>
+                    ) : (
+                      <Link to="/login" className="button">
+                        Use This Template
+                      </Link>
+                    )}
                   </div>
                   <div className="image">
                     <img

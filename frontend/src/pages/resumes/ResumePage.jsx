@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import { IoEyeOutline, IoGridOutline } from "react-icons/io5";
 
 import { ResumeForm, ResumeOutput } from "./index";
 import {
@@ -17,6 +18,7 @@ const ResumePage = () => {
   const navigate = useNavigate();
 
   const resume = useSelector((state) => state.resume.detail);
+  const templates = useSelector((state) => state.template.templates);
   const resumeId = resume.resumeId;
 
   const goBackHandler = () => {
@@ -76,8 +78,18 @@ const ResumePage = () => {
           <IoIosArrowRoundBack />
           <span>Go Back</span>
         </button>
+        <div className="actions">
+          <button className="temp-btn">
+            <IoGridOutline />
+            <span>Templates</span>
+          </button>
+          <button className="preview-btn">
+            <IoEyeOutline />
+            <span>Preview</span>
+          </button>
+        </div>
         <div className="resume-form">
-          <ResumeForm />
+          <ResumeForm resume={resume} templates={templates} />
         </div>
         <div className="resume-overview">
           <ResumeOutput />
