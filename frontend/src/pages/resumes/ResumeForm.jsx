@@ -24,11 +24,9 @@ const ResumeForm = ({ resume, templates }) => {
     <>
       <div className="resume-head">
         <h4 className="mt-5 heading">{resumeName}</h4>
-        <p className="mt-5">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure dolore
-          reiciendis mollitia impedit et doloribus.
-        </p>
-        {matchingTemplate.description && <p>{matchingTemplate.description}</p>}
+        {matchingTemplate.description && (
+          <p className="mt-5">{matchingTemplate.description}</p>
+        )}
       </div>
 
       <hr />

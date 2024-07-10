@@ -3,7 +3,11 @@ import Template from "../models/templates.models.js";
 import ApiError from "../utils/apiError.js";
 import ApiResponse from "../utils/apiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import { emailValidation, phoneValidation } from "../utils/validators.js";
+import {
+  emailValidation,
+  phoneValidation,
+  isValidObjectId,
+} from "../utils/validators.js";
 import uploadMiddleware from "../middlewares/multer.middleware.js";
 
 // Create Resume Controller
@@ -40,6 +44,37 @@ export const createResumeController = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(new ApiResponse(200, resume, "Resume created successfully!"));
+});
+
+// Change Resume Template Controller
+export const changeResumeTemplateController = asyncHandler(async (req, res) => {
+  /**
+   * TODO: Get template id from frontend
+   * TODO: Update resume templateId
+   * **/
+
+  // * Get template id from frontend
+  const { templateId } = req.body;
+  if (!isValidObjectId(templateId)) {
+    throw new ApiError(400, "Invalid Template Id");
+  }
+
+  // * Update resume templateId
+  const resumeId = req.params._id;
+  try {
+    const resume = await Resume.findByIdAndUpdate(
+      resumeId,
+      { template: templateId },
+      { new: true }
+    );
+
+    // * Sending Response
+    return res
+      .status(200)
+      .json(new ApiResponse(200, resume, "Template updated successfully!"));
+  } catch (error) {
+    throw new ApiError(500, "Internal Server Error");
+  }
 });
 
 // Get User Resumes Controller

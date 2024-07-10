@@ -587,6 +587,12 @@
   font-size: 16px;
 }
 
+/* Select Resume Template */
+.resume-select-template .template-card .image img {
+  width: 100%;
+  height: auto;
+}
+
 /* Template Download Button */
 .print-container {
   position: relative;

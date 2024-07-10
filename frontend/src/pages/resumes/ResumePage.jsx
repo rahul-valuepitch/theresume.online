@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoEyeOutline, IoGridOutline } from "react-icons/io5";
 
-import { ResumeForm, ResumeOutput } from "./index";
+import { ResumeForm, ResumeOutput, ResumeSelectTemplate } from "./index";
 import {
   resetResumeState,
   setCurrentResume,
@@ -18,16 +18,19 @@ const ResumePage = () => {
   const navigate = useNavigate();
 
   const [outputVisibility, setOutputVisibility] = useState(false);
+  const [changeTemplate, setChangeTemplate] = useState(false);
 
   const resume = useSelector((state) => state.resume.detail);
   const templates = useSelector((state) => state.template.templates);
   const resumeId = resume.resumeId;
 
+  // Go Back Button
   const goBackHandler = () => {
     dispatch(resetResumeState());
     navigate("/dashboard/resumes");
   };
 
+  // Fetch Data
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("authToken");
@@ -74,6 +77,11 @@ const ResumePage = () => {
     setOutputVisibility(!outputVisibility);
   };
 
+  // Change Template
+  const handleChangeTemplate = () => {
+    setChangeTemplate(!changeTemplate);
+  };
+
   return (
     <>
       <div className="resume-container">
@@ -86,7 +94,7 @@ const ResumePage = () => {
           <span>Go Back</span>
         </button>
         <div className="resume-actions">
-          <button className="temp-btn">
+          <button className="temp-btn" onClick={handleChangeTemplate}>
             <IoGridOutline />
             <span>Change Templates</span>
           </button>
@@ -96,7 +104,10 @@ const ResumePage = () => {
           </button>
         </div>
         <div className="resume-form">
-          <ResumeForm resume={resume} templates={templates} />
+          {!changeTemplate && (
+            <ResumeForm resume={resume} templates={templates} />
+          )}
+          {changeTemplate && <ResumeSelectTemplate templates={templates} />}
         </div>
         <div className={`resume-overview ${outputVisibility && "show"}`}>
           <ResumeOutput />

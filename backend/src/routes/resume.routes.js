@@ -2,6 +2,7 @@ import { Router } from "express";
 import { isAuthorized, verifyUser } from "../middlewares/auth.middleware.js";
 import uploadMiddleware from "../middlewares/multer.middleware.js";
 import {
+  changeResumeTemplateController,
   createResumeController,
   deleteResumeController,
   getResumeDetailController,
@@ -26,5 +27,8 @@ router
 router
   .route("/:_id")
   .patch(verifyUser, isAuthorized("Resume"), updateResumeController);
+router
+  .route("/:_id/change-template")
+  .patch(verifyUser, changeResumeTemplateController);
 
 export default router;
