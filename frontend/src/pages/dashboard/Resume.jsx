@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineEdit } from "react-icons/md";
 import { FiTrash2 } from "react-icons/fi";
@@ -8,7 +8,6 @@ import { FaPlus } from "react-icons/fa";
 
 import {
   addResume,
-  createResume,
   removeResume,
   setCurrentResume,
   resetResume,
@@ -54,40 +53,6 @@ const Resume = () => {
       fetchResumes();
     }
   }, [dispatch, allResumes]);
-
-  // Create Resume
-  const handleCreateResume = async () => {
-    try {
-      const templateId = `6666c6894f54cada58060652`;
-      const fetchUrl = `${
-        import.meta.env.VITE_API_BASE_URL
-      }/resume/?templateId=${templateId}`;
-
-      const response = await axios.post(
-        fetchUrl,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
-
-      const createdResume = response.data.data;
-      dispatch(addResume(createdResume));
-      dispatch(
-        createResume({
-          templateId: createdResume.template,
-          resumeId: createdResume._id,
-          user: createdResume.user,
-        })
-      );
-      navigate(`/resumes/create/${createdResume._id}`);
-    } catch (error) {
-      dispatch(showAlert({ message: "Error creating resume", type: "error" }));
-    }
-  };
 
   // Edit Resume
   const handleEditResume = async (resumeId) => {
@@ -171,12 +136,12 @@ const Resume = () => {
         )}
 
         <li>
-          <button className="create-resume-btn" onClick={handleCreateResume}>
+          <Link className="create-resume-btn" to="/templates">
             <span>Create Resume</span>
             <div className="icon">
               <FaPlus />
             </div>
-          </button>
+          </Link>
         </li>
       </ul>
     </>

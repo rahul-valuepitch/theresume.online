@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
@@ -16,6 +16,8 @@ import { showAlert } from "../../store/slices/alertSlice";
 const ResumePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [outputVisibility, setOutputVisibility] = useState(false);
 
   const resume = useSelector((state) => state.resume.detail);
   const templates = useSelector((state) => state.template.templates);
@@ -67,6 +69,11 @@ const ResumePage = () => {
     fetchData();
   }, [dispatch, resumeId]);
 
+  // Displat output
+  const handleDisplatOutput = () => {
+    setOutputVisibility(!outputVisibility);
+  };
+
   return (
     <>
       <div className="resume-container">
@@ -78,12 +85,12 @@ const ResumePage = () => {
           <IoIosArrowRoundBack />
           <span>Go Back</span>
         </button>
-        <div className="actions">
+        <div className="resume-actions">
           <button className="temp-btn">
             <IoGridOutline />
-            <span>Templates</span>
+            <span>Change Templates</span>
           </button>
-          <button className="preview-btn">
+          <button className="preview-btn" onClick={handleDisplatOutput}>
             <IoEyeOutline />
             <span>Preview</span>
           </button>
@@ -91,7 +98,7 @@ const ResumePage = () => {
         <div className="resume-form">
           <ResumeForm resume={resume} templates={templates} />
         </div>
-        <div className="resume-overview">
+        <div className={`resume-overview ${outputVisibility && "show"}`}>
           <ResumeOutput />
         </div>
       </div>

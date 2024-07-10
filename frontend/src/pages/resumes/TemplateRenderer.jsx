@@ -14,6 +14,7 @@ const TemplateRenderer = ({ templateId, resume }) => {
         );
 
         const { file } = response.data.data;
+
         const Component = templateMapper[file];
         setTemplateComponent(() => Component);
       } catch (error) {

@@ -431,23 +431,33 @@
   font-size: 14px;
   font-weight: 400;
   color: var(--light);
-  z-index: 2;
+  z-index: 3;
 }
-.resume-container .preview-btn {
+.resume-container .resume-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.resume-container .preview-btn,
+.resume-container .temp-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 15px;
-  position: absolute;
-  top: 0;
-  right: 0;
   padding: 10px 15px;
   border-radius: 3px;
   background: var(--dark);
   font-size: 14px;
   font-weight: 400;
   color: var(--light);
-  z-index: 2;
+}
+.resume-container .preview-btn {
+  display: none;
 }
 .resume-container .resume-form {
   width: 50%;
@@ -470,6 +480,9 @@
   height: 100vh;
   overflow-y: auto;
   background: var(--light-alt);
+}
+.resume-container .resume-overview.show {
+  display: block;
 }
 
 /* Resume Form */
@@ -1353,11 +1366,24 @@
     height: 100%;
     display: none;
   }
-  .resume-container .go-back-btn {
+  .resume-container .resume-overview.show {
+    display: block;
+  }
+  .resume-container .go-back-btn,
+  .resume-container .temp-btn,
+  .resume-container .preview-btn {
     padding: 5px 10px;
-    border-radius: 0 5px 5px 0;
+    border-radius: 5px;
     right: auto;
     left: 0;
+  }
+  .resume-container .go-back-btn span,
+  .resume-container .temp-btn span,
+  .resume-container .preview-btn span {
+    font-size: 10px;
+  }
+  .resume-container .preview-btn {
+    display: flex;
   }
 }
 @media (max-width: 767px) {

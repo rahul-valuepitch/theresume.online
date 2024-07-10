@@ -31,9 +31,9 @@ const Templates = () => {
   };
 
   // Create Resume
-  const handleCreateResume = async () => {
+  const handleCreateResume = async (tempId) => {
     try {
-      const templateId = `6666c6894f54cada58060652`;
+      const templateId = tempId;
       const fetchUrl = `${
         import.meta.env.VITE_API_BASE_URL
       }/resume/?templateId=${templateId}`;
@@ -94,7 +94,10 @@ const Templates = () => {
                 <div className="template-card">
                   <div className="action">
                     {isAuthenticated ? (
-                      <button onClick={handleCreateResume} className="button">
+                      <button
+                        onClick={() => handleCreateResume(template._id)}
+                        className="button"
+                      >
                         Use This Template
                       </button>
                     ) : (
