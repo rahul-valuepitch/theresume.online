@@ -148,6 +148,9 @@ const resumeSlice = createSlice({
         (resume) => resume._id !== action.payload
       );
     },
+    changeResumeTemplate: (state, action) => {
+      state.detail.templateId = action.payload;
+    },
 
     setCurrentResume: (state, action) => {
       state.detail = action.payload;
@@ -380,6 +383,7 @@ export const {
   setCurrentResume,
   resetResumeState,
   updatePersonalDetail,
+  changeResumeTemplate,
 
   setProfessions,
   addProfessionalDetail,

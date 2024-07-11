@@ -55,6 +55,7 @@ export const changeResumeTemplateController = asyncHandler(async (req, res) => {
 
   // * Get template id from frontend
   const { templateId } = req.body;
+  console.log(templateId);
   if (!isValidObjectId(templateId)) {
     throw new ApiError(400, "Invalid Template Id");
   }

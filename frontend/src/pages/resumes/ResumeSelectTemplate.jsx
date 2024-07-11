@@ -1,6 +1,54 @@
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+
 import imageMap from "../resumes/template-images";
+import { showAlert } from "../../store/slices/alertSlice";
+import { changeResumeTemplate } from "../../store/slices/resumeSlice";
 
 const ResumeSelectTemplate = ({ templates }) => {
+  const dispatch = useDispatch();
+
+  const resume = useSelector((state) => state.resume);
+  const fetchedResumeDetail = resume;
+
+  const resumeId = fetchedResumeDetail.detail?.resumeId;
+
+  // Change Resume Template
+  const changeTemplateHandler = async (tempId) => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      dispatch(
+        showAlert({ message: "Unauthorized: No token found", type: "error" })
+      );
+      return;
+    }
+
+    try {
+      const response = await axios.patch(
+        `${
+          import.meta.env.VITE_API_BASE_URL
+        }/resume/${resumeId}/change-template`,
+        { templateId: tempId },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = response.data.data.template;
+      dispatch(changeResumeTemplate(data));
+    } catch (error) {
+      dispatch(
+        showAlert({
+          message: error.response?.data?.message || "Error fetching templates",
+          type: "error",
+        })
+      );
+    }
+  };
+
   return (
     <>
       <div className="resume-head">
@@ -17,9 +65,20 @@ const ResumeSelectTemplate = ({ templates }) => {
         <ul className="grid grid-cols-3 gap-3">
           {templates.map((template, index) => (
             <li className="col" key={index}>
-              <div className="template-card">
+              <div
+                className={`template-card ${
+                  resume.detail.templateId === template._id ? "active" : ""
+                }`}
+              >
                 <div className="action">
-                  <button className="button">Select</button>
+                  <button
+                    className="button"
+                    onClick={() => changeTemplateHandler(template._id)}
+                  >
+                    {resume.detail.templateId === template._id
+                      ? "Selected"
+                      : "Select"}
+                  </button>
                 </div>
                 <div className="image">
                   <img
