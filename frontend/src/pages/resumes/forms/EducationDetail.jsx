@@ -239,7 +239,11 @@ const EducationDetail = () => {
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Education History</h4>
+        <h4 className="sub-heading mb-3">Education History</h4>
+        <p className="form-desc-text mb-7">
+          Education history is a record of your schooling, degrees, and any
+          courses or certificates you've earned.
+        </p>
 
         <FieldArray
           name="educations"

@@ -234,7 +234,12 @@ const ExtraCurricularDetail = () => {
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Extra Curricular</h4>
+        <h4 className="sub-heading mb-3">Extra Curricular</h4>
+        <p className="form-desc-text mb-7">
+          Extracurricular activities on a resume refer to interests and
+          involvements outside of academic or professional pursuits, showcasing
+          additional skills, experiences, or passions.
+        </p>
 
         <FieldArray
           name="extraCurricular"

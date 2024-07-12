@@ -241,7 +241,8 @@ const InternshipDetail = () => {
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Internship History</h4>
+        <h4 className="sub-heading mb-3">Internship History</h4>
+        <p className="form-desc-text mb-7">Add Internship details </p>
 
         <FieldArray
           name="internship"

@@ -109,7 +109,12 @@ const PersonalDetail = () => {
 
   return (
     <div className="item">
-      <h4 className="sub-heading mb-5">Personal Detail</h4>
+      <h4 className="sub-heading mb-3">Personal Detail</h4>
+      <p className="form-desc-text mb-7">
+        Personal details include name, contact information, identification
+        numbers, financial data, health records, and employment specifics,
+        crucial for privacy protection.
+      </p>
       <div className="grid grid-cols-2 gap-5">
         <div className="col-span-2">
           <div className="image">

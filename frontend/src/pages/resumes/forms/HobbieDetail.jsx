@@ -223,7 +223,11 @@ const HobbieDetail = () => {
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Hobbies</h4>
+        <h4 className="sub-heading mb-3">Hobbies</h4>
+        <p className="form-desc-text mb-7">
+          Hobbies are activities that people enjoy doing in their free time for
+          personal pleasure and relaxation.
+        </p>
 
         <FieldArray
           name="hobbies"

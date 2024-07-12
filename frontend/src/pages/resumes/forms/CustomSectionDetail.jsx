@@ -233,7 +233,8 @@ const CustomSectionDetail = () => {
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Custom Section</h4>
+        <h4 className="sub-heading mb-3">Custom Section</h4>
+        <p className="form-desc-text mb-7">Add any custom section if needed </p>
 
         <FieldArray
           name="customSections"

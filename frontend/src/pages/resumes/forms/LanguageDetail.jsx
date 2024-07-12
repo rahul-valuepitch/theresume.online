@@ -229,7 +229,8 @@ const LanguageDetail = () => {
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Language</h4>
+        <h4 className="sub-heading mb-3">Language</h4>
+        <p className="form-desc-text mb-7">Add Languages that you know </p>
 
         <FieldArray
           name="languages"

@@ -466,7 +466,8 @@
   padding: 30px 50px;
   background: var(--light);
 }
-.resume-container .resume-form .resume-head p {
+.resume-container .resume-form .resume-head p,
+.resume-container .resume-form .form-desc-text {
   font-size: 14px;
   font-weight: 400;
   color: var(--dark-alt);

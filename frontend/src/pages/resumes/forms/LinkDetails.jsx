@@ -214,7 +214,11 @@ const LinkDetails = () => {
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Social Links</h4>
+        <h4 className="sub-heading mb-3">Social Links</h4>
+        <p className="form-desc-text mb-7">
+          Social links in a resume are URLs that direct to an individual's
+          professional profiles on social media platforms like LinkedIn.
+        </p>
 
         <FieldArray
           name="links"

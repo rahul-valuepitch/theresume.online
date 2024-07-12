@@ -242,7 +242,11 @@ const ProfessionalDetail = () => {
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Employment History</h4>
+        <h4 className="sub-heading mb-3">Employment History</h4>
+        <p className="form-desc-text mb-7">
+          List of all the jobs you had, including where you worked, when you
+          worked there, and what you did
+        </p>
 
         <FieldArray
           name="professions"

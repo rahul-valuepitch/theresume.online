@@ -225,7 +225,8 @@ const SkillDetail = () => {
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Skills</h4>
+        <h4 className="sub-heading mb-3">Skills</h4>
+        <p className="form-desc-text mb-7">Add a new skill to stand out.</p>
 
         <FieldArray
           name="skills"

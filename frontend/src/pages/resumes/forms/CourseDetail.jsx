@@ -221,7 +221,10 @@ const CourseDetail = () => {
   return (
     <FormikProvider value={formik}>
       <form onSubmit={handleSubmit} className="item">
-        <h4 className="sub-heading mb-5">Courses</h4>
+        <h4 className="sub-heading mb-3">Courses</h4>
+        <p className="form-desc-text mb-7">
+          Short description about The course that you have learnt{" "}
+        </p>
 
         <FieldArray
           name="courses"
