@@ -146,9 +146,10 @@ const ReferenceDetail = () => {
       );
 
       const data = response.data.data;
+      const newData = { ...data, isOpen: true };
 
-      dispatch(addReferenceDetail(data));
-      setFieldValue("references", [...values.references, data]);
+      dispatch(addReferenceDetail(newData));
+      setFieldValue("references", [...values.references, newData]);
       dispatch(
         showAlert({ message: "Reference added successfully", type: "success" })
       );

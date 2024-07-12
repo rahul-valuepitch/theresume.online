@@ -35,7 +35,9 @@ const TemplateRenderer = ({ templateId, resume }) => {
     <div className="print-container">
       <main>
         <div className="print-content" ref={componentRef}>
-          <TemplateComponent resume={resume} />
+          <div className="page">
+            <TemplateComponent resume={resume} />
+          </div>
         </div>
       </main>
       <button onClick={handlePrint} className="button download-temp-btn">

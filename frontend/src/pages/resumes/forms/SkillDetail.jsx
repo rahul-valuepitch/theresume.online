@@ -139,8 +139,9 @@ const SkillDetail = () => {
       );
 
       const data = response.data.data;
-      dispatch(addSkill(data));
-      setFieldValue("skills", [...values.skills, data]);
+      const newData = { ...data, isOpen: true };
+      dispatch(addSkill(newData));
+      setFieldValue("skills", [...values.skills, newData]);
       dispatch(
         showAlert({ message: "Skills added successfully", type: "success" })
       );

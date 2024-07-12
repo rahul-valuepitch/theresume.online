@@ -149,9 +149,10 @@ const CustomSectionDetail = () => {
       );
 
       const data = response.data.data;
+      const newData = { ...data, isOpen: true };
 
-      dispatch(addCustomSection(data));
-      setFieldValue("customSections", [...values.customSection, data]);
+      dispatch(addCustomSection(newData));
+      setFieldValue("customSections", [...values.customSections, newData]);
       dispatch(
         showAlert({
           message: "Custom Section added successfully",

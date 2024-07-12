@@ -143,8 +143,9 @@ const CourseDetail = () => {
       );
 
       const data = response.data.data;
-      dispatch(addCourseDetail(data));
-      setFieldValue("courses", [...values.courses, data]);
+      const newData = { ...data, isOpen: true };
+      dispatch(addCourseDetail(newData));
+      setFieldValue("courses", [...values.courses, newData]);
       dispatch(
         showAlert({ message: "Course added successfully", type: "success" })
       );

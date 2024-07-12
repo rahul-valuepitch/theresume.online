@@ -144,9 +144,9 @@ const HobbieDetail = () => {
       );
 
       const data = response.data.data;
-
-      dispatch(addHobbieDetail(data));
-      setFieldValue("hobbies", [...values.hobbies, data]);
+      const newData = { ...data, isOpen: true };
+      dispatch(addHobbieDetail(newData));
+      setFieldValue("hobbies", [...values.hobbies, newData]);
       dispatch(
         showAlert({ message: "Hobbies added successfully", type: "success" })
       );

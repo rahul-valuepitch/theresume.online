@@ -147,8 +147,9 @@ const EducationDetail = () => {
       );
 
       const data = response.data.data;
-      dispatch(addEducationDetail(data));
-      setFieldValue("educations", [...values.educations, data]);
+      const newData = { ...data, isOpen: true };
+      dispatch(addEducationDetail(newData));
+      setFieldValue("educations", [...values.educations, newData]);
       dispatch(
         showAlert({ message: "Education added successfully", type: "success" })
       );

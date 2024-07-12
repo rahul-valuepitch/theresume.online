@@ -150,9 +150,9 @@ const ExtraCurricularDetail = () => {
       );
 
       const data = response.data.data;
-
-      dispatch(addCurricularDetail(data));
-      setFieldValue("extraCurricular", [...values.extraCurricular, data]);
+      const newData = { ...data, isOpen: true };
+      dispatch(addCurricularDetail(newData));
+      setFieldValue("extraCurricular", [...values.extraCurricular, newData]);
       dispatch(
         showAlert({
           message: "Extra Curricular added successfully",

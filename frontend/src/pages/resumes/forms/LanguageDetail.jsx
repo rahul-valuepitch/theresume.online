@@ -142,8 +142,10 @@ const LanguageDetail = () => {
       );
 
       const data = response.data.data;
-      dispatch(addLanguage(data));
-      setFieldValue("languages", [...values.languages, data]);
+      const newData = { ...data, isOpen: true };
+      dispatch(addLanguage(newData));
+      setFieldValue("languages", [...values.languages, newData]);
+
       dispatch(
         showAlert({ message: "Language added successfully", type: "success" })
       );

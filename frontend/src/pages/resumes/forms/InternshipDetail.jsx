@@ -148,9 +148,10 @@ const InternshipDetail = () => {
       );
 
       const data = response.data.data;
+      const newData = { ...data, isOpen: true };
 
-      dispatch(addInternshipDetail(data));
-      setFieldValue("internship", [...values.internship, data]);
+      dispatch(addInternshipDetail(newData));
+      setFieldValue("internship", [...values.internship, newData]);
       dispatch(
         showAlert({ message: "Internship added successfully", type: "success" })
       );

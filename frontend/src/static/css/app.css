@@ -625,14 +625,12 @@
   width: 100%;
   border-radius: 5px 5px 0 0;
 }
-@media print {
-  .print-container .print-content {
-    page-break-inside: avoid;
-    page-break-after: always;
-    page-break-before: always;
-    width: 794px;
-    height: 1123px;
-  }
+.print-content > * {
+  page-break-inside: avoid;
+}
+.print-content .page {
+  page-break-before: always;
+  padding-top: 24pt;
 }
 
 /* Home Page */

@@ -148,8 +148,8 @@ const ProfessionalDetail = () => {
       );
 
       const data = response.data.data;
-
-      dispatch(addProfessionalDetail(data));
+      const newData = { ...data, isOpen: true };
+      dispatch(addProfessionalDetail(newData));
       setFieldValue("professions", [...values.professions, data]);
       dispatch(
         showAlert({ message: "Profession added successfully", type: "success" })

@@ -139,8 +139,9 @@ const LinkDetails = () => {
       );
 
       const data = response.data.data;
-      dispatch(addLink(data));
-      setFieldValue("links", [...values.links, data]);
+      const newData = { ...data, isOpen: true };
+      dispatch(addLink(newData));
+      setFieldValue("links", [...values.links, newData]);
       dispatch(
         showAlert({ message: "Links added successfully", type: "success" })
       );
