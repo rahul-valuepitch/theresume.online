@@ -1,7 +1,7 @@
 import { FaStar } from "react-icons/fa";
 
 import formatDate from "../../../../utils/dateFormator";
-import "./style.css";
+// import "./style.css";
 
 const ResumeDefaultTemplate = ({ resume }) => {
   const {
@@ -25,12 +25,16 @@ const ResumeDefaultTemplate = ({ resume }) => {
     photo,
   } = resume.personalDetail;
   const languages = resume.languages;
+  const skills = resume.skills;
   const hobbies = resume.hobbies;
   const links = resume.links;
   const professions = resume.professions;
   const educations = resume.educations;
   const courses = resume.courses;
   const internships = resume.internship;
+  const references = resume.references;
+  const extraCurriculars = resume.extraCurricular;
+  const customSections = resume.customSections;
 
   const fullName = `${firstName} ${middleName} ${lastName}`;
   const addressDetails = [address, city, state, zip]
@@ -96,135 +100,245 @@ const ResumeDefaultTemplate = ({ resume }) => {
                 )}
                 {photo && <img src={photo} alt="Profile" />}
 
-                <hr className="divider" />
-
-                <div className="side-item">
-                  <h6 className="side-title">Languages</h6>
-                  {languages.map((item, index) => (
-                    <div className="side-item-point" key={index}>
-                      <span>{item.label}</span>
-                      <div className="side-item-rating">
-                        {Array.from({ length: item.level }).map((_, i) => (
-                          <FaStar key={i} />
-                        ))}
-                      </div>
+                {languages.length > 0 && (
+                  <>
+                    <hr className="divider" />
+                    <div className="side-item">
+                      <h6 className="side-title">Languages</h6>
+                      {languages.map((item, index) => (
+                        <div className="side-item-point" key={index}>
+                          <span>{item.label}</span>
+                          <div className="side-item-rating">
+                            {Array.from({ length: item.level }).map((_, i) => (
+                              <FaStar key={i} />
+                            ))}
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </>
+                )}
 
-                <hr className="divider" />
-
-                <div className="side-item">
-                  <h6 className="side-title">Hobbies</h6>
-                  {hobbies.map((item, index) => (
-                    <div className="side-item-point" key={index}>
-                      <span>{item.label}</span>
+                {skills.length > 0 && (
+                  <>
+                    <hr className="divider" />
+                    <div className="side-item">
+                      <h6 className="side-title">Skills</h6>
+                      {skills.map((item, index) => (
+                        <div className="side-item-point" key={index}>
+                          <span>{item.skill}</span>
+                          <div className="side-item-rating">
+                            {Array.from({ length: item.level }).map((_, i) => (
+                              <FaStar key={i} />
+                            ))}
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </>
+                )}
 
-                <hr className="divider" />
-
-                <div className="side-item">
-                  <h6 className="side-title">Social Links</h6>
-                  {links.map((item, index) => (
-                    <div className="side-item-point" key={index}>
-                      <a href={item.link} target="_blank">
-                        {item.link}
-                      </a>
+                {hobbies.length > 0 && (
+                  <>
+                    <hr className="divider" />
+                    <div className="side-item">
+                      <h6 className="side-title">Hobbies</h6>
+                      {hobbies.map((item, index) => (
+                        <div className="side-item-point" key={index}>
+                          <span>{item.label}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </>
+                )}
+
+                {links.length > 0 && (
+                  <>
+                    <hr className="divider" />
+                    <div className="side-item">
+                      <h6 className="side-title">Social Links</h6>
+                      {links.map((item, index) => (
+                        <div className="side-item-point" key={index}>
+                          <a href={item.link} target="_blank">
+                            {item.link}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                {references.length > 0 && (
+                  <>
+                    <hr className="divider" />
+                    <div className="side-item">
+                      <h6 className="side-title">Reference</h6>
+                      {references.map((item, index) => (
+                        <div className="side-item-point-down" key={index}>
+                          <span>
+                            <b>Name - </b>
+                            {item.referenceFullname}
+                          </span>
+                          <a href={`mailto:${item.email}`}>
+                            <b>Email - </b>
+                            {item.email}
+                          </a>
+                          <a href={`tel:${item.phone}`}>
+                            <b>Phone - </b>
+                            {item.phone}
+                          </a>
+                          <span>
+                            <b>Company -</b>
+                            {item.company}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             </td>
+
             <td colSpan={9} valign="top">
               {/* Detail Info */}
               <div className="detail-info">
                 {summary && <p>{summary}</p>}
 
-                <div className="temp-section">
-                  <h6 className="temp-heading">Employment History</h6>
-                  {professions.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.employer}, {item.city}
-                        </h6>
+                {professions.length > 0 && (
+                  <div className="temp-section">
+                    <h6 className="temp-heading">Employment History</h6>
+                    {professions.map((item, index) => (
+                      <div key={index} className="temp-item">
+                        <div className="temp-item-head">
+                          <h5>
+                            <b>{item.title}</b>
+                            <span>
+                              {formatDate(item.startDate)},{" "}
+                              {formatDate(item.endDate)}
+                            </span>
+                          </h5>
+                          <h6>
+                            {item.employer}, {item.city}
+                          </h6>
+                        </div>
+                        <p>{item.description}</p>
                       </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
 
-                <div className="temp-section">
-                  <h6 className="temp-heading">Education History</h6>
-                  {educations.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.degree}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.school}, {item.city}
-                        </h6>
+                {educations.length > 0 && (
+                  <div className="temp-section">
+                    <h6 className="temp-heading">Education History</h6>
+                    {educations.map((item, index) => (
+                      <div key={index} className="temp-item">
+                        <div className="temp-item-head">
+                          <h5>
+                            <b>{item.degree}</b>
+                            <span>
+                              {formatDate(item.startDate)},{" "}
+                              {formatDate(item.endDate)}
+                            </span>
+                          </h5>
+                          <h6>
+                            {item.school}, {item.city}
+                          </h6>
+                        </div>
+                        <p>{item.description}</p>
                       </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
 
-                <div className="temp-section">
-                  <h6 className="temp-heading">Courses History</h6>
-                  {courses.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.institute}, {item.city}
-                        </h6>
+                {courses.length > 0 && (
+                  <div className="temp-section">
+                    <h6 className="temp-heading">Courses History</h6>
+                    {courses.map((item, index) => (
+                      <div key={index} className="temp-item">
+                        <div className="temp-item-head">
+                          <h5>
+                            <b>{item.title}</b>
+                            <span>
+                              {formatDate(item.startDate)},{" "}
+                              {formatDate(item.endDate)}
+                            </span>
+                          </h5>
+                          <h6>
+                            {item.institute}, {item.city}
+                          </h6>
+                        </div>
+                        <p>{item.description}</p>
                       </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
 
-                <div className="temp-section">
-                  <h6 className="temp-heading">Internship History</h6>
-                  {internships.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.employer}, {item.city}
-                        </h6>
+                {internships.length > 0 && (
+                  <div className="temp-section">
+                    <h6 className="temp-heading">Internship History</h6>
+                    {internships.map((item, index) => (
+                      <div key={index} className="temp-item">
+                        <div className="temp-item-head">
+                          <h5>
+                            <b>{item.title}</b>
+                            <span>
+                              {formatDate(item.startDate)},{" "}
+                              {formatDate(item.endDate)}
+                            </span>
+                          </h5>
+                          <h6>
+                            {item.employer}, {item.city}
+                          </h6>
+                        </div>
+                        <p>{item.description}</p>
                       </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
+
+                {extraCurriculars.length > 0 && (
+                  <div className="temp-section">
+                    <h6 className="temp-heading">Extra Curricular</h6>
+                    {extraCurriculars.map((item, index) => (
+                      <div key={index} className="temp-item">
+                        <div className="temp-item-head">
+                          <h5>
+                            <b>{item.title}</b>
+                            <span>
+                              {formatDate(item.startDate)},{" "}
+                              {formatDate(item.endDate)}
+                            </span>
+                          </h5>
+                          <h6>
+                            {item.employer}, {item.city}
+                          </h6>
+                        </div>
+                        <p>{item.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {customSections.length > 0 && (
+                  <div className="temp-section">
+                    <h6 className="temp-heading">Custom Section</h6>
+                    {customSections.map((item, index) => (
+                      <div key={index} className="temp-item">
+                        <div className="temp-item-head">
+                          <h5>
+                            <b>{item.title}</b>
+                            <span>
+                              {formatDate(item.startDate)},{" "}
+                              {formatDate(item.endDate)}
+                            </span>
+                          </h5>
+                          <h6>{item.city}</h6>
+                        </div>
+                        <p>{item.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </td>
           </tr>

@@ -15,7 +15,7 @@ p {
 }
 
 :root {
-  --temp-primary: var(--primary);
+  --temp-primary: var(--dark);
   --temp-secondary: #3949ab;
   --temp-dark: #2f2f2f;
   --temp-dark-alt: #7a7777;

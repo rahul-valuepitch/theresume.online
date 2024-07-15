@@ -982,6 +982,9 @@
   position: relative;
   border: 2px solid var(--light-alt);
 }
+.template-card .image img {
+  width: 100%;
+}
 .template-card .action {
   position: absolute;
   top: 50%;

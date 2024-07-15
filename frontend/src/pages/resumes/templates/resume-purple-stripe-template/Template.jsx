@@ -1,9 +1,9 @@
 import { FaStar } from "react-icons/fa";
 
 import formatDate from "../../../../utils/dateFormator";
-// import "./style.css";
+import "./style.css";
 
-const ResumeDefaultTemplate = ({ resume }) => {
+const Template = ({ resume }) => {
   const {
     jobTitle,
     firstName,
@@ -348,4 +348,4 @@ const ResumeDefaultTemplate = ({ resume }) => {
   );
 };
 
-export default ResumeDefaultTemplate;
+export default Template;
