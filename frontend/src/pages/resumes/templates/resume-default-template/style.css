@@ -139,7 +139,7 @@ br {
 .temp-content .side-item .side-item-point-down b {
   font-size: 10pt;
   font-weight: 500;
-  color: var(--primary);
+  color: var(--temp-primary);
   display: block;
 }
 
