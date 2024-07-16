@@ -6,7 +6,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
 }
 h1,
 h2,
@@ -31,6 +30,7 @@ p {
   background: var(--temp-light);
   height: 100%;
   padding: 24pt;
+  font-family: "Montserrat", sans-serif;
 }
 .temp-content table {
   width: 100%;
