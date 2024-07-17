@@ -1,7 +1,7 @@
 import { FaStar, FaEnvelope, FaPhoneAlt, FaHome } from "react-icons/fa";
 
 import formatDate from "../../../../utils/dateFormator";
-// import "./style.css";
+import "./style.css";
 
 const Template = ({ resume }) => {
   const {
@@ -46,32 +46,36 @@ const Template = ({ resume }) => {
       <table>
         <tr>
           <td>
-            <aside className="temp-sidebar">
-              <h5 className="temp-title">Personal Details</h5>
-              <hr className="temp-divider" />
+            <aside className="temp-profile">
+              {fullName && <h1 className="temp-heading">{fullName}</h1>}
+              {jobTitle && <h2 className="temp-sub-heading">{jobTitle}</h2>}
+
+              <div className="temp-spacer"></div>
 
               {email && (
-                <p className="temp-contact-info temp-cont-icon">
+                <p className="temp-contact-info">
                   <FaEnvelope className="temp-icon" />
                   <span>{email}</span>
                 </p>
               )}
 
               {phone && (
-                <p className="temp-contact-info temp-cont-icon">
+                <p className="temp-contact-info">
                   <FaPhoneAlt className="temp-icon" />
                   <span>{phone}</span>
                 </p>
               )}
 
               {addressDetails && (
-                <p className="temp-contact-info temp-cont-icon">
+                <p className="temp-contact-info">
                   <FaHome className="temp-icon" />
                   <span>{addressDetails}</span>
                 </p>
               )}
+            </aside>
 
-              <div className="temp-spacer"></div>
+            <aside className="temp-sidebar">
+              <h5 className="temp-title">Personal Details</h5>
 
               {drivingLicense && (
                 <p className="temp-contact-info">
@@ -117,7 +121,6 @@ const Template = ({ resume }) => {
                 <>
                   <div className="side-item">
                     <h6 className="temp-title">Languages</h6>
-                    <hr className="temp-divider" />
                     {languages.map((item, index) => (
                       <div className="side-item-point" key={index}>
                         <span>{item.label}</span>
@@ -137,7 +140,6 @@ const Template = ({ resume }) => {
                 <>
                   <div className="side-item">
                     <h6 className="temp-title">Skills</h6>
-                    <hr className="temp-divider" />
                     {skills.map((item, index) => (
                       <div className="side-item-point" key={index}>
                         <span>{item.skill}</span>
@@ -157,7 +159,6 @@ const Template = ({ resume }) => {
                 <>
                   <div className="side-item">
                     <h6 className="temp-title">Hobbies</h6>
-                    <hr className="temp-divider" />
                     {hobbies.map((item, index) => (
                       <div className="side-item-point" key={index}>
                         <span>{item.label}</span>
@@ -170,7 +171,6 @@ const Template = ({ resume }) => {
 
               {links.length > 0 && (
                 <>
-                  <hr className="temp-divider" />
                   <div className="side-item">
                     <h6 className="temp-title">Social Links</h6>
                     {links.map((item, index) => (
@@ -189,7 +189,6 @@ const Template = ({ resume }) => {
                 <>
                   <div className="side-item">
                     <h6 className="temp-title">Reference</h6>
-                    <hr className="temp-divider" />
                     {references.map((item, index) => (
                       <div className="side-item-point-down" key={index}>
                         <span>
@@ -216,15 +215,9 @@ const Template = ({ resume }) => {
             </aside>
           </td>
           <td>
-            {fullName && <h1 className="temp-heading">{fullName}</h1>}
-            {jobTitle && <h2 className="temp-sub-heading">{jobTitle}</h2>}
-
-            {fullName || jobTitle ? <div className="temp-spacer"></div> : <></>}
-
             {summary && (
               <>
                 <h5 className="temp-title">Summary</h5>
-                <hr className="temp-divider" />
                 <p>{summary}</p>
 
                 <div className="temp-spacer"></div>
@@ -235,7 +228,6 @@ const Template = ({ resume }) => {
               <>
                 <div className="temp-section">
                   <h5 className="temp-title">Work Experience</h5>
-                  <hr className="temp-divider" />
                   {professions.map((item, index) => (
                     <div key={index} className="temp-item">
                       <div className="temp-item-head">
@@ -262,7 +254,6 @@ const Template = ({ resume }) => {
               <>
                 <div className="temp-section">
                   <h6 className="temp-title">Education History</h6>
-                  <hr className="temp-divider" />
                   {educations.map((item, index) => (
                     <div key={index} className="temp-item">
                       <div className="temp-item-head">
@@ -289,7 +280,6 @@ const Template = ({ resume }) => {
               <>
                 <div className="temp-section">
                   <h6 className="temp-title">Courses History</h6>
-                  <hr className="temp-divider" />
                   {courses.map((item, index) => (
                     <div key={index} className="temp-item">
                       <div className="temp-item-head">
@@ -316,7 +306,6 @@ const Template = ({ resume }) => {
               <>
                 <div className="temp-section">
                   <h6 className="temp-title">Internship History</h6>
-                  <hr className="temp-divider" />
                   {internships.map((item, index) => (
                     <div key={index} className="temp-item">
                       <div className="temp-item-head">
@@ -343,7 +332,6 @@ const Template = ({ resume }) => {
               <>
                 <div className="temp-section">
                   <h6 className="temp-title">Extra Curricular</h6>
-                  <hr className="temp-divider" />
                   {extraCurriculars.map((item, index) => (
                     <div key={index} className="temp-item">
                       <div className="temp-item-head">
@@ -370,7 +358,6 @@ const Template = ({ resume }) => {
               <>
                 <div className="temp-section">
                   <h6 className="temp-title">Custom Section</h6>
-                  <hr className="temp-divider" />
                   {customSections.map((item, index) => (
                     <div key={index} className="temp-item">
                       <div className="temp-item-head">

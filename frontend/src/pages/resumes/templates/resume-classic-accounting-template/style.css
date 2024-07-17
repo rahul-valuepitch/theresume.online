@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
+
 /* Resetting Styles */
 * {
   margin: 0;
@@ -15,34 +17,35 @@ p {
 }
 
 :root {
-  --temp-primary: #794887;
+  --temp-primary: #333333;
   --temp-secondary: #3949ab;
   --temp-dark: #2f2f2f;
   --temp-dark-alt: #7a7777;
   --temp-light: #ffffff;
-  --temp-light-alt: #f7f5f8;
+  --temp-light-alt: #f8f8f8;
 }
 
 .temp-content {
   background: var(--temp-light);
   height: 100%;
-  border-left: 10pt solid var(--temp-primary);
+  border: 2pt solid var(--temp-primary);
 }
 .temp-content table {
   width: 100%;
   height: 100%;
 }
 .temp-content table tr td {
-  padding: 15pt;
   vertical-align: top;
   height: 100%;
 }
 .temp-content table tr td:nth-child(1) {
-  width: 175pt;
+  width: 200pt;
   background: var(--temp-light-alt);
 }
 .temp-content table tr td:nth-child(2) {
-  width: calc(100% - 175pt);
+  width: calc(100% - 200pt);
+  padding: 20pt;
+  background: var(--temp-light);
 }
 .temp-content p {
   font-size: 11pt;
@@ -56,17 +59,25 @@ p {
   font-size: 14pt;
   font-weight: 600;
   color: var(--temp-primary);
+  font-family: "Merriweather", serif;
+  text-transform: uppercase;
+  margin-bottom: 10pt;
 }
 .temp-heading {
-  font-size: 24pt;
+  font-size: 20pt;
   font-weight: 700;
-  color: var(--temp-primary);
+  color: var(--temp-light);
+  font-family: "Merriweather", serif;
+  text-transform: uppercase;
+  line-height: 140%;
 }
 .temp-sub-heading {
   font-size: 14pt;
   font-weight: 500;
-  color: var(--temp-primary);
-  margin: 5pt 0 0;
+  color: var(--temp-light-alt);
+  margin: 7pt 0 0;
+  font-family: "Merriweather", serif;
+  font-style: italic;
 }
 .temp-divider {
   margin: 5pt 0 7pt;
@@ -84,61 +95,42 @@ p {
   height: auto;
   width: 100%;
 }
-.temp-sidebar .temp-spacer {
-  padding: 5pt 0;
-  height: auto;
-  width: 100%;
-}
-
-/* Section */
-.temp-section .temp-item {
-  padding-bottom: 5pt;
-  margin: 0 0 8pt 0;
-}
-.temp-section .temp-item:last-child {
-  margin: 0 0 0 0;
-}
-.temp-section .temp-item .temp-item-head {
-  margin-bottom: 5pt;
-}
-.temp-section .temp-item .temp-item-head h5 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 3pt;
-  word-break: break-word;
-}
-.temp-item .temp-item-head h5 b {
-  font-size: 11pt;
-  font-weight: 600;
-  color: var(--temp-dark);
-  text-transform: capitalize;
-  word-break: break-word;
-}
-.temp-item .temp-item-head h5 span {
-  font-size: 8pt;
-  font-weight: 700;
-  color: var(--temp-primary);
-  text-transform: capitalize;
-  word-break: break-word;
-}
-.temp-item .temp-item-head h6 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 10pt;
-  font-weight: 600;
-  color: var(--temp-primary);
-  text-transform: capitalize;
-  word-break: break-word;
-}
 
 /* Sidebar */
+.temp-profile {
+  padding: 20pt;
+  background: var(--temp-primary);
+}
+.temp-profile .temp-contact-info {
+  margin-bottom: 7pt;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10pt;
+}
+.temp-profile .temp-contact-info svg {
+  width: 12pt;
+  height: 12pt;
+  color: var(--temp-dark-alt);
+}
+.temp-profile .temp-contact-info span {
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--temp-light);
+  line-height: 120%;
+  word-break: break-word;
+  display: block;
+  width: calc(100% - 22pt);
+}
+
+.temp-sidebar {
+  padding: 20pt;
+}
 .temp-sidebar .temp-contact-info {
   font-size: 9pt;
   font-weight: 600;
   color: var(--temp-primary);
-  margin-bottom: 7pt;
+  margin-bottom: 5pt;
 }
 .temp-sidebar .temp-contact-info span {
   font-size: 11pt;
@@ -210,4 +202,47 @@ p {
   color: var(--temp-primary);
   display: block;
   line-height: 100%;
+}
+
+/* Section */
+.temp-section .temp-item {
+  padding-bottom: 5pt;
+  margin: 0 0 8pt 0;
+}
+.temp-section .temp-item:last-child {
+  margin: 0 0 0 0;
+}
+.temp-section .temp-item .temp-item-head {
+  margin-bottom: 5pt;
+}
+.temp-section .temp-item .temp-item-head h5 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3pt;
+  word-break: break-word;
+}
+.temp-item .temp-item-head h5 b {
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--temp-dark);
+  text-transform: capitalize;
+  word-break: break-word;
+}
+.temp-item .temp-item-head h5 span {
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--temp-primary);
+  text-transform: capitalize;
+  word-break: break-word;
+}
+.temp-item .temp-item-head h6 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10pt;
+  font-weight: 600;
+  color: var(--temp-primary);
+  text-transform: capitalize;
+  word-break: break-word;
 }

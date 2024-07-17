@@ -2,7 +2,7 @@ import { FaStar, FaEnvelope, FaPhoneAlt, FaHome } from "react-icons/fa";
 
 import formatDate from "../../../../utils/dateFormator";
 import { DummyUser } from "../../../../static/images/users";
-import "./style.css";
+// import "./style.css";
 
 const Template = ({ resume }) => {
   const {
