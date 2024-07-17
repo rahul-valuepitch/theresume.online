@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+
 /* Resetting Styles */
 * {
   margin: 0;
@@ -15,7 +17,7 @@ p {
 }
 
 :root {
-  --temp-primary: #794887;
+  --temp-primary: #006766;
   --temp-secondary: #3949ab;
   --temp-dark: #2f2f2f;
   --temp-dark-alt: #7a7777;
@@ -26,7 +28,7 @@ p {
 .temp-content {
   background: var(--temp-light);
   height: 100%;
-  border-left: 10pt solid var(--temp-primary);
+  font-family: "Quicksand", sans-serif;
 }
 .temp-content table {
   width: 100%;
@@ -38,11 +40,11 @@ p {
   height: 100%;
 }
 .temp-content table tr td:nth-child(1) {
-  width: 175pt;
-  background: var(--temp-light-alt);
+  width: calc(100% - 175pt);
 }
 .temp-content table tr td:nth-child(2) {
-  width: calc(100% - 175pt);
+  width: 175pt;
+  background: var(--temp-primary);
 }
 .temp-content p {
   font-size: 11pt;
@@ -54,13 +56,18 @@ p {
 /* Headings */
 .temp-title {
   font-size: 14pt;
-  font-weight: 600;
-  color: var(--temp-primary);
+  font-weight: 400;
+  color: var(--temp-dark);
+  text-transform: uppercase;
+}
+.temp-sidebar .temp-title {
+  color: var(--light);
 }
 .temp-heading {
   font-size: 24pt;
-  font-weight: 700;
-  color: var(--temp-primary);
+  font-weight: 600;
+  color: var(--temp-dark);
+  text-transform: uppercase;
 }
 .temp-sub-heading {
   font-size: 14pt;
@@ -77,7 +84,7 @@ p {
 }
 .temp-sidebar .temp-divider {
   opacity: 1;
-  background: var(--temp-primary);
+  background: var(--temp-light);
 }
 .temp-spacer {
   padding: 10pt 0;
@@ -91,6 +98,29 @@ p {
 }
 
 /* Section */
+.temp-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.temp-info p {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3pt;
+  margin: 0 15pt 5pt 0;
+}
+.temp-info p svg {
+  width: 15pt;
+  height: 15pt;
+  color: var(--temp-primary);
+}
+.temp-info p span {
+  font-size: 10pt;
+  font-weight: 400;
+  color: var(--temp-dark);
+}
 .temp-section .temp-item {
   padding-bottom: 5pt;
   margin: 0 0 8pt 0;
@@ -134,16 +164,22 @@ p {
 }
 
 /* Sidebar */
+.temp-sidebar img {
+  width: 80pt;
+  height: 80pt;
+  overflow: hidden;
+  margin: 0 auto 20pt;
+}
 .temp-sidebar .temp-contact-info {
   font-size: 9pt;
   font-weight: 600;
-  color: var(--temp-primary);
+  color: var(--temp-light);
   margin-bottom: 7pt;
 }
 .temp-sidebar .temp-contact-info span {
   font-size: 11pt;
   font-weight: 600;
-  color: var(--temp-dark);
+  color: var(--temp-light);
   line-height: 120%;
   word-break: break-word;
   display: block;
@@ -180,13 +216,13 @@ p {
 .temp-sidebar .side-item .side-item-point-down a {
   font-size: 9pt;
   font-weight: 600;
-  color: var(--temp-dark);
+  color: var(--temp-light);
   word-break: break-word;
 }
 .temp-sidebar .side-item .side-item-point svg {
   font-size: 5pt;
   font-weight: 600;
-  color: var(--temp-primary);
+  color: var(--temp-light);
 }
 .temp-sidebar .side-item .side-item-point .side-item-rating {
   display: flex;
@@ -207,7 +243,7 @@ p {
 .temp-sidebar .side-item .side-item-point-down b {
   font-size: 10pt;
   font-weight: 500;
-  color: var(--temp-primary);
+  color: var(--temp-light);
   display: block;
   line-height: 100%;
 }
