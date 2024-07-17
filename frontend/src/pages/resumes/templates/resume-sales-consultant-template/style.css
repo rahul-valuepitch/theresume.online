@@ -15,8 +15,8 @@ p {
 }
 
 :root {
-  --temp-primary: #794887;
-  --temp-secondary: #3949ab;
+  --temp-primary: #feb07f;
+  --temp-secondary: #ffedaf;
   --temp-dark: #2f2f2f;
   --temp-dark-alt: #7a7777;
   --temp-light: #ffffff;
@@ -26,23 +26,20 @@ p {
 .temp-content {
   background: var(--temp-light);
   height: 100%;
-  border-left: 10pt solid var(--temp-primary);
 }
 .temp-content table {
   width: 100%;
-  height: 100%;
 }
 .temp-content table tr td {
   padding: 15pt;
   vertical-align: top;
-  height: 100%;
 }
 .temp-content table tr td:nth-child(1) {
-  width: 175pt;
-  background: var(--temp-light-alt);
+  width: 200pt;
+  background: var(--temp-secondary);
 }
 .temp-content table tr td:nth-child(2) {
-  width: calc(100% - 175pt);
+  width: calc(100% - 200pt);
 }
 .temp-content p {
   font-size: 11pt;
@@ -53,20 +50,24 @@ p {
 
 /* Headings */
 .temp-title {
-  font-size: 14pt;
+  font-size: 12pt;
   font-weight: 600;
-  color: var(--temp-primary);
+  color: var(--temp-dark);
+  text-transform: uppercase;
+  margin-bottom: 10pt;
 }
 .temp-heading {
-  font-size: 24pt;
+  font-size: 30pt;
   font-weight: 700;
-  color: var(--temp-primary);
+  color: var(--temp-light);
+  text-transform: uppercase;
 }
 .temp-sub-heading {
   font-size: 14pt;
   font-weight: 500;
-  color: var(--temp-primary);
-  margin: 5pt 0 0;
+  color: var(--temp-light);
+  margin: 10pt 0 0;
+  text-transform: uppercase;
 }
 .temp-divider {
   margin: 5pt 0 7pt;
@@ -90,10 +91,54 @@ p {
   width: 100%;
 }
 
+/* Sections */
+.temp-head {
+  padding: 15pt;
+  background: var(--temp-primary);
+}
+.temp-head .main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20pt;
+}
+.temp-head .main .image {
+  width: 80pt;
+  height: 80pt;
+  border-radius: 100%;
+  overflow: hidden;
+}
+.temp-head .main .text {
+  text-align: center;
+  width: calc(100% - 200pt);
+}
+.temp-head .info {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 15pt;
+  margin-top: 20pt;
+}
+.temp-head .info p {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5pt;
+}
+.temp-head .info p svg {
+  width: 15pt;
+  height: 15pt;
+  color: var(--temp-light);
+}
+.temp-head .info p span {
+  font-size: 12pt;
+  font-weight: 600;
+  color: var(--temp-light);
+}
+
 /* Section */
 .temp-section .temp-item {
-  padding-bottom: 5pt;
-  margin: 0 0 8pt 0;
+  margin: 0 0 10pt 0;
 }
 .temp-section .temp-item:last-child {
   margin: 0 0 0 0;
