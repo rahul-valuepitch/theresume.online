@@ -1,7 +1,7 @@
 import { FaStar, FaEnvelope, FaPhoneAlt, FaHome } from "react-icons/fa";
 
 import formatDate from "../../../../utils/dateFormator";
-import "./style.css";
+// import "./style.css";
 
 const Template = ({ resume }) => {
   const {

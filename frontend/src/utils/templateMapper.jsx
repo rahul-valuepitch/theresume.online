@@ -6,6 +6,9 @@ import {
   ResumeClassicAccountingTemplate,
   ResumeMinimalistCustomerServiceTemplate,
   ResumeModernITSpecialistTemplate,
+  ResumeNursingAssistantTemplate,
+  ResumeSalesConsultantTemplate,
+  ResumeSensationTemplate,
 } from "../pages/resumes/templates";
 
 const templateMapper = {
@@ -17,6 +20,9 @@ const templateMapper = {
   "resume-minimalist-customer-service-template":
     ResumeMinimalistCustomerServiceTemplate,
   "resume-modern-it-specialist-template": ResumeModernITSpecialistTemplate,
+  "resume-nursing-assistant-template": ResumeNursingAssistantTemplate,
+  "resume-sales-consultant-template": ResumeSalesConsultantTemplate,
+  "resume-sensation-template": ResumeSensationTemplate,
 };
 
 export default templateMapper;
