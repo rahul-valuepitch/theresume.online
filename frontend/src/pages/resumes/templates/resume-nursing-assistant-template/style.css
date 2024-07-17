@@ -15,34 +15,60 @@ p {
 }
 
 :root {
-  --temp-primary: #794887;
-  --temp-secondary: #3949ab;
+  --temp-primary: #0086df;
+  --temp-secondary: #005e9b;
   --temp-dark: #2f2f2f;
   --temp-dark-alt: #7a7777;
   --temp-light: #ffffff;
-  --temp-light-alt: #f7f5f8;
+  --temp-light-alt: #dff0fa;
 }
 
 .temp-content {
   background: var(--temp-light);
   height: 100%;
-  border-left: 10pt solid var(--temp-primary);
+  position: relative;
+  padding: 10pt;
+}
+.temp-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 185pt;
+  height: 100%;
+  background: var(--temp-primary);
+}
+.temp-content::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(100% - 185pt);
+  height: 100%;
+  background: var(--temp-secondary);
+}
+.temp-content .temp-up {
+  position: relative;
+  z-index: 1;
+  background: var(--temp-light);
+  min-height: 75%;
 }
 .temp-content table {
   width: 100%;
   height: 100%;
 }
 .temp-content table tr td {
-  padding: 15pt;
   vertical-align: top;
   height: 100%;
 }
 .temp-content table tr td:nth-child(1) {
   width: 175pt;
-  background: var(--temp-light-alt);
 }
 .temp-content table tr td:nth-child(2) {
   width: calc(100% - 175pt);
+  border-left: 1px solid #ccc;
+  padding: 15pt;
+  padding-top: 0;
 }
 .temp-content p {
   font-size: 11pt;
@@ -53,20 +79,35 @@ p {
 
 /* Headings */
 .temp-title {
-  font-size: 14pt;
+  font-size: 12pt;
   font-weight: 600;
-  color: var(--temp-primary);
+  color: var(--temp-dark);
+  text-transform: uppercase;
+  margin-bottom: 10pt;
 }
 .temp-heading {
-  font-size: 24pt;
+  font-size: 20pt;
   font-weight: 700;
-  color: var(--temp-primary);
+  color: var(--temp-dark);
+  text-transform: uppercase;
+  position: relative;
+  margin-bottom: 15pt;
+}
+.temp-heading::after {
+  content: "";
+  position: absolute;
+  bottom: -7pt;
+  left: 0;
+  width: 75pt;
+  height: 3pt;
+  background: var(--temp-primary);
 }
 .temp-sub-heading {
-  font-size: 14pt;
+  font-size: 12pt;
   font-weight: 500;
   color: var(--temp-primary);
   margin: 5pt 0 0;
+  text-transform: uppercase;
 }
 .temp-divider {
   margin: 5pt 0 7pt;
@@ -91,54 +132,40 @@ p {
 }
 
 /* Section */
-.temp-section .temp-item {
-  padding-bottom: 5pt;
-  margin: 0 0 8pt 0;
-}
-.temp-section .temp-item:last-child {
-  margin: 0 0 0 0;
-}
-.temp-section .temp-item .temp-item-head {
-  margin-bottom: 5pt;
-}
-.temp-section .temp-item .temp-item-head h5 {
+.temp-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 3pt;
-  word-break: break-word;
+  justify-content: flex-start;
+  gap: 15pt;
+  padding: 15pt;
 }
-.temp-item .temp-item-head h5 b {
-  font-size: 11pt;
-  font-weight: 600;
-  color: var(--temp-dark);
-  text-transform: capitalize;
-  word-break: break-word;
+.temp-head .image {
+  width: 80pt;
 }
-.temp-item .temp-item-head h5 span {
-  font-size: 8pt;
-  font-weight: 700;
-  color: var(--temp-primary);
-  text-transform: capitalize;
-  word-break: break-word;
+.temp-head .text {
+  width: calc(100% - 100pt);
 }
-.temp-item .temp-item-head h6 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+
+.temp-contact {
+  padding: 15pt;
+  background: var(--temp-light-alt);
+}
+.temp-contact p {
   font-size: 10pt;
-  font-weight: 600;
-  color: var(--temp-primary);
-  text-transform: capitalize;
-  word-break: break-word;
+  font-weight: 400;
+  color: var(--temp-dark);
+  margin-bottom: 7pt;
 }
 
 /* Sidebar */
+.temp-sidebar {
+  padding: 15pt;
+}
 .temp-sidebar .temp-contact-info {
   font-size: 9pt;
   font-weight: 600;
   color: var(--temp-primary);
-  margin-bottom: 7pt;
+  margin-bottom: 5pt;
 }
 .temp-sidebar .temp-contact-info span {
   font-size: 11pt;
@@ -210,4 +237,47 @@ p {
   color: var(--temp-primary);
   display: block;
   line-height: 100%;
+}
+
+/* Section */
+.temp-section .temp-item {
+  padding-bottom: 5pt;
+  margin: 0 0 8pt 0;
+}
+.temp-section .temp-item:last-child {
+  margin: 0 0 0 0;
+}
+.temp-section .temp-item .temp-item-head {
+  margin-bottom: 5pt;
+}
+.temp-section .temp-item .temp-item-head h5 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3pt;
+  word-break: break-word;
+}
+.temp-item .temp-item-head h5 b {
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--temp-dark);
+  text-transform: capitalize;
+  word-break: break-word;
+}
+.temp-item .temp-item-head h5 span {
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--temp-primary);
+  text-transform: capitalize;
+  word-break: break-word;
+}
+.temp-item .temp-item-head h6 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10pt;
+  font-weight: 600;
+  color: var(--temp-primary);
+  text-transform: capitalize;
+  word-break: break-word;
 }
