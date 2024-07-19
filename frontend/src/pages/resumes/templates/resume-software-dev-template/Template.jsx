@@ -1,9 +1,12 @@
-import { FaStar, FaEnvelope, FaPhoneAlt, FaHome } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
+import { IoCallSharp } from "react-icons/io5";
+import { IoMdMail } from "react-icons/io";
+import { FaLink } from "react-icons/fa6";
 
 import formatDate from "../../../../utils/dateFormator";
-// import "./style.css";
+import "./style.css";
 
-const Template = ({ resume }) => {
+const ResumeDefaultTemplate = ({ resume }) => {
   const {
     jobTitle,
     firstName,
@@ -25,15 +28,15 @@ const Template = ({ resume }) => {
     photo,
   } = resume.personalDetail;
   const languages = resume.languages;
-  const skills = resume.skills;
   const hobbies = resume.hobbies;
   const links = resume.links;
   const professions = resume.professions;
   const educations = resume.educations;
   const courses = resume.courses;
   const internships = resume.internship;
-  const references = resume.references;
-  const extraCurriculars = resume.extraCurricular;
+  const skills = resume.skills;
+  const reference = resume.references;
+  const extraCurricular = resume.extraCurricular;
   const customSections = resume.customSections;
 
   const fullName = `${firstName} ${middleName} ${lastName}`;
@@ -43,358 +46,344 @@ const Template = ({ resume }) => {
 
   return (
     <div className="temp-content">
-      <table>
-        <tr>
-          <td>
-            <aside className="temp-sidebar">
-              <h5 className="temp-title">Personal Details</h5>
-              <hr className="temp-divider" />
-
+      <div className="Header-part">
+        <div className="contact-details small-space text-center">
+          <div>
+            <h3 className="call">
+              <IoCallSharp /> {phone && <p>{phone}</p>}
+            </h3>
+          </div>
+          <div>
+            <h3 className="email pt-2">
               {email && (
-                <p className="temp-contact-info temp-cont-icon">
-                  <FaEnvelope className="temp-icon" />
-                  <span>{email}</span>
+                <p>
+                  <IoMdMail />
+                  <a href={`mailto:${email}`}>{email}</a>
                 </p>
               )}
+            </h3>
+          </div>
+          <div>
+            <h3 className="social pt-2">
+              {links.map((item, index) => (
+                <div className="side-item-point" key={index}>
+                  <a href={item.link} target="_blank">
+                    <FaLink />
+                    {item.link}
+                  </a>
+                </div>
+              ))}
+            </h3>
+          </div>
+        </div>
+        <div className="header-name text-end ">
+          <h1 className="h1-color">{fullName}</h1>
+          <h3 className="h3-style">{jobTitle}</h3>
+        </div>
+      </div>
 
-              {phone && (
-                <p className="temp-contact-info temp-cont-icon">
-                  <FaPhoneAlt className="temp-icon" />
-                  <span>{phone}</span>
-                </p>
-              )}
+      {/* Table */}
+      <table className="table-detail mediam-space">
+        <tbody>
+          <tr>
+            <td className="col-1" valign="top">
+              <div className="item">
+                <h2 className="side-title h2-color">Summary</h2>
+                <hr className="divider"></hr>
+                {summary && <p>{summary}</p>}
+              </div>
+              <br />
 
-              {addressDetails && (
-                <p className="temp-contact-info temp-cont-icon">
-                  <FaHome className="temp-icon" />
-                  <span>{addressDetails}</span>
-                </p>
-              )}
+              <div className="item">
+                <h2 className="side-title h2-color">Personal Details</h2>
+                <hr className="divider" />
+                {addressDetails && (
+                  <p className="temp-contact-info">
+                    Address
+                    <span>{addressDetails}</span>
+                  </p>
+                )}
+                {drivingLicense && (
+                  <p className="temp-contact-info">
+                    Driving License
+                    <span>{drivingLicense}</span>
+                  </p>
+                )}
+                {nationality && (
+                  <p className="temp-contact-info">
+                    Nationality
+                    <span>{nationality}</span>
+                  </p>
+                )}
+                {placeOfBirth && (
+                  <p className="temp-contact-info">
+                    Place Of Birth
+                    <span>{placeOfBirth}</span>
+                  </p>
+                )}
+                {dateOfBirth && (
+                  <p className="temp-contact-info">
+                    Date Of Birth
+                    <span>{formatDate(dateOfBirth)}</span>
+                  </p>
+                )}
+                {gender && (
+                  <p className="temp-contact-info">
+                    Gender
+                    <span>{gender}</span>
+                  </p>
+                )}
+                {maritalStatus && (
+                  <p className="temp-contact-info">
+                    Marital Status
+                    <span>{maritalStatus}</span>
+                  </p>
+                )}
+                {photo && <img src={photo} />}
+              </div>
 
-              <div className="temp-spacer"></div>
+              {/* skills */}
+              <div className="temp-section mediam-space  ">
+                <h2 className="temp-heading h2-color">Skills</h2>
+                <hr className="divider"></hr>
 
-              {drivingLicense && (
-                <p className="temp-contact-info">
-                  Driving License
-                  <span>{drivingLicense}</span>
-                </p>
-              )}
-              {nationality && (
-                <p className="temp-contact-info">
-                  Nationality
-                  <span>{nationality}</span>
-                </p>
-              )}
-              {placeOfBirth && (
-                <p className="temp-contact-info">
-                  Place Of Birth
-                  <span>{placeOfBirth}</span>
-                </p>
-              )}
-              {dateOfBirth && (
-                <p className="temp-contact-info">
-                  Date Of Birth
-                  <span>{formatDate(dateOfBirth)}</span>
-                </p>
-              )}
-              {gender && (
-                <p className="temp-contact-info">
-                  Gender
-                  <span>{gender}</span>
-                </p>
-              )}
-              {maritalStatus && (
-                <p className="temp-contact-info">
-                  Marital Status
-                  <span>{maritalStatus}</span>
-                </p>
-              )}
-              {photo && <img src={photo} alt="Profile" />}
+                {skills.map((item, index) => (
+                  <div key={index} className="temp-item ">
+                    <div className="temp-item-head skill-s">
+                      <h5>
+                        <b>{item.skill}</b>
+                      </h5>
+                      <div className="side-item-rating lang-star"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-              <div className="temp-spacer"></div>
+              <div className="side-item mediam-space">
+                <h2 className="side-title h2-color">Hobbies</h2>
+                <hr className="divider" />
 
-              {languages.length > 0 && (
-                <>
-                  <div className="side-item">
-                    <h6 className="temp-title">Languages</h6>
-                    <hr className="temp-divider" />
-                    {languages.map((item, index) => (
-                      <div className="side-item-point" key={index}>
+                {hobbies.map((item, index) => (
+                  <div className="side-item-point" key={index}>
+                    <h5>
+                      <b>
+                        {" "}
                         <span>{item.label}</span>
-                        <div className="side-item-rating">
-                          {Array.from({ length: item.level }).map((_, i) => (
-                            <FaStar key={i} />
-                          ))}
-                        </div>
-                      </div>
-                    ))}
+                      </b>
+                    </h5>
                   </div>
-                  <div className="temp-spacer"></div>
-                </>
-              )}
+                ))}
+              </div>
+              {/*  */}
+              <div className="temp-section mediam-space ">
+                <h2 className="temp-heading h2-color">Refernce</h2>
+                <hr className="divider"></hr>
 
-              {skills.length > 0 && (
-                <>
-                  <div className="side-item">
-                    <h6 className="temp-title">Skills</h6>
-                    <hr className="temp-divider" />
-                    {skills.map((item, index) => (
-                      <div className="side-item-point" key={index}>
-                        <span>{item.skill}</span>
-                        <div className="side-item-rating">
-                          {Array.from({ length: item.level }).map((_, i) => (
-                            <FaStar key={i} />
-                          ))}
-                        </div>
-                      </div>
-                    ))}
+                {reference.map((item, index) => (
+                  <div key={index} className="temp-item small-space ">
+                    <div className="temp-item-head skill-s">
+                      <h5>
+                        <b>{item.references}</b>
+                      </h5>
+                    </div>
+                    <div className="company-name">
+                      <h5>
+                        <b>{item.referenceFullname}</b>
+                      </h5>
+                      <h5>
+                        <b>{item.company}</b>
+                      </h5>
+                    </div>
+                    <div className="phone-e">
+                      {" "}
+                      <h5>
+                        <b>{item.phone}</b>
+                      </h5>
+                      <h5>
+                        <b>{item.email}</b>
+                      </h5>
+                    </div>
                   </div>
-                  <div className="temp-spacer"></div>
-                </>
-              )}
+                ))}
+              </div>
+              <div className="temp-section mediam-space">
+                <h2 className="temp-heading h2-color">Extra Curricular</h2>
+                <hr className="divider"></hr>
 
-              {hobbies.length > 0 && (
-                <>
-                  <div className="side-item">
-                    <h6 className="temp-title">Hobbies</h6>
-                    <hr className="temp-divider" />
-                    {hobbies.map((item, index) => (
-                      <div className="side-item-point" key={index}>
-                        <span>{item.label}</span>
-                      </div>
-                    ))}
+                {extraCurricular.map((item, index) => (
+                  <div key={index} className="temp-item edu-h small-space">
+                    <div className="temp-item-head edu-h-2">
+                      <h5>
+                        <b>{item.title}</b>
+                      </h5>
+                    </div>
+                    <div>
+                      <h5 className=" emp-city">
+                        <b>{item.employer}</b>
+                      </h5>
+                    </div>
+                    <div>
+                      <h6>
+                        <b>{item.city}</b>
+                      </h6>
+                    </div>
+                    <div>
+                      <span>
+                        {formatDate(item.startDate)}, {formatDate(item.endDate)}
+                      </span>
+                    </div>
+                    <p>{item.description}</p>
                   </div>
-                  <div className="temp-spacer"></div>
-                </>
-              )}
+                ))}
+              </div>
+              <div className="side-item mediam-space">
+                <h2 className="temp-heading h2-color">Languages</h2>
+                <hr className="divider"></hr>
 
-              {links.length > 0 && (
-                <>
-                  <hr className="temp-divider" />
-                  <div className="side-item">
-                    <h6 className="temp-title">Social Links</h6>
-                    {links.map((item, index) => (
-                      <div className="side-item-point" key={index}>
-                        <a href={item.link} target="_blank">
-                          {item.link}
-                        </a>
-                      </div>
-                    ))}
+                {languages.map((item, index) => (
+                  <div className="side-item-point skill-s" key={index}>
+                    <div>
+                      <span>{item.label}</span>
+                    </div>
+                    <div className="side-item-rating lang-star">
+                      {Array.from({ length: item.level }).map((_, i) => (
+                        <FaStar key={i} />
+                      ))}
+                    </div>
                   </div>
-                  <div className="temp-spacer"></div>
-                </>
-              )}
+                ))}
+              </div>
+            </td>
+            <td className="col-2" valign="top">
+              <div className="temp-section ">
+                <h2 className="temp-heading h2-color">Experience</h2>
+                <hr className="divider"></hr>
 
-              {references.length > 0 && (
-                <>
-                  <div className="side-item">
-                    <h6 className="temp-title">Reference</h6>
-                    <hr className="temp-divider" />
-                    {references.map((item, index) => (
-                      <div className="side-item-point-down" key={index}>
+                {professions.map((item, index) => (
+                  <div key={index} className="temp-item exp-part small-space">
+                    <div className="temp-item-head exp-part-2">
+                      <h5>
+                        <b>{item.title}</b>
+                      </h5>
+                    </div>
+                    <div></div>
+                    <div className="exp-title">
+                      <h6>
+                        {item.employer}, {item.city}
+                      </h6>
+                      <span>
+                        {formatDate(item.startDate)}, {formatDate(item.endDate)}
+                      </span>
+                    </div>
+                    <p>{item.description}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="temp-section ">
+                <h2 className="temp-heading h2-color">Education</h2>
+                <hr className="divider"></hr>
+
+                {educations.map((item, index) => (
+                  <div key={index} className="temp-item edu-h small-space">
+                    <div className="temp-item-head edu-h-2">
+                      <h5>
+                        <b>{item.degree}</b>
+                      </h5>
+                    </div>
+
+                    <div className="education-part">
+                      <h6>
+                        {item.school}, {item.city}
+                      </h6>
+                      <span>
+                        {formatDate(item.startDate)}, {formatDate(item.endDate)}
+                      </span>
+                    </div>
+
+                    <p>{item.description}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="temp-section mediam-space">
+                <h2 className="temp-heading h2-color">Internship History</h2>
+                <hr className="divider"></hr>
+                {internships.map((item, index) => (
+                  <div key={index} className="temp-item small-space">
+                    <div className="temp-item-head">
+                      <h5>
+                        <b>{item.title}</b>
+                      </h5>
+                    </div>
+                    <div className="intern-part">
+                      <h6>
+                        {item.employer}, {item.city}{" "}
+                      </h6>
+                      <span>
+                        {formatDate(item.startDate)}, {formatDate(item.endDate)}
+                      </span>
+                    </div>
+
+                    <p>{item.description}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="temp-section mediam-space">
+                <h2 className="temp-heading h2-color">Courses History</h2>
+                <hr className="divider"></hr>
+                {courses.map((item, index) => (
+                  <div key={index} className="temp-item small-space">
+                    <div className="temp-item-head">
+                      <h5>
+                        <b>{item.title}</b>
+                      </h5>
+                    </div>
+                    <div className="course-part">
+                      <h6>
+                        {item.institute}, {item.city}
+                      </h6>
+                      <span>
+                        {formatDate(item.startDate)}, {formatDate(item.endDate)}
+                      </span>
+                    </div>
+
+                    <p>{item.description}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="temp-section ">
+                <h2 className="temp-heading h2-color">Custom Sections</h2>
+                <hr className="divider"></hr>
+
+                {customSections.map((item, index) => (
+                  <div key={index} className="temp-item edu-h small-space ">
+                    <div className="temp-item-head edu-h-2">
+                      <h5>
+                        <b>{item.title}</b>
+                      </h5>
+                    </div>
+                    <div>
+                      <h5 className=" emp-city">
+                        <h6>
+                          <b>{item.city}</b>
+                        </h6>
                         <span>
-                          <b>Name - </b>
-                          {item.referenceFullname}
+                          {formatDate(item.startDate)},{" "}
+                          {formatDate(item.endDate)}
                         </span>
-                        <a href={`mailto:${item.email}`}>
-                          <b>Email - </b>
-                          {item.email}
-                        </a>
-                        <a href={`tel:${item.phone}`}>
-                          <b>Phone - </b>
-                          {item.phone}
-                        </a>
-                        <span>
-                          <b>Company -</b>
-                          {item.company}
-                        </span>
-                      </div>
-                    ))}
+                      </h5>
+                    </div>
+
+                    <p>{item.description}</p>
                   </div>
-                </>
-              )}
-            </aside>
-          </td>
-          <td>
-            {fullName && <h1 className="temp-heading">{fullName}</h1>}
-            {jobTitle && <h2 className="temp-sub-heading">{jobTitle}</h2>}
-
-            {fullName || jobTitle ? <div className="temp-spacer"></div> : <></>}
-
-            {summary && (
-              <>
-                <h5 className="temp-title">Summary</h5>
-                <hr className="temp-divider" />
-                <p>{summary}</p>
-
-                <div className="temp-spacer"></div>
-              </>
-            )}
-
-            {professions.length > 0 && (
-              <>
-                <div className="temp-section">
-                  <h5 className="temp-title">Work Experience</h5>
-                  <hr className="temp-divider" />
-                  {professions.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.employer}, {item.city}
-                        </h6>
-                      </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="temp-spacer"></div>
-              </>
-            )}
-
-            {educations.length > 0 && (
-              <>
-                <div className="temp-section">
-                  <h6 className="temp-title">Education History</h6>
-                  <hr className="temp-divider" />
-                  {educations.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.degree}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.school}, {item.city}
-                        </h6>
-                      </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="temp-spacer"></div>
-              </>
-            )}
-
-            {courses.length > 0 && (
-              <>
-                <div className="temp-section">
-                  <h6 className="temp-title">Courses History</h6>
-                  <hr className="temp-divider" />
-                  {courses.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.institute}, {item.city}
-                        </h6>
-                      </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="temp-spacer"></div>
-              </>
-            )}
-
-            {internships.length > 0 && (
-              <>
-                <div className="temp-section">
-                  <h6 className="temp-title">Internship History</h6>
-                  <hr className="temp-divider" />
-                  {internships.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.employer}, {item.city}
-                        </h6>
-                      </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="temp-spacer"></div>
-              </>
-            )}
-
-            {extraCurriculars.length > 0 && (
-              <>
-                <div className="temp-section">
-                  <h6 className="temp-title">Extra Curricular</h6>
-                  <hr className="temp-divider" />
-                  {extraCurriculars.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.employer}, {item.city}
-                        </h6>
-                      </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="temp-spacer"></div>
-              </>
-            )}
-
-            {customSections.length > 0 && (
-              <>
-                <div className="temp-section">
-                  <h6 className="temp-title">Custom Section</h6>
-                  <hr className="temp-divider" />
-                  {customSections.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>{item.city}</h6>
-                      </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-                {/* <div className="temp-spacer"></div> */}
-              </>
-            )}
-          </td>
-        </tr>
+                ))}
+              </div>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   );
 };
 
-export default Template;
+export default ResumeDefaultTemplate;
