@@ -6,6 +6,7 @@ import templateMapper from "../../utils/templateMapper";
 const TemplateRenderer = ({ templateId, resume }) => {
   const [TemplateComponent, setTemplateComponent] = useState(null);
   const [currentStyleSheetLink, setCurrentStyleSheetLink] = useState(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const componentRef = useRef();
 
@@ -17,11 +18,16 @@ const TemplateRenderer = ({ templateId, resume }) => {
         );
 
         const { file } = response.data.data;
-
         const Component = templateMapper[file];
 
         // Dynamically load the new CSS
         const cssModules = import.meta.glob("./templates/**/style.css");
+
+        // Remove all previously added stylesheet links
+        const previousLinks = document.querySelectorAll(
+          "link[data-dynamic-style]"
+        );
+        previousLinks.forEach((link) => document.head.removeChild(link));
 
         // Loop through the keys (template names) in cssModules
         for (const key in cssModules) {
@@ -30,22 +36,25 @@ const TemplateRenderer = ({ templateId, resume }) => {
             const regex = /\.\/templates\/(.*)\/style\.css$/;
             const match = key.match(regex);
 
-            if (match[1] === file) {
-              // const newStyleSheetModule = await cssModules[key]();
-              // const newStyleSheetUrl = newStyleSheetModule.default;
+            if (match && match[1] === file) {
+              const newStyleSheetModule = await cssModules[key]();
+              const newStyleSheetUrl = newStyleSheetModule.default;
+
+              // Remove all previously added stylesheet links
+              const previousLinks = document.querySelectorAll(
+                "link[data-dynamic-style]"
+              );
+              console.log(previousLinks);
+              previousLinks.forEach((link) => document.head.removeChild(link));
 
               // Create a new link element
               const newLinkElement = document.createElement("link");
               newLinkElement.rel = "stylesheet";
-              newLinkElement.href = `../../templates/${file}/style.css`;
+              newLinkElement.href = newStyleSheetUrl;
+              newLinkElement.setAttribute("data-dynamic-style", true); // Mark this link as dynamically added
 
               // Append the new link element to the document head
               document.head.appendChild(newLinkElement);
-
-              // Remove the previous CSS link if it exists
-              if (currentStyleSheetLink) {
-                document.head.removeChild(currentStyleSheetLink);
-              }
 
               // Update the current style sheet link state
               setCurrentStyleSheetLink(newLinkElement);
@@ -67,7 +76,7 @@ const TemplateRenderer = ({ templateId, resume }) => {
     return () => {
       if (currentStyleSheetLink) {
         document.head.removeChild(currentStyleSheetLink);
-        console.log(currentStyleSheetLink);
+        setCurrentStyleSheetLink(null); // Clear currentStyleSheetLink state
       }
     };
   }, [templateId]);

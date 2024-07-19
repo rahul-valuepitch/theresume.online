@@ -8,6 +8,9 @@ import ResumeModernITSpecialistTemplate from "./resume-modern-it-specialist-temp
 import ResumeNursingAssistantTemplate from "./resume-nursing-assistant-template/Template";
 import ResumeSalesConsultantTemplate from "./resume-sales-consultant-template/Template";
 import ResumeSensationTemplate from "./resume-sensation-template/Template";
+import ResumeATSFriendlyTemplate from "./resume-ats-friendly-template/Template";
+import ResumeSoftwareDevTemplate from "./resume-software-dev-template/Template";
+import ResumeCustomerSuccessTemplate from "./resume-customer-success-template/Template";
 
 export {
   ResumeDefaultTemplate,
@@ -20,4 +23,7 @@ export {
   ResumeNursingAssistantTemplate,
   ResumeSalesConsultantTemplate,
   ResumeSensationTemplate,
+  ResumeATSFriendlyTemplate,
+  ResumeSoftwareDevTemplate,
+  ResumeCustomerSuccessTemplate,
 };

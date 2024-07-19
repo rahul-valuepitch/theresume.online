@@ -8,6 +8,9 @@ import ResumeModernITSpecialistTemplate from "./resume-modern-it-specialist-temp
 import ResumeNursingAssistantTemplate from "./resume-nursing-assistant-template.jpg";
 import ResumeSalesConsultantTemplate from "./resume-sales-consultant-template.jpg";
 import ResumeSensationTemplate from "./resume-sensation-template.jpg";
+import ResumeATSFriendlyTemplate from "./resume-ats-friendly-template.jpg";
+import ResumeSoftwareDevTemplate from "./resume-software-dev-template.jpg";
+import ResumeCustomerSuccessTemplate from "./resume-customer-success-template.jpg";
 
 const imageMap = {
   "resume-default-template": ResumeDefaultTemplate,
@@ -21,6 +24,9 @@ const imageMap = {
   "resume-nursing-assistant-template": ResumeNursingAssistantTemplate,
   "resume-sales-consultant-template": ResumeSalesConsultantTemplate,
   "resume-sensation-template": ResumeSensationTemplate,
+  "resume-ats-friendly-template": ResumeATSFriendlyTemplate,
+  "resume-software-dev-template": ResumeSoftwareDevTemplate,
+  "resume-customer-success-template": ResumeCustomerSuccessTemplate,
 };
 
 export default imageMap;
