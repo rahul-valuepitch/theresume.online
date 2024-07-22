@@ -45,265 +45,73 @@ const Template = ({ resume }) => {
   return (
     <div className="temp-content">
       <table>
-        <tr>
-          <td>
-            {fullName && <h1 className="temp-heading">{fullName}</h1>}
-            {jobTitle && <h2 className="temp-sub-heading">{jobTitle}</h2>}
+        <tbody>
+          <tr>
+            <td>
+              {fullName && <h1 className="temp-heading">{fullName}</h1>}
+              {jobTitle && <h2 className="temp-sub-heading">{jobTitle}</h2>}
 
-            {fullName || jobTitle ? <div className="temp-spacer"></div> : <></>}
-
-            <div className="temp-info">
-              {email && (
-                <p>
-                  <FaEnvelope className="temp-icon" />
-                  <span>{email}</span>
-                </p>
-              )}
-
-              {phone && (
-                <p>
-                  <FaPhoneAlt className="temp-icon" />
-                  <span>{phone}</span>
-                </p>
-              )}
-
-              {addressDetails && (
-                <p>
-                  <FaHome className="temp-icon" />
-                  <span>{addressDetails}</span>
-                </p>
-              )}
-            </div>
-
-            <div className="temp-spacer"></div>
-
-            {summary && (
-              <>
-                <h5 className="temp-title">Summary</h5>
-                <hr className="temp-divider" />
-                <p>{summary}</p>
-
+              {fullName || jobTitle ? (
                 <div className="temp-spacer"></div>
-              </>
-            )}
-
-            {professions.length > 0 && (
-              <>
-                <div className="temp-section">
-                  <h5 className="temp-title">Work Experience</h5>
-                  <hr className="temp-divider" />
-                  {professions.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.employer}, {item.city}
-                        </h6>
-                      </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="temp-spacer"></div>
-              </>
-            )}
-
-            {educations.length > 0 && (
-              <>
-                <div className="temp-section">
-                  <h6 className="temp-title">Education History</h6>
-                  <hr className="temp-divider" />
-                  {educations.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.degree}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.school}, {item.city}
-                        </h6>
-                      </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="temp-spacer"></div>
-              </>
-            )}
-
-            {courses.length > 0 && (
-              <>
-                <div className="temp-section">
-                  <h6 className="temp-title">Courses History</h6>
-                  <hr className="temp-divider" />
-                  {courses.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.institute}, {item.city}
-                        </h6>
-                      </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="temp-spacer"></div>
-              </>
-            )}
-
-            {internships.length > 0 && (
-              <>
-                <div className="temp-section">
-                  <h6 className="temp-title">Internship History</h6>
-                  <hr className="temp-divider" />
-                  {internships.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.employer}, {item.city}
-                        </h6>
-                      </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="temp-spacer"></div>
-              </>
-            )}
-
-            {extraCurriculars.length > 0 && (
-              <>
-                <div className="temp-section">
-                  <h6 className="temp-title">Extra Curricular</h6>
-                  <hr className="temp-divider" />
-                  {extraCurriculars.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>
-                          {item.employer}, {item.city}
-                        </h6>
-                      </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="temp-spacer"></div>
-              </>
-            )}
-
-            {customSections.length > 0 && (
-              <>
-                <div className="temp-section">
-                  <h6 className="temp-title">Custom Section</h6>
-                  <hr className="temp-divider" />
-                  {customSections.map((item, index) => (
-                    <div key={index} className="temp-item">
-                      <div className="temp-item-head">
-                        <h5>
-                          <b>{item.title}</b>
-                          <span>
-                            {formatDate(item.startDate)},{" "}
-                            {formatDate(item.endDate)}
-                          </span>
-                        </h5>
-                        <h6>{item.city}</h6>
-                      </div>
-                      <p>{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-          </td>
-          <td>
-            <aside className="temp-sidebar">
-              <img src={photo ? photo : DummyUser} alt="Profile Photo" />
-
-              <h5 className="temp-title">Personal Details</h5>
-              <hr className="temp-divider" />
-              {drivingLicense && (
-                <p className="temp-contact-info">
-                  Driving License
-                  <span>{drivingLicense}</span>
-                </p>
+              ) : (
+                <></>
               )}
-              {nationality && (
-                <p className="temp-contact-info">
-                  Nationality
-                  <span>{nationality}</span>
-                </p>
-              )}
-              {placeOfBirth && (
-                <p className="temp-contact-info">
-                  Place Of Birth
-                  <span>{placeOfBirth}</span>
-                </p>
-              )}
-              {dateOfBirth && (
-                <p className="temp-contact-info">
-                  Date Of Birth
-                  <span>{formatDate(dateOfBirth)}</span>
-                </p>
-              )}
-              {gender && (
-                <p className="temp-contact-info">
-                  Gender
-                  <span>{gender}</span>
-                </p>
-              )}
-              {maritalStatus && (
-                <p className="temp-contact-info">
-                  Marital Status
-                  <span>{maritalStatus}</span>
-                </p>
-              )}
+
+              <div className="temp-info">
+                {email && (
+                  <p>
+                    <FaEnvelope className="temp-icon" />
+                    <span>{email}</span>
+                  </p>
+                )}
+
+                {phone && (
+                  <p>
+                    <FaPhoneAlt className="temp-icon" />
+                    <span>{phone}</span>
+                  </p>
+                )}
+
+                {addressDetails && (
+                  <p>
+                    <FaHome className="temp-icon" />
+                    <span>{addressDetails}</span>
+                  </p>
+                )}
+              </div>
 
               <div className="temp-spacer"></div>
 
-              {languages.length > 0 && (
+              {summary && (
                 <>
-                  <div className="side-item">
-                    <h6 className="temp-title">Languages</h6>
+                  <h5 className="temp-title">Summary</h5>
+                  <hr className="temp-divider" />
+                  <p>{summary}</p>
+
+                  <div className="temp-spacer"></div>
+                </>
+              )}
+
+              {professions.length > 0 && (
+                <>
+                  <div className="temp-section">
+                    <h5 className="temp-title">Work Experience</h5>
                     <hr className="temp-divider" />
-                    {languages.map((item, index) => (
-                      <div className="side-item-point" key={index}>
-                        <span>{item.label}</span>
-                        <div className="side-item-rating">
-                          {Array.from({ length: item.level }).map((_, i) => (
-                            <FaCircle key={i} />
-                          ))}
+                    {professions.map((item, index) => (
+                      <div key={index} className="temp-item">
+                        <div className="temp-item-head">
+                          <h5>
+                            <b>{item.title}</b>
+                            <span>
+                              {formatDate(item.startDate)},{" "}
+                              {formatDate(item.endDate)}
+                            </span>
+                          </h5>
+                          <h6>
+                            {item.employer}, {item.city}
+                          </h6>
                         </div>
+                        <p>{item.description}</p>
                       </div>
                     ))}
                   </div>
@@ -311,19 +119,26 @@ const Template = ({ resume }) => {
                 </>
               )}
 
-              {skills.length > 0 && (
+              {educations.length > 0 && (
                 <>
-                  <div className="side-item">
-                    <h6 className="temp-title">Skills</h6>
+                  <div className="temp-section">
+                    <h6 className="temp-title">Education History</h6>
                     <hr className="temp-divider" />
-                    {skills.map((item, index) => (
-                      <div className="side-item-point" key={index}>
-                        <span>{item.skill}</span>
-                        <div className="side-item-rating">
-                          {Array.from({ length: item.level }).map((_, i) => (
-                            <FaCircle key={i} />
-                          ))}
+                    {educations.map((item, index) => (
+                      <div key={index} className="temp-item">
+                        <div className="temp-item-head">
+                          <h5>
+                            <b>{item.degree}</b>
+                            <span>
+                              {formatDate(item.startDate)},{" "}
+                              {formatDate(item.endDate)}
+                            </span>
+                          </h5>
+                          <h6>
+                            {item.school}, {item.city}
+                          </h6>
                         </div>
+                        <p>{item.description}</p>
                       </div>
                     ))}
                   </div>
@@ -331,14 +146,26 @@ const Template = ({ resume }) => {
                 </>
               )}
 
-              {hobbies.length > 0 && (
+              {courses.length > 0 && (
                 <>
-                  <div className="side-item">
-                    <h6 className="temp-title">Hobbies</h6>
+                  <div className="temp-section">
+                    <h6 className="temp-title">Courses History</h6>
                     <hr className="temp-divider" />
-                    {hobbies.map((item, index) => (
-                      <div className="side-item-point" key={index}>
-                        <span>{item.label}</span>
+                    {courses.map((item, index) => (
+                      <div key={index} className="temp-item">
+                        <div className="temp-item-head">
+                          <h5>
+                            <b>{item.title}</b>
+                            <span>
+                              {formatDate(item.startDate)},{" "}
+                              {formatDate(item.endDate)}
+                            </span>
+                          </h5>
+                          <h6>
+                            {item.institute}, {item.city}
+                          </h6>
+                        </div>
+                        <p>{item.description}</p>
                       </div>
                     ))}
                   </div>
@@ -346,16 +173,26 @@ const Template = ({ resume }) => {
                 </>
               )}
 
-              {links.length > 0 && (
+              {internships.length > 0 && (
                 <>
-                  <div className="side-item">
-                    <h6 className="temp-title">Social Links</h6>
+                  <div className="temp-section">
+                    <h6 className="temp-title">Internship History</h6>
                     <hr className="temp-divider" />
-                    {links.map((item, index) => (
-                      <div className="side-item-point" key={index}>
-                        <a href={item.link} target="_blank">
-                          {item.link}
-                        </a>
+                    {internships.map((item, index) => (
+                      <div key={index} className="temp-item">
+                        <div className="temp-item-head">
+                          <h5>
+                            <b>{item.title}</b>
+                            <span>
+                              {formatDate(item.startDate)},{" "}
+                              {formatDate(item.endDate)}
+                            </span>
+                          </h5>
+                          <h6>
+                            {item.employer}, {item.city}
+                          </h6>
+                        </div>
+                        <p>{item.description}</p>
                       </div>
                     ))}
                   </div>
@@ -363,37 +200,206 @@ const Template = ({ resume }) => {
                 </>
               )}
 
-              {references.length > 0 && (
+              {extraCurriculars.length > 0 && (
                 <>
-                  <div className="side-item">
-                    <h6 className="temp-title">Reference</h6>
+                  <div className="temp-section">
+                    <h6 className="temp-title">Extra Curricular</h6>
                     <hr className="temp-divider" />
-                    {references.map((item, index) => (
-                      <div className="side-item-point-down" key={index}>
-                        <span>
-                          <b>Name - </b>
-                          {item.referenceFullname}
-                        </span>
-                        <a href={`mailto:${item.email}`}>
-                          <b>Email - </b>
-                          {item.email}
-                        </a>
-                        <a href={`tel:${item.phone}`}>
-                          <b>Phone - </b>
-                          {item.phone}
-                        </a>
-                        <span>
-                          <b>Company -</b>
-                          {item.company}
-                        </span>
+                    {extraCurriculars.map((item, index) => (
+                      <div key={index} className="temp-item">
+                        <div className="temp-item-head">
+                          <h5>
+                            <b>{item.title}</b>
+                            <span>
+                              {formatDate(item.startDate)},{" "}
+                              {formatDate(item.endDate)}
+                            </span>
+                          </h5>
+                          <h6>
+                            {item.employer}, {item.city}
+                          </h6>
+                        </div>
+                        <p>{item.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="temp-spacer"></div>
+                </>
+              )}
+
+              {customSections.length > 0 && (
+                <>
+                  <div className="temp-section">
+                    <h6 className="temp-title">Custom Section</h6>
+                    <hr className="temp-divider" />
+                    {customSections.map((item, index) => (
+                      <div key={index} className="temp-item">
+                        <div className="temp-item-head">
+                          <h5>
+                            <b>{item.title}</b>
+                            <span>
+                              {formatDate(item.startDate)},{" "}
+                              {formatDate(item.endDate)}
+                            </span>
+                          </h5>
+                          <h6>{item.city}</h6>
+                        </div>
+                        <p>{item.description}</p>
                       </div>
                     ))}
                   </div>
                 </>
               )}
-            </aside>
-          </td>
-        </tr>
+            </td>
+            <td>
+              <aside className="temp-sidebar">
+                <img src={photo ? photo : DummyUser} alt="Profile Photo" />
+
+                <h5 className="temp-title">Personal Details</h5>
+                <hr className="temp-divider" />
+                {drivingLicense && (
+                  <p className="temp-contact-info">
+                    Driving License
+                    <span>{drivingLicense}</span>
+                  </p>
+                )}
+                {nationality && (
+                  <p className="temp-contact-info">
+                    Nationality
+                    <span>{nationality}</span>
+                  </p>
+                )}
+                {placeOfBirth && (
+                  <p className="temp-contact-info">
+                    Place Of Birth
+                    <span>{placeOfBirth}</span>
+                  </p>
+                )}
+                {dateOfBirth && (
+                  <p className="temp-contact-info">
+                    Date Of Birth
+                    <span>{formatDate(dateOfBirth)}</span>
+                  </p>
+                )}
+                {gender && (
+                  <p className="temp-contact-info">
+                    Gender
+                    <span>{gender}</span>
+                  </p>
+                )}
+                {maritalStatus && (
+                  <p className="temp-contact-info">
+                    Marital Status
+                    <span>{maritalStatus}</span>
+                  </p>
+                )}
+
+                <div className="temp-spacer"></div>
+
+                {languages.length > 0 && (
+                  <>
+                    <div className="side-item">
+                      <h6 className="temp-title">Languages</h6>
+                      <hr className="temp-divider" />
+                      {languages.map((item, index) => (
+                        <div className="side-item-point" key={index}>
+                          <span>{item.label}</span>
+                          <div className="side-item-rating">
+                            {Array.from({ length: item.level }).map((_, i) => (
+                              <FaCircle key={i} />
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="temp-spacer"></div>
+                  </>
+                )}
+
+                {skills.length > 0 && (
+                  <>
+                    <div className="side-item">
+                      <h6 className="temp-title">Skills</h6>
+                      <hr className="temp-divider" />
+                      {skills.map((item, index) => (
+                        <div className="side-item-point" key={index}>
+                          <span>{item.skill}</span>
+                          <div className="side-item-rating">
+                            {Array.from({ length: item.level }).map((_, i) => (
+                              <FaCircle key={i} />
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="temp-spacer"></div>
+                  </>
+                )}
+
+                {hobbies.length > 0 && (
+                  <>
+                    <div className="side-item">
+                      <h6 className="temp-title">Hobbies</h6>
+                      <hr className="temp-divider" />
+                      {hobbies.map((item, index) => (
+                        <div className="side-item-point" key={index}>
+                          <span>{item.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="temp-spacer"></div>
+                  </>
+                )}
+
+                {links.length > 0 && (
+                  <>
+                    <div className="side-item">
+                      <h6 className="temp-title">Social Links</h6>
+                      <hr className="temp-divider" />
+                      {links.map((item, index) => (
+                        <div className="side-item-point" key={index}>
+                          <a href={item.link} target="_blank">
+                            {item.link}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="temp-spacer"></div>
+                  </>
+                )}
+
+                {references.length > 0 && (
+                  <>
+                    <div className="side-item">
+                      <h6 className="temp-title">Reference</h6>
+                      <hr className="temp-divider" />
+                      {references.map((item, index) => (
+                        <div className="side-item-point-down" key={index}>
+                          <span>
+                            <b>Name - </b>
+                            {item.referenceFullname}
+                          </span>
+                          <a href={`mailto:${item.email}`}>
+                            <b>Email - </b>
+                            {item.email}
+                          </a>
+                          <a href={`tel:${item.phone}`}>
+                            <b>Phone - </b>
+                            {item.phone}
+                          </a>
+                          <span>
+                            <b>Company -</b>
+                            {item.company}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </aside>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   );

@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { useReactToPrint } from "react-to-print";
+
 import templateMapper from "../../utils/templateMapper";
+import useRefresh from "../../utils/useRefresh";
 
 const TemplateRenderer = ({ templateId, resume }) => {
+  const refresh = useRefresh();
   const [TemplateComponent, setTemplateComponent] = useState(null);
-  const [currentStyleSheetLink, setCurrentStyleSheetLink] = useState(null);
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [currentStyleSheetUrl, setCurrentStyleSheetUrl] = useState(null);
 
   const componentRef = useRef();
 
@@ -40,13 +42,6 @@ const TemplateRenderer = ({ templateId, resume }) => {
               const newStyleSheetModule = await cssModules[key]();
               const newStyleSheetUrl = newStyleSheetModule.default;
 
-              // Remove all previously added stylesheet links
-              const previousLinks = document.querySelectorAll(
-                "link[data-dynamic-style]"
-              );
-              console.log(previousLinks);
-              previousLinks.forEach((link) => document.head.removeChild(link));
-
               // Create a new link element
               const newLinkElement = document.createElement("link");
               newLinkElement.rel = "stylesheet";
@@ -56,8 +51,8 @@ const TemplateRenderer = ({ templateId, resume }) => {
               // Append the new link element to the document head
               document.head.appendChild(newLinkElement);
 
-              // Update the current style sheet link state
-              setCurrentStyleSheetLink(newLinkElement);
+              // Update the current style sheet URL state
+              setCurrentStyleSheetUrl(newStyleSheetUrl);
 
               // Update the template component
               setTemplateComponent(() => Component);
@@ -74,12 +69,18 @@ const TemplateRenderer = ({ templateId, resume }) => {
 
     // Cleanup function to remove the current stylesheet link
     return () => {
-      if (currentStyleSheetLink) {
-        document.head.removeChild(currentStyleSheetLink);
-        setCurrentStyleSheetLink(null); // Clear currentStyleSheetLink state
+      if (currentStyleSheetUrl) {
+        const linkToRemove = document.querySelector(
+          `link[href="${currentStyleSheetUrl}"][data-dynamic-style]`
+        );
+        if (linkToRemove) {
+          document.head.removeChild(linkToRemove);
+        }
+        setCurrentStyleSheetUrl(null); // Clear currentStyleSheetUrl state
+        refresh();
       }
     };
-  }, [templateId]);
+  }, [templateId, currentStyleSheetUrl, refresh]);
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,

@@ -39,6 +39,20 @@ const ResumeSelectTemplate = ({ templates }) => {
 
       const data = response.data.data.template;
       dispatch(changeResumeTemplate(data));
+      const resetSpecificHeadStyles = () => {
+        const styles = document.head.querySelectorAll(
+          "style[data-vite-dev-id]"
+        );
+
+        // Filter and remove styles that include 'pages/resumes/templates' in the path
+        styles.forEach((style) => {
+          const devId = style.getAttribute("data-vite-dev-id");
+          if (devId && devId.includes("pages/resumes/templates")) {
+            style.parentNode.removeChild(style);
+          }
+        });
+      };
+      resetSpecificHeadStyles();
     } catch (error) {
       dispatch(
         showAlert({
