@@ -33,7 +33,7 @@ p {
 .temp-content {
   background: var(--temp-light);
   height: 100%;
-  /* padding: 24pt !important; */
+  padding: 0 !important;
 }
 h1 {
   font-size: 28pt !important;
@@ -52,7 +52,7 @@ h3 {
   font-weight: 600 !important;
 }
 .h1-color {
-  color: white;
+  color: white !important;
 }
 .h2-color {
   color: var(--temp-dark-alt);

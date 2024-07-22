@@ -5,7 +5,7 @@ import { FaLinkedin } from "react-icons/fa6";
 import { FaLocationDot } from "react-icons/fa6";
 
 import formatDate from "../../../../utils/dateFormator";
-import "./style.css";
+// import "./style.css";
 
 const ResumeDefaultTemplate = ({ resume }) => {
   const {

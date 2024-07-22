@@ -29,6 +29,7 @@ p {
   background: var(--temp-light);
   height: 100%;
   border: 2pt solid var(--temp-primary);
+  padding: 0;
 }
 .temp-content table {
   width: 100%;

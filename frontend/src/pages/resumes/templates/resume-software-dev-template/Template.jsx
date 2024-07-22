@@ -4,7 +4,7 @@ import { IoMdMail } from "react-icons/io";
 import { FaLink } from "react-icons/fa6";
 
 import formatDate from "../../../../utils/dateFormator";
-import "./style.css";
+// import "./style.css";
 
 const ResumeDefaultTemplate = ({ resume }) => {
   const {
