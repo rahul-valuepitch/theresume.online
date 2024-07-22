@@ -14,7 +14,7 @@ export const createTemplateController = asyncHandler(async (req, res) => {
    * **/
 
   // * get data from Frontend
-  const { type, name, description } = req.body;
+  const { type, name, description, isPFPActive } = req.body;
 
   // * Validate data
   notEmptyValidation([type, name]);
@@ -27,7 +27,7 @@ export const createTemplateController = asyncHandler(async (req, res) => {
   }
 
   // * Save data
-  const newTemplate = new Template({ type, name, description });
+  const newTemplate = new Template({ type, name, description, isPFPActive });
   await newTemplate.save();
 
   // * Cehck if created
@@ -108,14 +108,13 @@ export const updateTemplateController = asyncHandler(async (req, res) => {
   }
 
   // * Get data from frontend
-  let { type, name, description } = req.body;
+  let { type, name, description, isPFPActive } = req.body;
 
   // * Validate data
   if (!type) type = currentTemplate.type;
   if (!name) name = currentTemplate.name;
   if (!description) description = currentTemplate.description;
-
-  console.log(type, name, description);
+  if (!isPFPActive) isPFPActive = currentTemplate.isPFPActive;
 
   const existingTemplate = await Template.findOne({
     type,
@@ -132,6 +131,7 @@ export const updateTemplateController = asyncHandler(async (req, res) => {
   currentTemplate.type = type;
   currentTemplate.name = name;
   currentTemplate.description = description;
+  currentTemplate.isPFPActive = isPFPActive;
   await currentTemplate.save();
 
   // * Sending Response

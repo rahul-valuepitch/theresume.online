@@ -9,6 +9,7 @@ const TemplateSchema = new mongoose.Schema(
     name: { type: String },
     description: { type: String },
     file: { type: String, unique: true },
+    isPFPActive: { type: Boolean, default: true },
   },
   { timestamps: true }
 );
