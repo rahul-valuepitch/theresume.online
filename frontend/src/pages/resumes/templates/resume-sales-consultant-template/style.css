@@ -115,7 +115,7 @@ p {
 .temp-head .info {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
   gap: 15pt;
   margin-top: 20pt;
 }
@@ -126,12 +126,12 @@ p {
   gap: 5pt;
 }
 .temp-head .info p svg {
-  width: 15pt;
-  height: 15pt;
+  width: 10pt;
+  height: 10pt;
   color: var(--temp-light);
 }
 .temp-head .info p span {
-  font-size: 12pt;
+  font-size: 10pt;
   font-weight: 600;
   color: var(--temp-light);
 }

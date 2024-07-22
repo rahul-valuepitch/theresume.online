@@ -12,13 +12,18 @@ import { FormInput, FormSelect, FormText } from "../../../components";
 import { DummyUser } from "../../../static/images/users";
 import { showAlert } from "../../../store/slices/alertSlice";
 import { updatePersonalDetail } from "../../../store/slices/resumeSlice";
+import { setCurrentTemplate } from "../../../store/slices/templateSlice";
 import { debounce } from "../../../utils/debounce";
 
 const PersonalDetail = () => {
   const dispatch = useDispatch();
   const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
   const resumeId = useSelector((state) => state.resume.detail.resumeId);
+  const templateId = useSelector((state) => state.resume.detail.templateId);
   const personalDetail = useSelector((state) => state.resume.personalDetail);
+  const selectedTemplate = useSelector(
+    (state) => state.template.selectedTemplate
+  );
 
   const initialValues = {
     jobTitle: personalDetail.jobTitle || "",
@@ -107,6 +112,34 @@ const PersonalDetail = () => {
     setShowAdditionalInfo((prev) => !prev);
   };
 
+  // Fetch Template Detail
+  const fetchTemplateDetail = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/template/${templateId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = response.data.data;
+      dispatch(setCurrentTemplate(data));
+    } catch (error) {
+      dispatch(
+        showAlert({
+          message:
+            error.response?.data?.message || "Error fetching Template Detail",
+          type: "error",
+        })
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchTemplateDetail();
+  }, [templateId]);
+
   return (
     <div className="item">
       <h4 className="sub-heading mb-3">Personal Detail</h4>
@@ -116,16 +149,19 @@ const PersonalDetail = () => {
         crucial for privacy protection.
       </p>
       <div className="grid grid-cols-2 gap-5">
-        <div className="col-span-2">
-          <div className="image">
-            <img src={DummyUser} alt="" />
-            <div className="actions">
-              <button>
-                <FaPlus /> Upload Photo
-              </button>
+        {selectedTemplate?.isPFPActive && (
+          <div className="col-span-2">
+            <div className="image">
+              <img src={DummyUser} alt="" />
+              <div className="actions">
+                <button>
+                  <FaPlus /> Upload Photo
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
+
         <div>
           <FormInput
             label="Job Title"
@@ -139,6 +175,7 @@ const PersonalDetail = () => {
             error={formik.touched.jobTitle && formik.errors.jobTitle}
           />
         </div>
+
         <div>
           <FormInput
             label="First Name"
@@ -152,6 +189,7 @@ const PersonalDetail = () => {
             error={formik.touched.firstName && formik.errors.firstName}
           />
         </div>
+
         <div>
           <FormInput
             label="Middle Name"
@@ -165,6 +203,7 @@ const PersonalDetail = () => {
             error={formik.touched.middleName && formik.errors.middleName}
           />
         </div>
+
         <div>
           <FormInput
             label="Last Name"
@@ -178,6 +217,7 @@ const PersonalDetail = () => {
             error={formik.touched.lastName && formik.errors.lastName}
           />
         </div>
+
         <div>
           <FormInput
             label="Email"
@@ -191,6 +231,7 @@ const PersonalDetail = () => {
             error={formik.touched.email && formik.errors.email}
           />
         </div>
+
         <div>
           <FormInput
             label="Phone"
@@ -204,6 +245,7 @@ const PersonalDetail = () => {
             error={formik.touched.phone && formik.errors.phone}
           />
         </div>
+
         <div className="col-span-2">
           <FormText
             label="Summary"

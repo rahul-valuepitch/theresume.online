@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import imageMap from "../resumes/template-images";
 import { showAlert } from "../../store/slices/alertSlice";
 import { changeResumeTemplate } from "../../store/slices/resumeSlice";
+import { setCurrentTemplate } from "../../store/slices/templateSlice";
 
 const ResumeSelectTemplate = ({ templates }) => {
   const dispatch = useDispatch();
@@ -39,6 +40,8 @@ const ResumeSelectTemplate = ({ templates }) => {
 
       const data = response.data.data.template;
       dispatch(changeResumeTemplate(data));
+
+      dispatch(setCurrentTemplate());
       const resetSpecificHeadStyles = () => {
         const styles = document.head.querySelectorAll(
           "style[data-vite-dev-id]"
@@ -53,6 +56,7 @@ const ResumeSelectTemplate = ({ templates }) => {
         });
       };
       resetSpecificHeadStyles();
+      dispatch(setCurrentTemplate(data));
     } catch (error) {
       dispatch(
         showAlert({
