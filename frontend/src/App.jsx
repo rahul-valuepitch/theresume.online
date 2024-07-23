@@ -32,6 +32,7 @@ import {
   PrivacyPolicy,
   Templates,
 } from "./pages/website/index";
+import { BlogList, Post01, Post02, Post03, Post04 } from "./pages/website/blog";
 import { ResumePage } from "./pages/resumes/index";
 import { ProtectedRoute, FetchUserData, ScrollToTop } from "./utils/index";
 
@@ -124,6 +125,25 @@ const App = () => {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/payment-policy" element={<PaymentPolicy />} />
+            <Route path="/blog">
+              <Route index element={<BlogList />} />
+              <Route
+                path="capture-attention-and-land-interviews-with-a-killer-cover-letter"
+                element={<Post01 />}
+              />
+              <Route
+                path="mastering-the-art-of-thank-you-notes-in-the-workplace"
+                element={<Post02 />}
+              />
+              <Route
+                path="how-to-write-a-resume-the-ultimate-guide-to-writing-a-resume"
+                element={<Post03 />}
+              />
+              <Route
+                path="top-questions-to-ask-during-a-job-interview"
+                element={<Post04 />}
+              />
+            </Route>
           </Route>
 
           {/* Resume Routes */}
