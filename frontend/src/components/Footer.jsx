@@ -17,7 +17,11 @@ const Footer = () => {
               <img src={LogoAlt} alt="" />
             </Link>
             <div className="social">
-              <Link to="/" target="_blank" rel="noopener noreferrer">
+              <Link
+                to="https://www.facebook.com/theresumes.online"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaFacebookF />
               </Link>
               <Link

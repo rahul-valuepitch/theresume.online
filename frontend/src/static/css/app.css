@@ -634,6 +634,11 @@
   page-break-before: always;
   padding-top: 24pt;
 }
+@media print {
+  .page-break {
+    page-break-before: always;
+  }
+}
 
 /* Home Page */
 .hero {

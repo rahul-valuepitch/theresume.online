@@ -22,19 +22,15 @@ const TemplateRenderer = ({ templateId, resume }) => {
         const { file } = response.data.data;
         const Component = templateMapper[file];
 
-        // Dynamically load the new CSS
         const cssModules = import.meta.glob("./templates/**/style.css");
 
-        // Remove all previously added stylesheet links
         const previousLinks = document.querySelectorAll(
           "link[data-dynamic-style]"
         );
         previousLinks.forEach((link) => document.head.removeChild(link));
 
-        // Loop through the keys (template names) in cssModules
         for (const key in cssModules) {
           if (cssModules.hasOwnProperty(key)) {
-            // Extract the template name from the key
             const regex = /\.\/templates\/(.*)\/style\.css$/;
             const match = key.match(regex);
 
@@ -42,21 +38,15 @@ const TemplateRenderer = ({ templateId, resume }) => {
               const newStyleSheetModule = await cssModules[key]();
               const newStyleSheetUrl = newStyleSheetModule.default;
 
-              // Create a new link element
               const newLinkElement = document.createElement("link");
               newLinkElement.rel = "stylesheet";
               newLinkElement.href = newStyleSheetUrl;
-              newLinkElement.setAttribute("data-dynamic-style", true); // Mark this link as dynamically added
+              newLinkElement.setAttribute("data-dynamic-style", true);
 
-              // Append the new link element to the document head
               document.head.appendChild(newLinkElement);
-
-              // Update the current style sheet URL state
               setCurrentStyleSheetUrl(newStyleSheetUrl);
-
-              // Update the template component
               setTemplateComponent(() => Component);
-              break; // Exit loop once matched and processed
+              break;
             }
           }
         }
@@ -67,7 +57,6 @@ const TemplateRenderer = ({ templateId, resume }) => {
 
     fetchTemplateData();
 
-    // Cleanup function to remove the current stylesheet link
     return () => {
       if (currentStyleSheetUrl) {
         const linkToRemove = document.querySelector(
@@ -76,7 +65,7 @@ const TemplateRenderer = ({ templateId, resume }) => {
         if (linkToRemove) {
           document.head.removeChild(linkToRemove);
         }
-        setCurrentStyleSheetUrl(null); // Clear currentStyleSheetUrl state
+        setCurrentStyleSheetUrl(null);
         refresh();
       }
     };
