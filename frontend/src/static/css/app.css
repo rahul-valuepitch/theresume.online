@@ -632,7 +632,11 @@
 }
 .print-content .page {
   page-break-before: always;
-  padding-top: 24pt;
+}
+.print-content .hidden-temp {
+  position: absolute;
+  top: 0;
+  opacity: 0;
 }
 @media print {
   .page-break {
