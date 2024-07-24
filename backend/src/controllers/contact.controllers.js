@@ -15,7 +15,7 @@ export const ContactEnquiryController = asyncHandler(async (req, res) => {
     const { name, email, phone, message } = req.body;
 
     // * Validate Data
-    notEmptyValidation([name, email, phone]);
+    notEmptyValidation([name, email, phone, message]);
     emailValidation(email);
     phoneValidation(phone);
 

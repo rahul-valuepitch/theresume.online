@@ -211,3 +211,16 @@ export const customSectionDetailSchema = yup.object({
     })
   ),
 });
+
+// Contact Page Schema Validation
+export const contactPageSchema = yup.object({
+  contactForm: yup.object().shape({
+    name: yup.string().required("Name is required"),
+    email: yup
+      .string()
+      .email("Please enter a valid email")
+      .required("Email is required"),
+    phone: yup.string().required("Phone is required"),
+    message: yup.string().required("Message is required"),
+  }),
+});
