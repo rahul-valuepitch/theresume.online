@@ -12,6 +12,8 @@ import Post03Cover from "./post-03-cover.jpg";
 import Post0301 from "./post-03-01.jpg";
 
 import Post04Cover from "./post-04-cover.jpg";
+import Post0401 from "./post-04-01.jpg";
+import Post0402 from "./post-04-02.jpg";
 
 export {
   CreateResumeBtn,
@@ -24,4 +26,6 @@ export {
   Post03Cover,
   Post0301,
   Post04Cover,
+  Post0401,
+  Post0402,
 };

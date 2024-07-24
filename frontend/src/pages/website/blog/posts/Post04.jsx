@@ -5,8 +5,9 @@ import { Breadcrumb } from "../../../../components";
 import BlogPostList from "../blog-post-list";
 import {
   Post04Cover,
-  Post01CoverLetter,
+  Post0401,
   CreateResumeBtn,
+  Post0402,
 } from "../../../../static/images/blog";
 
 const Post04 = () => {
@@ -77,20 +78,136 @@ const Post04 = () => {
                   contribute effectively.
                 </p>
 
-                <h5 className="sub-heading mb-3"></h5>
-                <p className="mb-5"></p>
+                <h5 className="sub-heading mb-3">
+                  Questions About Company Culture and Values
+                </h5>
+                <ul className="mb-5">
+                  <li>How would you describe the company culture here?</li>
+                  <li>
+                    What are the core values that drive this organization?
+                  </li>
+                  <li>
+                    Can you tell me about the team dynamics in the department I
+                    would be working with?
+                  </li>
+                </ul>
+                <p className="mb-5">
+                  Understanding the company culture and values helps you assess
+                  if you align with the organization's mission and if it's a
+                  place where you can thrive.
+                </p>
 
-                <h5 className="sub-heading mb-3"></h5>
-                <p className="mb-5"></p>
+                <h5 className="sub-heading mb-3">
+                  Questions About Career Development and Growth Opportunities
+                </h5>
+                <ul className="mb-5">
+                  <li>
+                    How does the company support professional development and
+                    career growth for its employees?
+                  </li>
+                  <li>
+                    Are there opportunities for advancement or additional
+                    training within the company?
+                  </li>
+                  <li>
+                    Can you share examples of how employees have grown in their
+                    roles here?
+                  </li>
+                </ul>
+                <p className="mb-5">
+                  These questions demonstrate your long-term interest in the
+                  company and your desire to grow professionally within the
+                  organization.
+                </p>
 
-                <h5 className="sub-heading mb-3"></h5>
-                <p className="mb-5"></p>
+                <h5 className="sub-heading mb-3">
+                  Questions About Performance Expectations and Success Metrics
+                </h5>
+                <ul className="mb-5">
+                  <li>How is success measured in this role?</li>
+                  <li>
+                    What are the key performance indicators (KPIs) you would use
+                    to evaluate performance in this position?
+                  </li>
+                  <li>
+                    How do you support employees in achieving their performance
+                    goals?
+                  </li>
+                </ul>
+                <p className="mb-5">
+                  Understanding how your performance will be evaluated helps you
+                  gauge expectations and ensure alignment with your skills and
+                  capabilities.
+                </p>
 
-                <h5 className="sub-heading mb-3"></h5>
-                <p className="mb-5"></p>
+                <h5 className="sub-heading mb-3">
+                  Questions About the Interviewer's Experience and Perspective
+                </h5>
+                <ul className="mb-5">
+                  <li>What do you enjoy most about working here?</li>
+                  <li>
+                    How has your own career progressed since joining the
+                    company?
+                  </li>
+                  <li>
+                    What are the biggest challenges facing the team or
+                    department right now?
+                  </li>
+                </ul>
+                <p className="mb-5">
+                  Asking about the interviewer's experiences can provide
+                  valuable insights into the company culture and the challenges
+                  and opportunities you may encounter.
+                </p>
 
-                <h5 className="sub-heading mb-3"></h5>
-                <p className="mb-5"></p>
+                <img
+                  src={Post0401}
+                  alt="The Best Questions To Ask in a Job Interview"
+                  className="rounded-xl"
+                />
+
+                <h5 className="sub-heading mb-3">
+                  Tips for Asking Questions in a Job Interview:
+                </h5>
+                <ul className="mb-5">
+                  <li>
+                    <b>Prepare in Advance:</b> Research the company and the role
+                    to formulate specific and relevant questions.
+                  </li>
+                  <li>
+                    <b>Listen Actively:</b> Pay attention to the interviewer's
+                    responses to tailor follow-up questions or clarify any
+                    points of interest.
+                  </li>
+                  <li>
+                    <b>Be Genuine:</b> Ask questions that genuinely interest you
+                    and reflect your curiosity about the company and the role.
+                  </li>
+                  <li>
+                    <b>Avoid Salary and Benefits Questions:</b> Save questions
+                    about salary, benefits, and perks for later stages of the
+                    interview process unless the interviewer brings them up
+                    first.
+                  </li>
+                </ul>
+
+                <img
+                  src={Post0402}
+                  alt="The Best Questions To Ask in a Job Interview"
+                  className="rounded-xl"
+                />
+
+                <h5 className="sub-heading mt-5 mb-3">Conclusion</h5>
+                <p className="mb-5">
+                  Asking the right questions in a job interview is not only
+                  about gathering information but also about showcasing your
+                  interest, understanding, and preparedness for the role and the
+                  company. By asking thoughtful questions, you demonstrate your
+                  enthusiasm and commitment to making an informed decision about
+                  your next career move. Use these questions as a guide to
+                  conduct a successful job interview and leave a positive
+                  impression on your potential employer.
+                </p>
               </div>
 
               <div className="col-span-2">
