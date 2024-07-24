@@ -1289,7 +1289,7 @@
 }
 .post-detail ul li,
 .post-detail ol li {
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 .post-detail ul li,
 .post-detail p {
@@ -1299,6 +1299,9 @@
 }
 .post-detail img {
   width: 100%;
+}
+.post-detail p {
+  line-height: 120%;
 }
 
 /* Responsive */
