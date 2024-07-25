@@ -1,47 +1,64 @@
 import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { MdOutlineMailOutline, MdOutlinePhone } from "react-icons/md";
-import { useFormik } from "formik";
 
 import { Breadcrumb, FormInput, FormText } from "../../components";
+import { showAlert } from "../../store/slices/alertSlice";
 import { ContactBannerImg } from "../../static/images/contact";
-import { contactPageSchema } from "../../schemas/index";
 
 const Contact = () => {
-  // Formik
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-    },
-    validationSchema: contactPageSchema,
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
-      console.log("Form Submitted:", values); // Log to check form submission
-      try {
-        const response = await axios.post(
-          `${import.meta.env.VITE_API_BASE_URL}/contact`,
-          values,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        console.log("Response:", response); // Log to check the response
-        // Optionally reset the form or show a success message
-        resetForm();
-      } catch (error) {
-        console.error("Error submitting contact form:", error);
-      } finally {
-        setSubmitting(false);
-      }
-    },
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
 
-  const { values, handleChange, handleSubmit, isSubmitting, errors, touched } =
-    formik;
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/contact`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      dispatch(
+        showAlert({
+          message: "Message Sent",
+          type: "success",
+        })
+      );
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    } catch (error) {
+      dispatch(
+        showAlert({
+          message:
+            error.response?.data?.message ||
+            "Error Sending Message, Please try again!",
+          type: "error",
+        })
+      );
+    }
+  };
 
   return (
     <>
@@ -68,13 +85,9 @@ const Contact = () => {
                     type="text"
                     className="mb-0"
                     required
-                    value={values.name}
+                    value={formData.name}
                     onChange={handleChange}
-                    error={touched.name && errors.name ? errors.name : null}
                   />
-                  {touched.name && errors.name && (
-                    <div className="error">{errors.name}</div>
-                  )}
                 </div>
                 <div className="col">
                   <FormInput
@@ -83,28 +96,20 @@ const Contact = () => {
                     type="email"
                     className="mb-0"
                     required
-                    value={values.email}
+                    value={formData.email}
                     onChange={handleChange}
-                    error={touched.email && errors.email ? errors.email : null}
                   />
-                  {touched.email && errors.email && (
-                    <div className="error">{errors.email}</div>
-                  )}
                 </div>
                 <div className="col">
                   <FormInput
                     label="Phone No."
                     name="phone"
-                    type="text"
+                    type="number"
                     className="mb-0"
                     required
-                    value={values.phone}
+                    value={formData.phone}
                     onChange={handleChange}
-                    error={touched.phone && errors.phone ? errors.phone : null}
                   />
-                  {touched.phone && errors.phone && (
-                    <div className="error">{errors.phone}</div>
-                  )}
                 </div>
                 <div className="col-span-2">
                   <FormText
@@ -113,22 +118,12 @@ const Contact = () => {
                     rows="4"
                     className="mb-0"
                     required
-                    value={values.message}
+                    value={formData.message}
                     onChange={handleChange}
-                    error={
-                      touched.message && errors.message ? errors.message : null
-                    }
                   />
-                  {touched.message && errors.message && (
-                    <div className="error">{errors.message}</div>
-                  )}
                 </div>
                 <div className="col-span-2">
-                  <button
-                    className="button"
-                    type="submit"
-                    disabled={isSubmitting}
-                  >
+                  <button className="button" type="submit">
                     Send Message
                   </button>
                 </div>

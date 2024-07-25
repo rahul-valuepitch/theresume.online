@@ -96,7 +96,7 @@ const Pricing = () => {
                   <h3>Basic</h3>
                   <div className="price">
                     <h5>&#8377; 99</h5>
-                    <h6>Free</h6>
+                    <h6>1 Time Access</h6>
                     <p>Single Template Download</p>
                   </div>
                   <button className="button">Get Started</button>
