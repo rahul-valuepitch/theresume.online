@@ -46,11 +46,56 @@ export const sendPasswordResetEmail = async (
     const info = await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: sendTo,
-      subject: "Project Management System - Reset Your Password",
+      subject: "The Resumes Online - Reset Your Password",
       html: emailTemplate,
     });
     return info;
   } catch (error) {
     throw new ApiError(500, `Error sending Email :: ${error}`);
+  }
+};
+
+// Sending Contact Email
+export const sendContactEmail = async (contact) => {
+  const contactData = {
+    name: contact.name,
+    email: contact.email,
+    phone: contact.phone,
+    message: contact.message,
+  };
+
+  try {
+    // Email template for receiver
+    const emailReceivedTemplate = await renderEmailTemplate(
+      "src/templates/emailer/contact/recieved.ejs",
+      contactData
+    );
+
+    // Email template for sender
+    const emailConfirmationTemplate = await renderEmailTemplate(
+      "src/templates/emailer/contact/confirmation.ejs",
+      contactData
+    );
+
+    // Send email to receiver
+    const infoReceiver = await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: "rahul.yadav@valuepitch.com",
+      cc: ["theresumes.online@gmail.com"],
+      subject: "The Resumes Online - New Contact Form Submission",
+      html: emailReceivedTemplate,
+    });
+
+    // Send confirmation email to sender
+    const infoSender = await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: contact.email,
+      subject: "The Resumes Online - We Received Your Enquiry",
+      html: emailConfirmationTemplate,
+    });
+
+    return { infoReceiver, infoSender };
+  } catch (error) {
+    throw new ApiError(500, `Error sending Email :: ${error.message}`);
   }
 };

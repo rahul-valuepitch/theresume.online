@@ -7,6 +7,7 @@ import {
   phoneValidation,
   notEmptyValidation,
 } from "../utils/validators.js";
+import { sendContactEmail } from "../configs/email.config.js";
 
 // Add Contact Enquiry Controller
 export const ContactEnquiryController = asyncHandler(async (req, res) => {
@@ -28,6 +29,9 @@ export const ContactEnquiryController = asyncHandler(async (req, res) => {
     if (!savedContact) {
       throw new Error("Failed to save contact enquiry");
     }
+
+    // * Send Email
+    await sendContactEmail(savedContact);
 
     // * Sending Response
     return res
