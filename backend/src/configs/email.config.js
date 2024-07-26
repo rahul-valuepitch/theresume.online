@@ -99,3 +99,31 @@ export const sendContactEmail = async (contact) => {
     throw new ApiError(500, `Error sending Email :: ${error.message}`);
   }
 };
+
+// Welcome Email
+export const welcomeEmail = async (contact) => {
+  const contactData = {
+    name: contact.fullName,
+    email: contact.email,
+  };
+
+  try {
+    // Email template
+    const emailTemplate = await renderEmailTemplate(
+      "src/templates/emailer/welcome.ejs",
+      contactData
+    );
+
+    // Send Email
+    const info = await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: contact.email,
+      subject: "The Resumes Online - Welcome",
+      html: emailTemplate,
+    });
+
+    return info;
+  } catch (error) {
+    throw new ApiError(500, `Error sending Email :: ${error.message}`);
+  }
+};

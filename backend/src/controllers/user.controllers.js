@@ -17,7 +17,10 @@ import {
   generatePasswordResetToken,
   options,
 } from "../utils/generateToken.js";
-import { sendPasswordResetEmail } from "../configs/email.config.js";
+import {
+  sendPasswordResetEmail,
+  welcomeEmail,
+} from "../configs/email.config.js";
 
 // Get User Controller
 export const getUserProfileController = asyncHandler(async (req, res) => {
@@ -77,6 +80,9 @@ export const registerController = asyncHandler(async (req, res) => {
     "-password -refreshToken"
   );
   if (!user) throw new ApiError(400, "Error creating user");
+
+  // * Send Email
+  await welcomeEmail(user);
 
   // * Generate Access & Refresh Token
   const { accessToken, refreshToken } = await generateAccessRefreshToken(
