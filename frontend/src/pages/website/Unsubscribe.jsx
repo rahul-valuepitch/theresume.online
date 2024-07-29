@@ -14,7 +14,7 @@ const Unsubscribe = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.patch(
+      await axios.patch(
         `${import.meta.env.VITE_API_BASE_URL}/user/unsubscribe/${_id}`,
         { email },
         {
@@ -23,8 +23,6 @@ const Unsubscribe = () => {
           },
         }
       );
-
-      console.log(response);
 
       dispatch(
         showAlert({
