@@ -11,6 +11,8 @@ import ResumeSensationTemplate from "./resume-sensation-template/Template";
 import ResumeATSFriendlyTemplate from "./resume-ats-friendly-template/Template";
 import ResumeSoftwareDevTemplate from "./resume-software-dev-template/Template";
 import ResumeCustomerSuccessTemplate from "./resume-customer-success-template/Template";
+import ResumeCorporateBlueTemplate from "./resume-corporate-blue-template/Template";
+import ResumeElegantGreenTemplate from "./resume-elegant-green-template/Template";
 
 export {
   ResumeDefaultTemplate,
@@ -26,4 +28,6 @@ export {
   ResumeATSFriendlyTemplate,
   ResumeSoftwareDevTemplate,
   ResumeCustomerSuccessTemplate,
+  ResumeCorporateBlueTemplate,
+  ResumeElegantGreenTemplate,
 };

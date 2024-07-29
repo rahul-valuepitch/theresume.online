@@ -12,6 +12,8 @@ import {
   ResumeATSFriendlyTemplate,
   ResumeSoftwareDevTemplate,
   ResumeCustomerSuccessTemplate,
+  ResumeCorporateBlueTemplate,
+  ResumeElegantGreenTemplate,
 } from "../pages/resumes/templates";
 
 const templateMapper = {
@@ -29,6 +31,8 @@ const templateMapper = {
   "resume-ats-friendly-template": ResumeATSFriendlyTemplate,
   "resume-software-dev-template": ResumeSoftwareDevTemplate,
   "resume-customer-success-template": ResumeCustomerSuccessTemplate,
+  "resume-corporate-blue-template": ResumeCorporateBlueTemplate,
+  "resume-elegant-green-template": ResumeElegantGreenTemplate,
 };
 
 export default templateMapper;

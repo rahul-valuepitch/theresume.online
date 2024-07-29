@@ -11,6 +11,8 @@ import ResumeSensationTemplate from "./resume-sensation-template.jpg";
 import ResumeATSFriendlyTemplate from "./resume-ats-friendly-template.jpg";
 import ResumeSoftwareDevTemplate from "./resume-software-dev-template.jpg";
 import ResumeCustomerSuccessTemplate from "./resume-customer-success-template.jpg";
+import ResumeCorporateBlueTemplate from "./resume-corporate-blue-template.jpg";
+import ResumeElegantGreenTemplate from "./resume-elegant-green-template.jpg";
 
 const imageMap = {
   "resume-default-template": ResumeDefaultTemplate,
@@ -27,6 +29,8 @@ const imageMap = {
   "resume-ats-friendly-template": ResumeATSFriendlyTemplate,
   "resume-software-dev-template": ResumeSoftwareDevTemplate,
   "resume-customer-success-template": ResumeCustomerSuccessTemplate,
+  "resume-corporate-blue-template": ResumeCorporateBlueTemplate,
+  "resume-elegant-green-template": ResumeElegantGreenTemplate,
 };
 
 export default imageMap;
