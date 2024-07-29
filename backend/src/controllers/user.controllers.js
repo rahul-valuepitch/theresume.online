@@ -562,6 +562,7 @@ export const googleAuthentication = async (req, res) => {
 export const unsubscribeUserController = asyncHandler(async (req, res) => {
   /**
    * TODO: Get id from params
+   * TODO: Get Email from frontend
    * TODO: Search user and mark as unsubscribed
    * TODO: Send Response
    * **/
@@ -572,17 +573,29 @@ export const unsubscribeUserController = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Invalid User Id");
   }
 
-  // * Search User
-  const user = await User.findByIdAndUpdate(
-    reqUser,
-    { $set: { subscribed: false } },
-    { new: true }
-  ).select("-password -refreshToken");
+  // * Get Email from frontend
+  const { email } = req.body;
+  emailValidation(email);
+  if (!email) {
+    throw new ApiError(400, "Email not provided");
+  }
+
+  // * Search for user
+  const user = await User.findById(reqUser);
 
   // * Check if user exists
   if (!user) {
     throw new ApiError(404, "User not found");
   }
+
+  // * Check if email matches user's email
+  if (user.email !== email) {
+    throw new ApiError(400, "Invalid Email.");
+  }
+
+  // * Mark user as unsubscribed
+  user.subscribed = false;
+  await user.save();
 
   // * Sending Response
   return res

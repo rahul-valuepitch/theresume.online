@@ -35,6 +35,7 @@ import {
 import { BlogList, Post01, Post02, Post03, Post04 } from "./pages/website/blog";
 import { ResumePage } from "./pages/resumes/index";
 import { ProtectedRoute, FetchUserData, ScrollToTop } from "./utils/index";
+import Unsubscribe from "./pages/website/Unsubscribe";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -125,6 +126,7 @@ const App = () => {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/payment-policy" element={<PaymentPolicy />} />
+            <Route path="/unsubscribe/:_id" element={<Unsubscribe />} />
             <Route path="/blog">
               <Route index element={<BlogList />} />
               <Route
