@@ -22,6 +22,7 @@ const Breadcrumb = () => {
     "/register": "Register",
     "/forgot-password": "Forgot Password",
     "/blog": "Blog",
+    "/unsubscribe": "Unsubscribe",
   };
 
   const pageTitle = titleMapping[`/${pathnames.join("/")}`] || "Page";
