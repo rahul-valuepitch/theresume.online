@@ -45,6 +45,10 @@ const UserSchema = new mongoose.Schema(
       type: Date,
     },
     resumes: [],
+    subscribed: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );

@@ -101,23 +101,24 @@ export const sendContactEmail = async (contact) => {
 };
 
 // Welcome Email
-export const welcomeEmail = async (contact) => {
-  const contactData = {
-    name: contact.fullName,
-    email: contact.email,
+export const welcomeEmail = async (user) => {
+  const userData = {
+    _id: user._id,
+    name: user.fullName,
+    email: user.email,
   };
 
   try {
     // Email template
     const emailTemplate = await renderEmailTemplate(
       "src/templates/emailer/welcome.ejs",
-      contactData
+      userData
     );
 
     // Send Email
     const info = await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: contact.email,
+      to: user.email,
       subject: "The Resumes Online - Welcome",
       html: emailTemplate,
     });

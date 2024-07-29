@@ -10,6 +10,7 @@ import {
   minLengthValidation,
   compareFieldValidation,
   phoneValidation,
+  isValidObjectId,
 } from "../utils/validators.js";
 import {
   generate20CharToken,
@@ -73,6 +74,7 @@ export const registerController = asyncHandler(async (req, res) => {
     fullName: name,
     email,
     password,
+    subscribed: true,
   });
 
   // * Check if the user is created
@@ -522,7 +524,11 @@ export const googleAuthentication = async (req, res) => {
         email,
         fullName: name,
         avatar: picture,
+        subscribed: true,
       });
+
+      // * Send Email
+      await welcomeEmail(user);
     }
 
     // Generate Access & Refresh Token
@@ -551,3 +557,35 @@ export const googleAuthentication = async (req, res) => {
     throw new ApiError(500, "Internal Server Error");
   }
 };
+
+// Unsubscribe User
+export const unsubscribeUserController = asyncHandler(async (req, res) => {
+  /**
+   * TODO: Get id from params
+   * TODO: Search user and mark as unsubscribed
+   * TODO: Send Response
+   * **/
+
+  // * Get User from request and update
+  const reqUser = req.params._id;
+  if (!isValidObjectId(reqUser)) {
+    throw new ApiError(400, "Invalid User Id");
+  }
+
+  // * Search User
+  const user = await User.findByIdAndUpdate(
+    reqUser,
+    { $set: { subscribed: false } },
+    { new: true }
+  ).select("-password -refreshToken");
+
+  // * Check if user exists
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+
+  // * Sending Response
+  return res
+    .status(200)
+    .json(new ApiResponse(200, user, "User unsubscribed successfully!"));
+});

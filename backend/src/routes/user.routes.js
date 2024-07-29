@@ -10,6 +10,7 @@ import {
   registerController,
   removeAvatarController,
   resetPasswordController,
+  unsubscribeUserController,
   updateAvatarController,
   updateProfileController,
 } from "../controllers/user.controllers.js";
@@ -41,5 +42,7 @@ router
   .route("/update-avatar")
   .patch(verifyUser, avatarUpload, updateAvatarController);
 router.route("/remove-avatar").patch(verifyUser, removeAvatarController);
+
+router.route("/unsubscribe/:_id").patch(unsubscribeUserController);
 
 export default router;
