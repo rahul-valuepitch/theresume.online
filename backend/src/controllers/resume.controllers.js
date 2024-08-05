@@ -55,7 +55,6 @@ export const changeResumeTemplateController = asyncHandler(async (req, res) => {
 
   // * Get template id from frontend
   const { templateId } = req.body;
-  console.log(templateId);
   if (!isValidObjectId(templateId)) {
     throw new ApiError(400, "Invalid Template Id");
   }
@@ -2199,6 +2198,30 @@ export const deleteCustomSectionController = asyncHandler(async (req, res) => {
 });
 // ! Custom Section Controllers
 
+// Download Resume Controller
+export const downloadResumeController = asyncHandler(async (req, res) => {
+  // TODO: Find resume and update field
+  // TODO: Send Response
+
+  // * Find resume and update field
+  const resumeId = req.params._id;
+  const resume = await Resume.findById(resumeId);
+
+  // * Check if resume exists
+  if (!resume) {
+    return res.status(404).json(new ApiResponse(404, null, "Resume not found"));
+  }
+
+  // * Update Download Status
+  resume.downloadStatus = true;
+  await resume.save();
+
+  // * Send Response
+  res
+    .status(200)
+    .json(new ApiResponse(200, resume, "Resume downloaded successfully!"));
+});
+
 // Update Resume Controller
 export const updateResumeController = asyncHandler(async (req, res) => {
   const { action } = req.query;
@@ -2499,6 +2522,11 @@ export const updateResumeController = asyncHandler(async (req, res) => {
     //  Delete custom section
     case "delete-custom-section":
       deleteCustomSectionController(req, res);
+      break;
+
+    //  Download Resume
+    case "download-resume":
+      downloadResumeController(req, res);
       break;
 
     default:

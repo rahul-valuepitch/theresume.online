@@ -19,8 +19,6 @@ const ResumeDefaultTemplate = ({ resume }) => {
 
     Array.from(sections).forEach((section, index) => {
       const sectionHeight = section.getBoundingClientRect().height;
-      console.log("Section", section.getBoundingClientRect());
-      console.log("Sec Height", section);
       if (tempHeight + sectionHeight > PAGE_HEIGHT) {
         newPages.push(currentPage);
         currentPage = [section];
@@ -36,7 +34,6 @@ const ResumeDefaultTemplate = ({ resume }) => {
     });
 
     setPages(newPages);
-    console.log("Pages", newPages);
   }, [resume]);
 
   const {

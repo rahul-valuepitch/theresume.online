@@ -124,6 +124,7 @@ const ResumeSchema = new mongoose.Schema(
         description: { type: String },
       },
     ],
+    downloadStatus: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

@@ -32,7 +32,6 @@ const Unsubscribe = () => {
       );
       setEmail("");
     } catch (error) {
-      console.log(error);
       dispatch(
         showAlert({
           message: error.response?.data?.message || "Invalid Request",

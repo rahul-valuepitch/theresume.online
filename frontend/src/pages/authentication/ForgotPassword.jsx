@@ -15,7 +15,7 @@ const ForgotPassword = () => {
   // Submitting Form
   const onSubmit = async (values, { setErrors, setSubmitting }) => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/user/forgot-password`,
         values,
         {
@@ -25,7 +25,6 @@ const ForgotPassword = () => {
           withCredentials: true,
         }
       );
-      console.log(response);
     } catch (error) {
       setSubmitting(false);
       if (error.response) {

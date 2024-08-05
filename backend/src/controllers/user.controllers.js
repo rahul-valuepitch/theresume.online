@@ -450,7 +450,6 @@ export const updateAvatarController = asyncHandler(async (req, res) => {
 
   // * Get File from frontend
   const avatar = req.file?.path;
-  console.log(avatar);
   if (!avatar) {
     throw new ApiError(400, "Please upload an image");
   }
